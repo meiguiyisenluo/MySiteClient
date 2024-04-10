@@ -1,7 +1,7 @@
 import React from 'react'
 import { HashRouter as Router, Route, Routes } from 'react-router-dom'
 import HomePage from './pages/HomePage/HomePage'
-import FaceSymmetry from './pages/FaceSymmetry'
+import FaceSymmetry from './pages/FaceSymmetry/FaceSymmetry'
 import NotFoundPage from './pages/NotFoundPage'
 import { ROUTES } from './resources/routes-constants'
 import './styles/main.sass'

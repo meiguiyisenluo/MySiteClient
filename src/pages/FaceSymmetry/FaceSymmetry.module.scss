@@ -1,0 +1,31 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(120deg, #a18cd1, #fbc2eb);
+    $btnsHeight: 10rem;
+    .btns {
+        width: 100%;
+        height: $btnsHeight;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        button {
+            color: #333;
+            background: linear-gradient(to right, #81cfe0, #1b4965);
+        }
+    }
+    .shower {
+        width: 100%;
+        height: calc(100% - $btnsHeight);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        canvas {
+            width: 80%;
+            height: 80%;
+            border-radius: 1rem;
+            border: 3px solid #f0f0f0;
+            // background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+        }
+    }
+}
