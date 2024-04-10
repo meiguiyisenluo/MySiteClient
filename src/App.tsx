@@ -11,7 +11,7 @@ const App: React.FC = () => {
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
                 <div className="app_topbar">
-                    <NavBar title={'location.pathname'} onClickLeft={() => alert('返回')} />
+                    <NavBar title={'标题'} onClickLeft={() => alert('返回')} />
                 </div>
                 <div className="app_route_panel">
                     <RootComponent />
