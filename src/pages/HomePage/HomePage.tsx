@@ -9,7 +9,7 @@ const HomePage: React.FC = () => {
     return (
         <div className={styles.app}>
             <div className={styles.btns}>
-                <Button className="btn" type="primary" plain round shadow hairline onClick={() => navigate('/faceSymmetry')}>
+                <Button className="btn" type="primary" plain round shadow={1} hairline onClick={() => navigate('/faceSymmetry')}>
                     脸对称测试
                 </Button>
             </div>
