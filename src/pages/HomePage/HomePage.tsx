@@ -7,13 +7,12 @@ import styles from './HomePage.module.scss'
 const HomePage: React.FC = () => {
     const navigate = useNavigate()
     return (
-        <div className={styles.app}>
+        <div className={styles.container}>
             <div className={styles.btns}>
                 <Button className="btn" type="primary" plain round shadow={1} hairline onClick={() => navigate('/faceSymmetry')}>
                     脸对称测试
                 </Button>
             </div>
-
             <DateDisplay />
         </div>
     )
