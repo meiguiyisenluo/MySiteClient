@@ -1,14 +1,8 @@
 #root {
     width: 100vw;
     height: 100vh;
-    $topbarHeight: 3rem;
-    .app_topbar {
-        width: 100%;
-        height: $topbarHeight;
-    }
+}
 
-    .app_route_panel {
-        width: 100%;
-        height: calc(100% - $topbarHeight);
-    }
+.page {
+    height: calc(100% - 3rem);
 }

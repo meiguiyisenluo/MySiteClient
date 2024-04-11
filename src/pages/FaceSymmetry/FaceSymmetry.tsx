@@ -23,48 +23,50 @@ const FaceSymmetry: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null)
     const ctx = useRef<CanvasRenderingContext2D | null>(null)
 
+    const imgResolve = (e: Event) => {
+        const target = e.target as HTMLInputElement
+        if (!target.files?.length) return
+        const file = target.files[0]
+        imageInfo.current.name = file.name
+        const fr = new FileReader()
+        fr.readAsDataURL(file)
+        fr.onload = function (e: Event) {
+            const img = new Image()
+            const target = e.target as FileReader
+            if (!target?.result) return
+            img.src = target.result as string
+            img.onload = function () {
+                if (!canvasRef.current || !ctx.current) return
+                let { width, height } = img
+                imageInfo.current.width = width
+                imageInfo.current.height = height
+
+                const per = width / height
+                const b = canvasRef.current.width > canvasRef.current.height
+
+                let marginLeft = 0
+                let marginTop = 0
+                if (b) {
+                    height = canvasRef.current.height
+                    width = height * per
+                    marginLeft = (canvasRef.current.width - width) / 2
+                } else {
+                    width = canvasRef.current.width
+                    height = width / per
+                    marginTop = (canvasRef.current.height - height) / 2
+                }
+
+                ctx.current.drawImage(img, marginLeft, marginTop, width, height)
+                calcHorizontalFlip()
+            }
+        }
+    }
+
     const uploadImg = () => {
         const input = document.createElement('input')
         input.accept = 'image/*'
         input.type = 'file'
-        input.onchange = (e: Event) => {
-            const target = e.target as HTMLInputElement
-            if (!target.files || !target.files.length) return
-            const file = target.files[0]
-            imageInfo.current.name = file.name
-            const fr = new FileReader()
-            fr.readAsDataURL(file)
-            fr.onload = function (e: Event) {
-                const img = new Image()
-                const target = e.target as FileReader
-                if (!target || !target.result) return
-                img.src = target.result as string
-                img.onload = function () {
-                    if (!canvasRef.current || !ctx.current) return
-                    let { width, height } = img
-                    imageInfo.current.width = width
-                    imageInfo.current.height = height
-
-                    const per = width / height
-                    const b = canvasRef.current.width > canvasRef.current.height
-
-                    let marginLeft = 0
-                    let marginTop = 0
-                    if (b) {
-                        height = canvasRef.current.height
-                        width = height * per
-                        marginLeft = (canvasRef.current.width - width) / 2
-                    } else {
-                        width = canvasRef.current.width
-                        height = width / per
-                        marginTop = (canvasRef.current.height - height) / 2
-                    }
-
-                    ctx.current.drawImage(img, marginLeft, marginTop, width, height)
-                    calcHorizontalFlip()
-                }
-            }
-        }
+        input.onchange = imgResolve
         input.click()
     }
 
@@ -129,8 +131,9 @@ const FaceSymmetry: React.FC = () => {
 
         setCanvasSize()
     }, [])
+
     return (
-        <div className={styles.container}>
+        <div className={`page ${styles.container}`}>
             <div className={styles.shower}>
                 <canvas ref={canvasRef}></canvas>
             </div>
@@ -145,5 +148,4 @@ const FaceSymmetry: React.FC = () => {
         </div>
     )
 }
-
 export default FaceSymmetry
