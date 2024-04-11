@@ -8,6 +8,7 @@ import './styles/main.sass'
 import './styles/vant-custom.css'
 
 const FaceSymmetryLazy = React.lazy(() => import('./pages/FaceSymmetry/FaceSymmetry'))
+const AutoSoundLazy = React.lazy(() => import('./pages/AutoSound/AutoSound'))
 
 const RootComponent: React.FC = () => {
     return (
@@ -35,6 +36,14 @@ const RoutesList: React.FC = () => {
                 element={
                     <Suspense fallback="loading...">
                         <FaceSymmetryLazy />
+                    </Suspense>
+                }
+            />
+            <Route
+                path={ROUTES.AUTO_SOUND}
+                element={
+                    <Suspense fallback="loading...">
+                        <AutoSoundLazy />
                     </Suspense>
                 }
             />
