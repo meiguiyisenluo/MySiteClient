@@ -1,8 +1,9 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
+import { ConfigProvider } from 'react-vant'
+
 import App from './App'
 import * as serviceWorker from './serviceWorker'
-import { ConfigProvider } from 'react-vant'
 
 const container = document.getElementById('root')
 if (container) {

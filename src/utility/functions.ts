@@ -6,3 +6,7 @@
 export const sayHello = (userName: string): string => {
     return 'Welcome ' + userName + '!'
 }
+
+export const random = (min: number, max: number): number => {
+    return min + Math.floor(Math.random() * (max - min + 1))
+}

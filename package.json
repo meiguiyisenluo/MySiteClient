@@ -21,9 +21,9 @@
     "sass-loader": "^14.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject",
     "lint": "eslint --cache .",
     "format": "prettier --check ."
@@ -36,6 +36,8 @@
     "not IE 11"
   ],
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@craco/craco": "^7.1.0",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.12.6",
     "@types/react": "^18.2.75",

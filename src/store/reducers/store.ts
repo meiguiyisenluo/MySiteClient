@@ -28,6 +28,7 @@ export const store = configureStore({
 })
 
 export type RootState = ReturnType<typeof store.getState>
+// eslint-disable-next-line
 export type AppDispatch = ThunkDispatch<RootState, any, UnknownAction>
 
 export const useAppDispatch = () => useDispatch<AppDispatch>()
