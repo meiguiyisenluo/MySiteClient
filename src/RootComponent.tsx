@@ -30,9 +30,9 @@ const RoutesList: React.FC = () => {
     return (
         <Routes>
             <Route path="*" element={<NotFoundPage />} />
-            <Route path={ROUTES.HOMEPAGE_ROUTE} element={<HomePage />} />
+            <Route path={ROUTES.HOMEPAGE_ROUTE.path} element={<HomePage />} />
             <Route
-                path={ROUTES.FACE_SYMMETRY}
+                path={ROUTES.FACE_SYMMETRY.path}
                 element={
                     <Suspense fallback="loading...">
                         <FaceSymmetryLazy />
@@ -40,7 +40,7 @@ const RoutesList: React.FC = () => {
                 }
             />
             <Route
-                path={ROUTES.AUTO_SOUND}
+                path={ROUTES.AUTO_SOUND.path}
                 element={
                     <Suspense fallback="loading...">
                         <AutoSoundLazy />

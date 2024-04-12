@@ -1,17 +1,15 @@
-export const ROUTES = {
-    HOMEPAGE_ROUTE: '/',
-    FACE_SYMMETRY: '/faceSymmetry',
-    AUTO_SOUND: '/autoSound'
+export type RouteObj = { path: string; name: string; authority: boolean }
+
+export const ROUTES: { [key: string]: RouteObj } = {
+    HOMEPAGE_ROUTE: { path: '/', name: '首页', authority: false },
+    FACE_SYMMETRY: { path: '/faceSymmetry', name: '脸对称测试', authority: true },
+    AUTO_SOUND: { path: '/autoSound', name: '速读', authority: true },
+    FLOW_BORDER: { path: '/flowBorder', name: '流动边框', authority: true }
 }
 
-export const TITLES = {
-    [ROUTES.HOMEPAGE_ROUTE]: '首页',
-    [ROUTES.FACE_SYMMETRY]: '脸对称测试',
-    [ROUTES.AUTO_SOUND]: '速读'
-}
+export const TITLES: { [key: string]: string } = {}
 
-export const AUTHORITY = {
-    [ROUTES.HOMEPAGE_ROUTE]: false,
-    [ROUTES.FACE_SYMMETRY]: true,
-    [ROUTES.AUTO_SOUND]: true
+for (const key in ROUTES) {
+    const item: RouteObj = ROUTES[key]
+    TITLES[item.path] = item.name
 }

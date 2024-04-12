@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, ButtonType } from 'react-vant'
 import styles from './HomePage.module.scss'
-import { ROUTES, TITLES, AUTHORITY } from '@/resources/routes-constants'
+import { ROUTES } from '@/resources/routes-constants'
 import DateDisplay from '@/components/DateDisplay'
 import { random } from '@/utility/functions.ts'
 
@@ -18,9 +18,18 @@ const HomePage: React.FC = () => {
                     const plain = Math.random() > 0.5
                     const hairline = Math.random() > 0.5
                     return (
-                        AUTHORITY[_] && (
-                            <Button key={_} className="btn" type={type} plain={plain} round={round} hairline={hairline} shadow={1} onClick={() => navigate(_)}>
-                                {TITLES[_]}
+                        _.authority && (
+                            <Button
+                                key={_.path}
+                                className="btn"
+                                type={type}
+                                plain={plain}
+                                round={round}
+                                hairline={hairline}
+                                shadow={1}
+                                onClick={() => navigate(_.path)}
+                            >
+                                {_.name}
                             </Button>
                         )
                     )
