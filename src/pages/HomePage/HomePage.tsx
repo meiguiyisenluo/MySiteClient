@@ -4,7 +4,7 @@ import { Button, ButtonType } from 'react-vant'
 import styles from './HomePage.module.scss'
 import { ROUTES, TITLES, AUTHORITY } from '@/resources/routes-constants'
 import DateDisplay from '@/components/DateDisplay'
-import { random } from '@/utility/functions'
+import { random } from '@/utility/functions.ts'
 
 const HomePage: React.FC = () => {
     const navigate = useNavigate()
