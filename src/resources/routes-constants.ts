@@ -5,7 +5,7 @@ export const ROUTES: { [key: string]: RouteObj } = {
     FACE_SYMMETRY: { path: '/faceSymmetry', name: '脸对称测试', authority: true, order: 9999 },
     AUTO_SOUND: { path: '/autoSound', name: '速读', authority: true, order: 9999 },
     FLOW_BORDER: { path: '/flowBorder', name: '流动边框', authority: true, order: 9999 },
-    OME_TV: { path: '/omeTv', name: 'OmeTV', authority: true, order: 1 }
+    OMEG_TV: { path: '/omgTv', name: 'OmgTV', authority: true, order: 1 }
 }
 
 export const TITLES: { [key: string]: string } = {}

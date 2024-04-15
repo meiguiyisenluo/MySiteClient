@@ -3,13 +3,14 @@ import { HashRouter as Router, Route, Routes, useLocation, useNavigate } from 'r
 import HomePage from './pages/HomePage/HomePage'
 import NotFoundPage from './pages/NotFoundPage'
 import { ROUTES, TITLES } from '@/resources/routes-constants'
-import { NavBar } from 'react-vant'
+import { NavBar, Loading } from 'react-vant'
 import './styles/main.sass'
 import './styles/vant-custom.css'
 
 const FaceSymmetryLazy = React.lazy(() => import('@/pages/FaceSymmetry/FaceSymmetry'))
 const AutoSoundLazy = React.lazy(() => import('@/pages/AutoSound/AutoSound'))
 const FlowBorderLazy = React.lazy(() => import('@/pages/FlowBorder/index'))
+const OmgTVLazy = React.lazy(() => import('@/pages/OmgTV/index'))
 
 const RootComponent: React.FC = () => {
     return (
@@ -35,7 +36,7 @@ const RoutesList: React.FC = () => {
             <Route
                 path={ROUTES.FACE_SYMMETRY.path}
                 element={
-                    <Suspense fallback="loading...">
+                    <Suspense fallback={<CustomLoading />}>
                         <FaceSymmetryLazy />
                     </Suspense>
                 }
@@ -43,7 +44,7 @@ const RoutesList: React.FC = () => {
             <Route
                 path={ROUTES.AUTO_SOUND.path}
                 element={
-                    <Suspense fallback="loading...">
+                    <Suspense fallback={<CustomLoading />}>
                         <AutoSoundLazy />
                     </Suspense>
                 }
@@ -51,12 +52,28 @@ const RoutesList: React.FC = () => {
             <Route
                 path={ROUTES.FLOW_BORDER.path}
                 element={
-                    <Suspense fallback="loading...">
+                    <Suspense fallback={<CustomLoading />}>
                         <FlowBorderLazy />
                     </Suspense>
                 }
             />
+            <Route
+                path={ROUTES.OMEG_TV.path}
+                element={
+                    <Suspense fallback={<CustomLoading />}>
+                        <OmgTVLazy />
+                    </Suspense>
+                }
+            />
         </Routes>
+    )
+}
+
+const CustomLoading: React.FC = () => {
+    return (
+        <div className="page" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Loading type="ball" />
+        </div>
     )
 }
 

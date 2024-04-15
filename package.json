@@ -18,7 +18,8 @@
     "react-vant": "^3.3.4",
     "redux-persist": "^6.0.0",
     "sass": "^1.74.1",
-    "sass-loader": "^14.1.1"
+    "sass-loader": "^14.1.1",
+    "socket.io-client": "^4.7.5"
   },
   "scripts": {
     "start": "craco start",
