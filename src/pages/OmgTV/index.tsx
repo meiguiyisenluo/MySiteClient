@@ -7,7 +7,7 @@ const OmgTV: React.FC = () => {
         const urls = {
             test: 'http://localhost:15002',
             development: 'http://localhost:15002',
-            production: 'http://154.201.80.6:15002'
+            production: 'https://luoyisen.com/server/'
         }
         const socket: Socket = io(urls[process.env.NODE_ENV])
 
