@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useRef, useEffect, useState } from 'react'
 import { Button } from 'react-vant'
 import styles from './FaceSymmetry.module.scss'

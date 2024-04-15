@@ -1,10 +1,11 @@
-export type RouteObj = { path: string; name: string; authority: boolean }
+export type RouteObj = { path: string; name: string; authority: boolean; order: number }
 
 export const ROUTES: { [key: string]: RouteObj } = {
-    HOMEPAGE_ROUTE: { path: '/', name: '首页', authority: false },
-    FACE_SYMMETRY: { path: '/faceSymmetry', name: '脸对称测试', authority: true },
-    AUTO_SOUND: { path: '/autoSound', name: '速读', authority: true },
-    FLOW_BORDER: { path: '/flowBorder', name: '流动边框', authority: true }
+    HOMEPAGE_ROUTE: { path: '/', name: '首页', authority: false, order: 9999 },
+    FACE_SYMMETRY: { path: '/faceSymmetry', name: '脸对称测试', authority: true, order: 9999 },
+    AUTO_SOUND: { path: '/autoSound', name: '速读', authority: true, order: 9999 },
+    FLOW_BORDER: { path: '/flowBorder', name: '流动边框', authority: true, order: 9999 },
+    OME_TV: { path: '/omeTv', name: 'OmeTV', authority: true, order: 1 }
 }
 
 export const TITLES: { [key: string]: string } = {}

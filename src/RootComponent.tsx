@@ -2,13 +2,14 @@ import React, { Suspense } from 'react'
 import { HashRouter as Router, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import HomePage from './pages/HomePage/HomePage'
 import NotFoundPage from './pages/NotFoundPage'
-import { ROUTES, TITLES } from './resources/routes-constants'
+import { ROUTES, TITLES } from '@/resources/routes-constants'
 import { NavBar } from 'react-vant'
 import './styles/main.sass'
 import './styles/vant-custom.css'
 
-const FaceSymmetryLazy = React.lazy(() => import('./pages/FaceSymmetry/FaceSymmetry'))
-const AutoSoundLazy = React.lazy(() => import('./pages/AutoSound/AutoSound'))
+const FaceSymmetryLazy = React.lazy(() => import('@/pages/FaceSymmetry/FaceSymmetry'))
+const AutoSoundLazy = React.lazy(() => import('@/pages/AutoSound/AutoSound'))
+const FlowBorderLazy = React.lazy(() => import('@/pages/FlowBorder/index'))
 
 const RootComponent: React.FC = () => {
     return (
@@ -44,6 +45,14 @@ const RoutesList: React.FC = () => {
                 element={
                     <Suspense fallback="loading...">
                         <AutoSoundLazy />
+                    </Suspense>
+                }
+            />
+            <Route
+                path={ROUTES.FLOW_BORDER.path}
+                element={
+                    <Suspense fallback="loading...">
+                        <FlowBorderLazy />
                     </Suspense>
                 }
             />
