@@ -72,8 +72,9 @@ const OmgTV: React.FC = () => {
 
         const urls = {
             test: 'https://localhost:15002/OmgTV',
-            development: 'https://localhost:15002/OmgTV',
-            production: 'https://luoyisen.com:15002/OmgTV'
+            // development: 'https://localhost:15002/OmgTV',
+            production: 'https://luoyisen.com:15002/OmgTV',
+            development: 'https://luoyisen.com:15002/OmgTV'
         }
         socket.current = io(urls[process.env.NODE_ENV])
 
@@ -127,8 +128,8 @@ const OmgTV: React.FC = () => {
     return (
         <div className={`page ${styles.container}`}>
             <div className={styles.videos}>
-                <video autoPlay ref={themVideo} className="them"></video>
-                <video autoPlay ref={meVideo} className={styles.me}></video>
+                <video muted autoPlay ref={themVideo} className="them"></video>
+                <video muted autoPlay ref={meVideo} className={styles.me}></video>
             </div>
             <div className={styles.controls}>
                 <div className="shower">
