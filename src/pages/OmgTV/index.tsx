@@ -32,7 +32,10 @@ const OmgTV: React.FC = () => {
     const startSignaling = async (remoteOffer: any) => {
         peer.current = new RTCPeerConnection()
         stream.current = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-        if (meVideo.current) meVideo.current.srcObject = stream.current
+        if (meVideo.current) {
+            meVideo.current.srcObject = null
+            meVideo.current.srcObject = stream.current
+        }
         stream.current.getTracks().forEach((track) => {
             peer.current?.addTrack(track, stream.current as MediaStream)
         })
@@ -44,8 +47,12 @@ const OmgTV: React.FC = () => {
         }
 
         peer.current.ontrack = (e) => {
+            console.log(e)
             if (e && e.streams) {
-                if (themVideo.current) themVideo.current.srcObject = e.streams[0]
+                if (themVideo.current) {
+                    themVideo.current.srcObject = null
+                    themVideo.current.srcObject = e.streams[0]
+                }
                 setStatus(3)
             }
         }
@@ -63,12 +70,17 @@ const OmgTV: React.FC = () => {
     }
 
     const stopVideo = () => {
+        if (meVideo.current) meVideo.current.srcObject = null
+        if (themVideo.current) themVideo.current.srcObject = null
         peer.current?.close()
         stream.current?.getTracks().forEach((track) => track.stop())
     }
 
     useEffect(() => {
-        if (!window.RTCPeerConnection || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return () => Toast.fail('浏览器不支持，请切换浏览器')
+        if (!window.RTCPeerConnection || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            Toast.fail('浏览器不支持，请切换浏览器')
+            return
+        }
 
         const urls = {
             test: 'https://localhost:15002/OmgTV',
@@ -80,6 +92,11 @@ const OmgTV: React.FC = () => {
 
         socket.current.on('connect', () => {
             Toast('连接服务器成功')
+        })
+
+        socket.current.on('connect_error', () => {
+            // ...
+            console.log('connect_error')
         })
 
         socket.current.on('disconnect', () => {
