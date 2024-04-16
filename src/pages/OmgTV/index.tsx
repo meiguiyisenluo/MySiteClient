@@ -129,7 +129,7 @@ const OmgTV: React.FC = () => {
         <div className={`page ${styles.container}`}>
             <div className={styles.videos}>
                 <video muted controls autoPlay ref={themVideo} className="them"></video>
-                <video autoPlay ref={meVideo} className={styles.me}></video>
+                <video muted controls autoPlay ref={meVideo} className={styles.me}></video>
             </div>
             <div className={styles.controls}>
                 <div className="shower">
