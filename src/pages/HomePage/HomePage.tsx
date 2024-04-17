@@ -14,7 +14,7 @@ const HomePage: React.FC = () => {
         <div className={`page ${styles.container}`}>
             <div className={styles.btns}>
                 {Object.values(ROUTES)
-                    .sort((a, b) => (a.order - b.order))
+                    .sort((a, b) => a.order - b.order)
                     .map((_) => {
                         const type: ButtonType = typeList.current[random(0, typeList.current.length - 1)]
                         const plain = Math.random() > 0.5

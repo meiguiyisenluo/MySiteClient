@@ -6,7 +6,8 @@ export const ROUTES: { [key: string]: RouteObj } = {
     AUTO_SOUND: { path: '/autoSound', name: '速读', authority: true, order: 9999 },
     FLOW_BORDER: { path: '/flowBorder', name: '流动边框', authority: true, order: 9999 },
     OMEG_TV: { path: '/omgTv', name: 'OmgTV', authority: true, order: 1 },
-    WECHAT_FEAT: { path: '/wechatFeat', name: 'wechatFeat', authority: true, order: 9999 }
+    WECHAT_FEAT: { path: '/wechatFeat', name: 'wechatFeat', authority: true, order: 9999 },
+    TEST_PAGE: { path: '/testPage', name: 'testPage', authority: process.env.NODE_ENV !== 'production', order: 0 }
 }
 
 export const TITLES: { [key: string]: string } = {}

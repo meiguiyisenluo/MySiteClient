@@ -4,14 +4,16 @@
     align-items: center;
     flex-direction: column;
     padding: 1rem;
+    box-sizing: border-box;
     background-color: rgb(246, 248, 252);
 
     .btns {
         width: 100%;
-        flex: 1 1 auto;
-        text-align: justify;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
         button {
-            margin: 0.5rem 0.2rem;
+            margin-bottom: 0.5rem;
         }
     }
 }
