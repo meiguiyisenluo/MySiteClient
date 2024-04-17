@@ -1,9 +1,10 @@
 const isProd = process.env.NODE_ENV === 'production'
+const isDebug = !isProd || !(!/eruda=true/.test(window.location.href) && localStorage.getItem('active-eruda') != 'true')
 export type RouteObj = { path: string; name: string; authority: boolean; order: number }
 
 export const ROUTES: { [key: string]: RouteObj } = {
-    TEST_PAGE: { path: '/testPage', name: 'testPage', authority: !isProd, order: 0 },
-    BROWSER_DETECT: { path: '/browserDetect', name: 'browserDetect', authority: !isProd, order: 0 },
+    TEST_PAGE: { path: '/testPage', name: 'testPage', authority: isDebug, order: 0 },
+    BROWSER_DETECT: { path: '/browserDetect', name: 'browserDetect', authority: isDebug, order: 0 },
     HOMEPAGE_ROUTE: { path: '/', name: '首页', authority: false, order: 9999 },
     FACE_SYMMETRY: { path: '/faceSymmetry', name: '脸对称测试', authority: true, order: 9999 },
     AUTO_SOUND: { path: '/autoSound', name: '速读', authority: true, order: 9999 },
