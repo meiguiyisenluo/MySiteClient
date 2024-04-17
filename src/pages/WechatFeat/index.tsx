@@ -3,9 +3,6 @@ import styles from './index.module.scss'
 
 import qrcodeImg from '@/assets/imgs/01.jpg'
 
-const images = require.context('@/assets/imgs')
-console.log(images.keys())
-
 const WechatFeatLazy: React.FC = () => {
     const urls = useRef([
         {
