@@ -47,9 +47,11 @@ const OmgTV: React.FC = () => {
         }
 
         peer.current.ontrack = (e) => {
-            console.log(e)
+            console.log('ontrack')
             if (e && e.streams) {
+                console.log(e.streams)
                 if (themVideo.current) {
+                    console.log(themVideo.current)
                     themVideo.current.srcObject = null
                     themVideo.current.srcObject = e.streams[0]
                 }
