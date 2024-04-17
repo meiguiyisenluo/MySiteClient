@@ -2,7 +2,8 @@
   "compilerOptions": {
     "types": [
       "node",
-      "webpack-env"
+      "webpack-env",
+      "ua-parser-js"
     ],
     "target": "es5",
     "lib": [

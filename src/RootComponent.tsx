@@ -13,6 +13,7 @@ const FlowBorderLazy = React.lazy(() => import('@/pages/FlowBorder/index'))
 const OmgTVLazy = React.lazy(() => import('@/pages/OmgTV/index'))
 const WechatFeatLazy = React.lazy(() => import('@/pages/WechatFeat/index'))
 const TestPageLazy = React.lazy(() => import('@/pages/TestPage/index'))
+const BrowserDetectLazy = React.lazy(() => import('@/pages/BrowserDetect/index'))
 
 const RootComponent: React.FC = () => {
     return (
@@ -80,6 +81,14 @@ const RoutesList: React.FC = () => {
                 element={
                     <Suspense fallback={<CustomLoading />}>
                         <TestPageLazy />
+                    </Suspense>
+                }
+            />
+            <Route
+                path={ROUTES.BROWSER_DETECT.path}
+                element={
+                    <Suspense fallback={<CustomLoading />}>
+                        <BrowserDetectLazy />
                     </Suspense>
                 }
             />
