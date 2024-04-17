@@ -11,6 +11,7 @@ const FaceSymmetryLazy = React.lazy(() => import('@/pages/FaceSymmetry/FaceSymme
 const AutoSoundLazy = React.lazy(() => import('@/pages/AutoSound/AutoSound'))
 const FlowBorderLazy = React.lazy(() => import('@/pages/FlowBorder/index'))
 const OmgTVLazy = React.lazy(() => import('@/pages/OmgTV/index'))
+const WechatFeatLazy = React.lazy(() => import('@/pages/WechatFeat/index'))
 
 const RootComponent: React.FC = () => {
     return (
@@ -62,6 +63,14 @@ const RoutesList: React.FC = () => {
                 element={
                     <Suspense fallback={<CustomLoading />}>
                         <OmgTVLazy />
+                    </Suspense>
+                }
+            />
+            <Route
+                path={ROUTES.WECHAT_FEAT.path}
+                element={
+                    <Suspense fallback={<CustomLoading />}>
+                        <WechatFeatLazy />
                     </Suspense>
                 }
             />

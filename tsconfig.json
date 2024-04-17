@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "types": [
+      "node",
+      "webpack-env"
+    ],
     "target": "es5",
     "lib": [
       "dom",
