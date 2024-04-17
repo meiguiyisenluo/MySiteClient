@@ -284,7 +284,7 @@ const WechatFeatLazy: React.FC = () => {
             <h3>一些weixin协议，红色的已失效</h3>
             <div className={styles.list}>
                 {urls.current.map((item, idx) => (
-                    <div key={idx} className={`${styles.item} ${item.disable ? styles.disable : ''}`}>
+                    <div key={idx} className={`${styles.item} ${item.disable ? styles.disable : ''}`} onClick={() => (window.location.href = item.url)}>
                         {item.url}
                     </div>
                 ))}
