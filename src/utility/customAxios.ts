@@ -1,5 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import axios from 'axios'
+
+import { SESSION_STORAGE } from '@/resources/constants'
 
 const CustomAxios = axios.create({
     baseURL: '/clientApi'
@@ -58,6 +60,7 @@ CustomAxios.interceptors.response.use(
 CustomAxios.interceptors.request.use(
     (config) => {
         config.data = toSnackCase(config.data)
+        config.headers['x-csrf-token'] = window.sessionStorage.getItem(SESSION_STORAGE.csrftoken)
         return config
     },
     (error) => {
