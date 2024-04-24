@@ -1,5 +1,11 @@
-const baseUrl = 'http://exampleurl'
+import CustomAxios from '@/utility/customAxios.ts'
 
-export const getData = (userId: number): string => {
-    return baseUrl + '/data/' + userId
+type AxiosData = { [key: string]: string | number }
+
+export const appsession = (data: AxiosData = {}) => {
+    return CustomAxios.get('/appsession', data)
+}
+
+export const test = (data: AxiosData = {}) => {
+    return CustomAxios.get('/test', data)
 }

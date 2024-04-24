@@ -1,25 +1,14 @@
 import React from 'react'
 import styles from './index.module.scss'
+import { test as testApi } from '@/resources/api-constants'
 
 const TestPage: React.FC = () => {
+    const test = () => {
+        testApi()
+    }
     return (
         <div className={styles.list}>
-            <button>OmgTV</button>
-            <button>脸对称测试</button>
-            <button>速读</button>
-            <button>流动边框</button>
-            <button>wechatFeat</button>
-            <button>wechatFeat</button>
-            <button>脸对称测试</button>
-            <button>OmgTV</button>
-            <button>OmgTV</button>
-            <button>脸对称测试</button>
-            <button>速读</button>
-            <button>流动边框</button>
-            <button>wechatFeat</button>
-            <button>wechatFeat</button>
-            <button>脸对称测试</button>
-            <button>OmgTV</button>
+            <button onClick={test}>test</button>
         </div>
     )
 }

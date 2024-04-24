@@ -5,6 +5,9 @@ import { persistor, store } from '@/store/reducers/store'
 import RootComponent from './RootComponent'
 import './App.scss'
 
+import { appsession } from '@/resources/api-constants'
+appsession()
+
 const App: React.FC = () => {
     return (
         <Provider store={store}>

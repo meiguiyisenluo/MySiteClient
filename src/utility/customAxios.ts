@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios'
 
-const CustomAxios = axios.create()
+const CustomAxios = axios.create({
+    baseURL: 'https://localhost:3000/'
+})
 
 const toCamelCase: any = (object: any) => {
     let transformedObject = object
