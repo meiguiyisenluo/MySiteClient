@@ -2,7 +2,7 @@
 import axios from 'axios'
 
 const CustomAxios = axios.create({
-    baseURL: 'https://localhost:3000/'
+    baseURL: '/clientApi'
 })
 
 const toCamelCase: any = (object: any) => {
