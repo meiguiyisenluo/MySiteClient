@@ -4,6 +4,8 @@ const result = new UAParser().getResult()
 const isProd = process.env.NODE_ENV === 'production'
 const isDebug = !isProd || !(!/eruda=true/.test(window.location.href) && localStorage.getItem('active-eruda') != 'true')
 const isMobile = result.device.type === 'mobile'
+console.log('isMobile => ', isMobile)
+
 export type RouteObj = { path: string; name: string; authority: boolean; order: number }
 
 export const ROUTES: { [key: string]: RouteObj } = {
