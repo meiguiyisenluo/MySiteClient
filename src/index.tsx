@@ -14,6 +14,7 @@ if (container) {
         .then((res) => {
             window.sessionStorage.setItem(SESSION_STORAGE.csrftoken, res.data.csrfToken)
         })
+        .catch(console.error)
         .finally(() => {
             const root = createRoot(container) // createRoot(container!) if you use TypeScript
             root.render(

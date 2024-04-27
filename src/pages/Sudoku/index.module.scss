@@ -1,0 +1,48 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: border-box;
+    transition: all linear 0.3s;
+    background-color: #333;
+    .box {
+        width: 400px;
+        height: 400px;
+        max-width: 100%;
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 10px;
+        transition: all linear 0.3s;
+        @for $i from 0 through 8 {
+            $x: $i % 3 + 1;
+            $y: floor($i / 3) + 1;
+            $arr: 1fr 1fr 1fr;
+            $columns: set-nth($arr, $x, 2fr);
+            $rows: set-nth($arr, $y, 2fr);
+            &:has(.item:nth-child(#{$i + 1}):hover) {
+                grid-template-columns: $columns;
+                grid-template-rows: $rows;
+            }
+        }
+    }
+    .item {
+        opacity: 0.8;
+        transition: all linear 0.3s;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+        color: #eee;
+        &:hover {
+            opacity: 1;
+        }
+
+        @for $i from 0 through 8 {
+            &:nth-child(#{$i + 1}) {
+                background-color: hsl(random() * 360%, random() * 100%, random() * 100%);
+            }
+        }
+    }
+}

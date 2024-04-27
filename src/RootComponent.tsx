@@ -9,12 +9,14 @@ import './styles/vant-custom.css'
 
 const FaceSymmetryLazy = React.lazy(() => import('@/pages/FaceSymmetry/FaceSymmetry'))
 const AutoSoundLazy = React.lazy(() => import('@/pages/AutoSound/AutoSound'))
-const FlowBorderLazy = React.lazy(() => import('@/pages/FlowBorder/index'))
 const OmgTVLazy = React.lazy(() => import('@/pages/OmgTV/index'))
 const WechatFeatLazy = React.lazy(() => import('@/pages/WechatFeat/index'))
 const TestPageLazy = React.lazy(() => import('@/pages/TestPage/index'))
 const BrowserDetectLazy = React.lazy(() => import('@/pages/BrowserDetect/index'))
 const BrowserFingerprintLazy = React.lazy(() => import('@/pages/BrowserFingerprint/index'))
+
+const FlowBorderLazy = React.lazy(() => import('@/pages/FlowBorder/index'))
+const SudokuLazy = React.lazy(() => import('@/pages/Sudoku/index'))
 
 const RootComponent: React.FC = () => {
     return (
@@ -50,14 +52,6 @@ const RoutesList: React.FC = () => {
                 element={
                     <Suspense fallback={<CustomLoading />}>
                         <AutoSoundLazy />
-                    </Suspense>
-                }
-            />
-            <Route
-                path={ROUTES.FLOW_BORDER.path}
-                element={
-                    <Suspense fallback={<CustomLoading />}>
-                        <FlowBorderLazy />
                     </Suspense>
                 }
             />
@@ -98,6 +92,22 @@ const RoutesList: React.FC = () => {
                 element={
                     <Suspense fallback={<CustomLoading />}>
                         <BrowserFingerprintLazy />
+                    </Suspense>
+                }
+            />
+            <Route
+                path={ROUTES.FLOW_BORDER.path}
+                element={
+                    <Suspense fallback={<CustomLoading />}>
+                        <FlowBorderLazy />
+                    </Suspense>
+                }
+            />
+            <Route
+                path={ROUTES.SUDOKU.path}
+                element={
+                    <Suspense fallback={<CustomLoading />}>
+                        <SudokuLazy />
                     </Suspense>
                 }
             />

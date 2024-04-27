@@ -2,15 +2,15 @@ import React, { useEffect, useRef } from 'react'
 import UAParser from 'ua-parser-js'
 import JSONFormatter from 'json-formatter-js'
 
-const BrowserDetect: React.FC = () => {
-    const result = useRef(new UAParser().getResult())
-    const formatter = useRef(new JSONFormatter(result.current))
+const result = new UAParser().getResult()
+const formatter = new JSONFormatter(result)
 
+const BrowserDetect: React.FC = () => {
     const container = useRef<HTMLDivElement | null>(null)
 
     useEffect(() => {
-        container.current?.appendChild(formatter.current.render())
-        formatter.current.openAtDepth(2)
+        container.current?.appendChild(formatter.render())
+        formatter.openAtDepth(2)
 
         let containerCurrent = container.current
         return () => {
