@@ -47,6 +47,7 @@ const GuestNumber: React.FC = () => {
 
         if (num <= state.start || num >= state.end) {
             Toast.info({
+                duration: 0,
                 message: `输入${state.start}到${state.end}之间的数字`,
                 icon: <Image width={100} src={imgs('./info.png')} />
             })
@@ -55,6 +56,7 @@ const GuestNumber: React.FC = () => {
 
         if (num == target.current) {
             Toast.fail({
+                duration: 0,
                 message: `这你都能选中 ${num}`,
                 icon: <Image width={100} src={imgs('./fail.png')} />
             })
@@ -75,6 +77,7 @@ const GuestNumber: React.FC = () => {
             console.log(state.start, state.end)
             if (state.end - state.start === 2) {
                 Toast.success({
+                    duration: 0,
                     message: '恭喜你,彭于晏觉得很赞',
                     icon: <Image width={100} src={imgs('./success.jpg')} />
                 })
@@ -107,6 +110,8 @@ const GuestNumber: React.FC = () => {
                     type="number"
                     onChange={(val) => updateState({ number: Number(val) })}
                     placeholder="请输入数字"
+                    onFocus={(e) => e.preventDefault()}
+                    onBlur={(e) => e.preventDefault()}
                 />
                 <Button disabled={state.disabled} type="warning" round onClick={onclickHandler}>
                     选择
