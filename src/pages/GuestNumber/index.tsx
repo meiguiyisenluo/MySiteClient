@@ -47,6 +47,9 @@ const GuestNumber: React.FC = () => {
 
         if (num <= state.start || num >= state.end) {
             Toast.info({
+                className: styles.toast,
+                overlay: true,
+                closeOnClickOverlay: true,
                 duration: 0,
                 message: `输入${state.start}到${state.end}之间的数字`,
                 icon: <Image width={100} src={imgs('./info.png')} />
@@ -56,6 +59,9 @@ const GuestNumber: React.FC = () => {
 
         if (num == target.current) {
             Toast.fail({
+                className: styles.toast,
+                overlay: true,
+                closeOnClickOverlay: true,
                 duration: 0,
                 message: `这你都能选中 ${num}`,
                 icon: <Image width={100} src={imgs('./fail.png')} />
@@ -77,6 +83,9 @@ const GuestNumber: React.FC = () => {
             console.log(state.start, state.end)
             if (state.end - state.start === 2) {
                 Toast.success({
+                    className: styles.toast,
+                    overlay: true,
+                    closeOnClickOverlay: true,
                     duration: 0,
                     message: '恭喜你,彭于晏觉得很赞',
                     icon: <Image width={100} src={imgs('./success.jpg')} />
@@ -103,7 +112,7 @@ const GuestNumber: React.FC = () => {
                 </div>
             </div>
             <div className={styles.bottom}>
-                <div className={styles.tips}>千万不要选择数字：</div>
+                <div className={styles.tips}>我要选择数字：</div>
                 <Input
                     className={styles.ipt}
                     value={String(state.number)}

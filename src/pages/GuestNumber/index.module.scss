@@ -39,16 +39,19 @@
         }
     }
     .bottom {
-        display: grid;
-        grid-template-columns: 2fr 1fr 1fr;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         .tips {
             display: flex;
-            justify-content: flex-end;
+            justify-content: center;
             align-items: center;
             color: aliceblue;
         }
         .ipt {
+            width: 3em;
             height: 3rem;
+            margin: 0 1rem;
             & > input {
                 height: 100%;
                 text-align: center;
@@ -57,4 +60,8 @@
             }
         }
     }
+}
+
+.toast {
+    overflow: hidden;
 }
