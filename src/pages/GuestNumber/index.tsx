@@ -79,22 +79,22 @@ const GuestNumber: React.FC = () => {
             })
         }
 
-        updateState((state) => {
-            console.log(state.start, state.end)
-            if (state.end - state.start === 2) {
-                Toast.success({
-                    className: styles.toast,
-                    overlay: true,
-                    closeOnClickOverlay: true,
-                    duration: 0,
-                    message: '恭喜你通过了游戏,我觉得很赞',
-                    icon: <Image width={100} src={imgs('./success.jpg')} />
-                })
-                resetGame()
-            }
-            return { disabled: false }
-        })
+        updateState({ disabled: false })
     }, [updateState, resetGame, state])
+
+    useEffect(() => {
+        if (state.end - state.start === 2) {
+            Toast.success({
+                className: styles.toast,
+                overlay: true,
+                closeOnClickOverlay: true,
+                duration: 0,
+                message: '恭喜你通过了游戏,我觉得很赞',
+                icon: <Image width={100} src={imgs('./success.jpg')} />
+            })
+            resetGame()
+        }
+    }, [resetGame, state.start, state.end])
 
     useEffect(() => {
         resetGame()
