@@ -87,7 +87,7 @@ const GuestNumber: React.FC = () => {
                     overlay: true,
                     closeOnClickOverlay: true,
                     duration: 0,
-                    message: '恭喜你,彭于晏觉得很赞',
+                    message: '恭喜你通过了游戏,我觉得很赞',
                     icon: <Image width={100} src={imgs('./success.jpg')} />
                 })
                 resetGame()
