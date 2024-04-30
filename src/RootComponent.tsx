@@ -11,9 +11,12 @@ const FaceSymmetryLazy = React.lazy(() => import('@/pages/FaceSymmetry/FaceSymme
 const AutoSoundLazy = React.lazy(() => import('@/pages/AutoSound/AutoSound'))
 const OmgTVLazy = React.lazy(() => import('@/pages/OmgTV/index'))
 const WechatFeatLazy = React.lazy(() => import('@/pages/WechatFeat/index'))
+const GuestNumberLazy = React.lazy(() => import('@/pages/GuestNumber/index'))
+
 const TestPageLazy = React.lazy(() => import('@/pages/TestPage/index'))
 const BrowserDetectLazy = React.lazy(() => import('@/pages/BrowserDetect/index'))
 const BrowserFingerprintLazy = React.lazy(() => import('@/pages/BrowserFingerprint/index'))
+
 
 const FlowBorderLazy = React.lazy(() => import('@/pages/FlowBorder/index'))
 const SudokuLazy = React.lazy(() => import('@/pages/Sudoku/index'))
@@ -68,6 +71,14 @@ const RoutesList: React.FC = () => {
                 element={
                     <Suspense fallback={<CustomLoading />}>
                         <WechatFeatLazy />
+                    </Suspense>
+                }
+            />
+            <Route
+                path={ROUTES.GUEST_NUMBER.path}
+                element={
+                    <Suspense fallback={<CustomLoading />}>
+                        <GuestNumberLazy />
                     </Suspense>
                 }
             />

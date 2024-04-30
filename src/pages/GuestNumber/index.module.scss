@@ -1,0 +1,60 @@
+@function random-color() {
+    $hue: random() * 360; // 随机色相值（0 到 360）
+    $saturation: random() * 100; // 随机饱和度（0% 到 100%）
+    $lightness: random() * 100; // 随机亮度（0% 到 100%）
+
+    @return hsl($hue, $saturation, $lightness); // 返回随机 HSL 颜色
+}
+
+.container {
+    background-image: linear-gradient(hsl(133.9197924991, 88.7349336815%, 80.3848796457%), hsl(36.5180918543, 45.914705177%, 12.0077425032%));
+    padding: 1rem;
+    .top {
+        display: grid;
+        grid-template-columns: 2fr 1fr 2fr;
+        height: 50%;
+        & > div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
+            & > div {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: auto;
+                height: auto;
+                padding: 1rem;
+                border-radius: 1rem;
+                background-color: rgb(95, 95, 72);
+                color: aliceblue;
+                font-size: 4rem;
+            }
+            &:nth-child(2) {
+                color: aliceblue;
+                font-size: 2rem;
+            }
+        }
+    }
+    .bottom {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        .tips {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            color: aliceblue;
+        }
+        .ipt {
+            height: 3rem;
+            & > input {
+                height: 100%;
+                text-align: center;
+                color: aliceblue;
+                font-size: 2rem;
+            }
+        }
+    }
+}
