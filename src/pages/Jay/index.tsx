@@ -6,7 +6,7 @@ import styles from './index.module.scss'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const imgs = require.context('./assets/imgs/Jay Chou')
+const imgs = require.context('./assets/imgs/JayChou@.1')
 
 const Jay: React.FC = () => {
     return (
