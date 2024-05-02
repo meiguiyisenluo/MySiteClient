@@ -5,5 +5,5 @@
 
 .page {
     width: 100%;
-    height: calc(100% - 3rem);
+    height: calc(100% - var(--rv-nav-bar-height));
 }
