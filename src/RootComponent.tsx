@@ -34,10 +34,11 @@ const Topbar: React.FC = () => {
     const location = useLocation()
     const navigate = useNavigate()
     const route = ROUTE[location.pathname]
-    const title = route.name ?? location.pathname
     const fixed = route.fixed ?? false
     const border = route.border ?? true
-    
+    const showName = route.showName ?? true
+    const title = showName ? route.name ?? location.pathname : ''
+
     document.title = route.name
 
     useEffect(() => {

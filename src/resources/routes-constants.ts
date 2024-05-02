@@ -14,6 +14,7 @@ export type RouteObj = {
     vantCssVars?: { [key: string]: string }
     fixed?: boolean
     border?: boolean
+    showName?: boolean
 }
 
 export const ROUTES: { [key: string]: RouteObj } = {
@@ -33,6 +34,7 @@ export const ROUTES: { [key: string]: RouteObj } = {
         order: 1,
         name: '周杰伦',
         authority: true,
+        showName: false,
         fixed: true,
         border: false,
         vantCssVars: {
