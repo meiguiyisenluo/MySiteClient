@@ -15,6 +15,7 @@ const Jay: React.FC = () => {
     const endTrigger = useRef<HTMLDivElement | null>(null)
     useEffect(() => {
         cards.current.forEach((card, i) => {
+            console.log(i)
             if (!card) return
             // gsap.fromTo(
             //     card,
