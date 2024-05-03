@@ -7,3 +7,9 @@
     width: 100%;
     height: calc(100% - var(--rv-nav-bar-height));
 }
+
+@media screen and (max-width: 400px) {
+    html {
+        font-size: 14px;
+    }
+}
