@@ -2,6 +2,10 @@ import React, { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 import { Dialog } from 'react-vant'
+import UAParser from 'ua-parser-js'
+
+const result = new UAParser().getResult()
+const isMobile = result.device.type === 'mobile'
 
 import styles from './index.module.scss'
 
@@ -56,6 +60,7 @@ const Jay: React.FC = () => {
 
     // scrolltrigger init
     useEffect(() => {
+        if (isMobile) return
         cards.current.forEach((card, i) => {
             if (!card) return
             gsap.fromTo(
