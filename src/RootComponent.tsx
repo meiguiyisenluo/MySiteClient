@@ -10,7 +10,6 @@ import './styles/vant-custom.css'
 
 const result = new UAParser().getResult()
 const isMobile = result.device.type === 'mobile'
-console.log('isMobile => ', isMobile)
 
 const FaceSymmetryLazy = React.lazy(() => import('@/pages/FaceSymmetry/FaceSymmetry'))
 const AutoSoundLazy = React.lazy(() => import('@/pages/AutoSound/AutoSound'))
@@ -143,7 +142,7 @@ const RoutesList: React.FC = () => {
                 path={ROUTES.SUDOKU.path}
                 element={
                     isMobile ? (
-                        <NoAuthority />
+                        <NoAuthority tips="请在电脑端打开" />
                     ) : (
                         <Suspense fallback={<CustomLoading />}>
                             <SudokuLazy />
@@ -154,13 +153,9 @@ const RoutesList: React.FC = () => {
             <Route
                 path={ROUTES.JAY.path}
                 element={
-                    isMobile ? (
-                        <NoAuthority />
-                    ) : (
-                        <Suspense fallback={<CustomLoading />}>
-                            <JayLazy />
-                        </Suspense>
-                    )
+                    <Suspense fallback={<CustomLoading />}>
+                        <JayLazy />
+                    </Suspense>
                 }
             />
         </Routes>
@@ -175,11 +170,11 @@ const CustomLoading: React.FC = () => {
     )
 }
 
-const NoAuthority: React.FC = () => {
+const NoAuthority: React.FC<{ tips?: string }> = ({ tips }) => {
     const navigate = useNavigate()
     return (
         <div className="page" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-            <div style={{ fontSize: '2rem', fontWeight: 'bold' }}>NoAuthority</div>
+            <div style={{ fontSize: '2rem', fontWeight: 'bold' }}>{tips ?? 'NoAuthority'}</div>
             <br />
             <Button type="primary" onClick={() => navigate('/')}>
                 back to home

@@ -4,7 +4,6 @@ const result = new UAParser().getResult()
 const isProd = process.env.NODE_ENV === 'production'
 const isDebug = !isProd || !(!/eruda=true/.test(window.location.href) && localStorage.getItem('active-eruda') != 'true')
 const isMobile = result.device.type === 'mobile'
-console.log('isMobile => ', isMobile)
 
 export type RouteObj = {
     path: string
@@ -33,7 +32,7 @@ export const ROUTES: { [key: string]: RouteObj } = {
         path: '/jay',
         order: 1,
         name: '周杰伦',
-        authority: !isMobile,
+        authority: true,
         showName: false,
         fixed: true,
         border: false,

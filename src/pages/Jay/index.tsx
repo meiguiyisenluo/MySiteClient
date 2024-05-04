@@ -11,10 +11,16 @@ gsap.registerPlugin(ScrollTrigger)
 
 // 图片
 const imgs = require.context('./assets/imgs/JayChou@.1')
-const imgkeys = imgs.keys().sort()
+const imgkeys = imgs.keys().sort((a, b) => {
+    const reg = /^\.\/(\d+)\..*$/
+    const c = Number(a.match(reg)![1])
+    const d = Number(b.match(reg)![1])
+    return c - d
+})
 
 // 音源
 import musicSources from './musicSource.json'
+const musicSourcesRes = musicSources.filter((_) => _.active)
 let musicIdx = 0
 
 // 关键高度
@@ -99,8 +105,8 @@ const Jay: React.FC = () => {
         const nextMusic = () => {
             if (!audioEl.current) return
             musicIdx += 1
-            musicIdx = musicIdx % musicSources.length
-            audioEl.current.src = musicSources[musicIdx].src
+            musicIdx = musicIdx % musicSourcesRes.length
+            audioEl.current.src = musicSourcesRes[musicIdx].src
             audioEl.current.play()
         }
 
@@ -166,7 +172,7 @@ const Jay: React.FC = () => {
 
             {/* 放最后 层级最高 */}
             <canvas ref={cvs}></canvas>
-            <audio ref={audioEl} src={musicSources[musicIdx].src}></audio>
+            <audio ref={audioEl} src={musicSourcesRes[musicIdx].src}></audio>
         </div>
     )
 }
