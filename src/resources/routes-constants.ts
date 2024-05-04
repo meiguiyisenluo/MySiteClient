@@ -33,7 +33,7 @@ export const ROUTES: { [key: string]: RouteObj } = {
         path: '/jay',
         order: 1,
         name: '周杰伦',
-        authority: true,
+        authority: !isMobile,
         showName: false,
         fixed: true,
         border: false,

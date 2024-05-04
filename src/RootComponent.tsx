@@ -3,9 +3,14 @@ import { HashRouter as Router, Route, Routes, useLocation, useNavigate } from 'r
 import HomePage from './pages/HomePage/HomePage'
 import NotFoundPage from './pages/NotFoundPage'
 import { ROUTES, ROUTE } from '@/resources/routes-constants'
-import { NavBar, Loading } from 'react-vant'
+import { NavBar, Loading, Button } from 'react-vant'
+import UAParser from 'ua-parser-js'
 import './styles/main.sass'
 import './styles/vant-custom.css'
+
+const result = new UAParser().getResult()
+const isMobile = result.device.type === 'mobile'
+console.log('isMobile => ', isMobile)
 
 const FaceSymmetryLazy = React.lazy(() => import('@/pages/FaceSymmetry/FaceSymmetry'))
 const AutoSoundLazy = React.lazy(() => import('@/pages/AutoSound/AutoSound'))
@@ -34,6 +39,7 @@ const Topbar: React.FC = () => {
     const location = useLocation()
     const navigate = useNavigate()
     const route = ROUTE[location.pathname]
+
     const fixed = route.fixed ?? false
     const border = route.border ?? true
     const showName = route.showName ?? true
@@ -136,17 +142,25 @@ const RoutesList: React.FC = () => {
             <Route
                 path={ROUTES.SUDOKU.path}
                 element={
-                    <Suspense fallback={<CustomLoading />}>
-                        <SudokuLazy />
-                    </Suspense>
+                    isMobile ? (
+                        <NoAuthority />
+                    ) : (
+                        <Suspense fallback={<CustomLoading />}>
+                            <SudokuLazy />
+                        </Suspense>
+                    )
                 }
             />
             <Route
                 path={ROUTES.JAY.path}
                 element={
-                    <Suspense fallback={<CustomLoading />}>
-                        <JayLazy />
-                    </Suspense>
+                    isMobile ? (
+                        <NoAuthority />
+                    ) : (
+                        <Suspense fallback={<CustomLoading />}>
+                            <JayLazy />
+                        </Suspense>
+                    )
                 }
             />
         </Routes>
@@ -157,6 +171,19 @@ const CustomLoading: React.FC = () => {
     return (
         <div className="page" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <Loading type="ball" />
+        </div>
+    )
+}
+
+const NoAuthority: React.FC = () => {
+    const navigate = useNavigate()
+    return (
+        <div className="page" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+            <div style={{ fontSize: '2rem', fontWeight: 'bold' }}>NoAuthority</div>
+            <br />
+            <Button type="primary" onClick={() => navigate('/')}>
+                back to home
+            </Button>
         </div>
     )
 }

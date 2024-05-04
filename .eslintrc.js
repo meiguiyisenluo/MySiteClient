@@ -49,7 +49,8 @@ module.exports = {
             }
         ],
         'react-hooks/rules-of-hooks': 'warn',
-        'react-hooks/exhaustive-deps': 'warn'
+        'react-hooks/exhaustive-deps': 'warn',
+        '@typescript-eslint/no-non-null-assertion': 'off'
     },
     settings: {
         react: {

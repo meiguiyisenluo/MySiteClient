@@ -12,6 +12,10 @@ module.exports = {
                     '^/clientApi': ''
                 },
                 secure: false
+            },
+            '/share': {
+                target: 'https://luoyisen.com',
+                secure: false
             }
         }
     },
