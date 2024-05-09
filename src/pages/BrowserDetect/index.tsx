@@ -1,14 +1,13 @@
 import React, { useEffect, useRef } from 'react'
-import UAParser from 'ua-parser-js'
 import JSONFormatter from 'json-formatter-js'
-
-const result = new UAParser().getResult()
-const formatter = new JSONFormatter(result)
+import { useAppSelector } from '@/store/reducers/store'
 
 const BrowserDetect: React.FC = () => {
+    const browserInfo = useAppSelector((state) => state.data.browserInfo)
     const container = useRef<HTMLDivElement | null>(null)
 
     useEffect(() => {
+        const formatter = new JSONFormatter(browserInfo)
         container.current?.appendChild(formatter.render())
         formatter.openAtDepth(2)
 
