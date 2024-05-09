@@ -2,6 +2,8 @@ import React from 'react'
 import styles from './index.module.scss'
 import { test as testApi } from '@/resources/api-constants'
 
+import './test'
+
 const TestPage: React.FC = () => {
     const test = () => {
         testApi()
