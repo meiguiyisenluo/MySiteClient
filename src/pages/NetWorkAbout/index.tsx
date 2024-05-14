@@ -23,7 +23,6 @@ const NetWorkAbout: React.FC = () => {
             <Cell>
                 <Input
                     value={hostname}
-                    type="tel"
                     onChange={setHostname}
                     placeholder="请输入你需要解析的ip"
                     suffix={
