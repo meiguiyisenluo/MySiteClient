@@ -11,6 +11,7 @@ import './styles/vant-custom.css'
 const result = new UAParser().getResult()
 const isMobile = result.device.type === 'mobile'
 
+const NetWorkAboutLazy = React.lazy(() => import('@/pages/NetWorkAbout/index'))
 const FaceSymmetryLazy = React.lazy(() => import('@/pages/FaceSymmetry/FaceSymmetry'))
 const AutoSoundLazy = React.lazy(() => import('@/pages/AutoSound/AutoSound'))
 const OmgTVLazy = React.lazy(() => import('@/pages/OmgTV/index'))
@@ -66,6 +67,14 @@ const RoutesList: React.FC = () => {
         <Routes>
             <Route path="*" element={<NotFoundPage />} />
             <Route path={ROUTES.HOMEPAGE_ROUTE.path} element={<HomePage />} />
+            <Route
+                path={ROUTES.NETWORK_ABOUT.path}
+                element={
+                    <Suspense fallback={<CustomLoading />}>
+                        <NetWorkAboutLazy />
+                    </Suspense>
+                }
+            />
             <Route
                 path={ROUTES.FACE_SYMMETRY.path}
                 element={

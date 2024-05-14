@@ -31,8 +31,12 @@
       ]
     },
     "allowImportingTsExtensions": true,
+    // default
+    "strictNullChecks": true,
+    "suppressExcessPropertyErrors": false,
     "ignoreDeprecations": "5.0",
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": false,
+    // custom
   },
   "include": [
     "src"

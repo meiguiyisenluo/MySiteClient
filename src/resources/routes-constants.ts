@@ -21,6 +21,7 @@ export const ROUTES: { [key: string]: RouteObj } = {
     BROWSER_DETECT: { path: '/browserDetect', name: '浏览器检测', authority: isDebug, order: 0 },
     BROWSER_FINGERPRINT: { path: '/browserFingerprint', name: '浏览器指纹', authority: isDebug, order: 0 },
     HOMEPAGE_ROUTE: { path: '/', name: '首页', authority: false, order: 9999 },
+    NETWORK_ABOUT: { path: '/networkAbout', name: '网络测试', authority: true, order: 9999 },
     FACE_SYMMETRY: { path: '/faceSymmetry', name: '脸对称测试', authority: true, order: 9999 },
     AUTO_SOUND: { path: '/autoSound', name: '速读', authority: true, order: 9999 },
     OMEG_TV: { path: '/omgTv', name: 'OmgTV', authority: true, order: 1 },
