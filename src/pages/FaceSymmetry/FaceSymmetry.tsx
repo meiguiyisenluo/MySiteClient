@@ -147,4 +147,4 @@ const FaceSymmetry: React.FC = () => {
         </div>
     )
 }
-export default FaceSymmetry
+export const Component = FaceSymmetry

@@ -55,4 +55,4 @@ const AutoSound: React.FC = () => {
     )
 }
 
-export default AutoSound
+export const Component = AutoSound

@@ -20,4 +20,4 @@ const BrowserDetect: React.FC = () => {
     return <div ref={container}></div>
 }
 
-export default BrowserDetect
+export const Component = BrowserDetect

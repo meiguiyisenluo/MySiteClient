@@ -182,4 +182,4 @@ const Jay: React.FC = () => {
     )
 }
 
-export default Jay
+export const Component = Jay

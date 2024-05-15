@@ -11,4 +11,4 @@ const BrowserFingerprint: React.FC = () => {
     }, [])
     return <div>{visitorId}</div>
 }
-export default BrowserFingerprint
+export const Component = BrowserFingerprint

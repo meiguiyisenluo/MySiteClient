@@ -4,8 +4,6 @@ import { test as testApi } from '@/resources/api-constants'
 import { useAppSelector, useAppDispatch } from '@/store/reducers/store'
 import { setContents } from '@/store/actions/data'
 
-import './test'
-
 const TestPage: React.FC = () => {
     const dispatch = useAppDispatch()
     const contents = useAppSelector((state) => state.data.contents)
@@ -24,4 +22,4 @@ const TestPage: React.FC = () => {
     )
 }
 
-export default TestPage
+export const Component = TestPage

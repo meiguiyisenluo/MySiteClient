@@ -1,38 +1,75 @@
-import React, { Suspense, useEffect } from 'react'
-import { HashRouter as Router, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
-import HomePage from './pages/HomePage/HomePage'
+import React, { useEffect } from 'react'
+import { RouterProvider, createHashRouter, useLocation, useNavigate, RouteObject, Outlet } from 'react-router-dom'
+import HomePage from '@/pages/HomePage/HomePage'
 import NotFoundPage from './pages/NotFoundPage'
-import { ROUTES, ROUTE } from '@/resources/routes-constants'
 import { NavBar, Loading, Button } from 'react-vant'
 import UAParser from 'ua-parser-js'
 import './styles/main.sass'
 import './styles/vant-custom.css'
 
+import { useAppDispatch } from '@/store/reducers/store'
+import { setBrowserInfo } from '@/store/actions/data'
+
 const result = new UAParser().getResult()
 const isMobile = result.device.type === 'mobile'
 
-const NetWorkAboutLazy = React.lazy(() => import('@/pages/NetWorkAbout/index'))
-const FaceSymmetryLazy = React.lazy(() => import('@/pages/FaceSymmetry/FaceSymmetry'))
-const AutoSoundLazy = React.lazy(() => import('@/pages/AutoSound/AutoSound'))
-const OmgTVLazy = React.lazy(() => import('@/pages/OmgTV/index'))
-const JayLazy = React.lazy(() => import('@/pages/Jay/index'))
-const WechatFeatLazy = React.lazy(() => import('@/pages/WechatFeat/index'))
-const GuestNumberLazy = React.lazy(() => import('@/pages/GuestNumber/index'))
+const isProd = process.env.NODE_ENV === 'production'
+const isDebug = !isProd || !(!/eruda=true/.test(window.location.href) && localStorage.getItem('active-eruda') != 'true')
 
-const TestPageLazy = React.lazy(() => import('@/pages/TestPage/index'))
-const BrowserDetectLazy = React.lazy(() => import('@/pages/BrowserDetect/index'))
-const BrowserFingerprintLazy = React.lazy(() => import('@/pages/BrowserFingerprint/index'))
+export type RouteObj = RouteObject & {
+    path: string
+    name: string
+    authority: boolean
+    order: number
+    vantCssVars?: { [key: string]: string }
+    fixed?: boolean
+    border?: boolean
+    showName?: boolean
+}
 
-const FlowBorderLazy = React.lazy(() => import('@/pages/FlowBorder/index'))
-const SudokuLazy = React.lazy(() => import('@/pages/Sudoku/index'))
+export const ROUTES: Array<RouteObj> = [
+    { path: '/testPage', name: '测试', authority: isDebug, order: 0, lazy: () => import('@/pages/TestPage/index') },
+    { path: '/browserDetect', name: '浏览器检测', authority: isDebug, order: 0, lazy: () => import('@/pages/BrowserDetect/index') },
+    { path: '/browserFingerprint', name: '浏览器指纹', authority: isDebug, order: 0, lazy: () => import('@/pages/BrowserFingerprint/index') },
+    { path: '/', name: '首页', authority: true, order: 9999, element: <HomePage /> },
+    { path: '/networkAbout', name: '网络测试', authority: true, order: 9999, lazy: async () => import('@/pages/NetWorkAbout/index') },
+    { path: '/faceSymmetry', name: '脸对称测试', authority: true, order: 9999, lazy: () => import('@/pages/FaceSymmetry/FaceSymmetry') },
+    { path: '/autoSound', name: '速读', authority: true, order: 9999, lazy: () => import('@/pages/AutoSound/AutoSound') },
+    { path: '/omgTv', name: 'OmgTV', authority: true, order: 9999, lazy: () => import('@/pages/OmgTV/index') },
+    { path: '/wechatFeat', name: '微信功能', authority: true, order: 9999, lazy: () => import('@/pages/WechatFeat/index') },
+    { path: '/guestNumber', name: '猜数字', authority: true, order: 9999, lazy: () => import('@/pages/GuestNumber/index') },
+    { path: '/flowBorder', name: '流动边框', authority: true, order: 9999, lazy: () => import('@/pages/FlowBorder/index') },
+    { path: '/sudoku', name: '九宫格', authority: !isMobile, order: 9999, lazy: () => import('@/pages/Sudoku/index') },
+    {
+        path: '/jay',
+        order: 9999,
+        name: '周杰伦',
+        authority: true,
+        showName: false,
+        fixed: true,
+        border: false,
+        vantCssVars: {
+            '--rv-nav-bar-background-color': 'transparent',
+            '--rv-nav-bar-icon-color': '#fff',
+            '--rv-nav-bar-title-text-color': '#fff'
+        },
+        lazy: () => import('@/pages/Jay/index')
+    }
+]
+
+const ROUTE: { [key: string]: RouteObj } = {}
+
+for (const key in ROUTES) {
+    const item: RouteObj = ROUTES[key]
+    ROUTE[item.path] = item
+}
 
 const RootComponent: React.FC = () => {
-    return (
-        <Router>
-            <Topbar />
-            <RoutesList />
-        </Router>
-    )
+    const dispatch = useAppDispatch()
+    useEffect(() => {
+        dispatch(setBrowserInfo(result))
+    }, [dispatch])
+    return <RouterProvider router={router} fallbackElement={<CustomLoading />} />
 }
 
 const Topbar: React.FC = () => {
@@ -62,115 +99,6 @@ const Topbar: React.FC = () => {
     return <NavBar fixed={fixed} border={border} title={title} onClickLeft={() => navigate(-1)} />
 }
 
-const RoutesList: React.FC = () => {
-    return (
-        <Routes>
-            <Route path="*" element={<NotFoundPage />} />
-            <Route path={ROUTES.HOMEPAGE_ROUTE.path} element={<HomePage />} />
-            <Route
-                path={ROUTES.NETWORK_ABOUT.path}
-                element={
-                    <Suspense fallback={<CustomLoading />}>
-                        <NetWorkAboutLazy />
-                    </Suspense>
-                }
-            />
-            <Route
-                path={ROUTES.FACE_SYMMETRY.path}
-                element={
-                    <Suspense fallback={<CustomLoading />}>
-                        <FaceSymmetryLazy />
-                    </Suspense>
-                }
-            />
-            <Route
-                path={ROUTES.AUTO_SOUND.path}
-                element={
-                    <Suspense fallback={<CustomLoading />}>
-                        <AutoSoundLazy />
-                    </Suspense>
-                }
-            />
-            <Route
-                path={ROUTES.OMEG_TV.path}
-                element={
-                    <Suspense fallback={<CustomLoading />}>
-                        <OmgTVLazy />
-                    </Suspense>
-                }
-            />
-            <Route
-                path={ROUTES.WECHAT_FEAT.path}
-                element={
-                    <Suspense fallback={<CustomLoading />}>
-                        <WechatFeatLazy />
-                    </Suspense>
-                }
-            />
-            <Route
-                path={ROUTES.GUEST_NUMBER.path}
-                element={
-                    <Suspense fallback={<CustomLoading />}>
-                        <GuestNumberLazy />
-                    </Suspense>
-                }
-            />
-            <Route
-                path={ROUTES.TEST_PAGE.path}
-                element={
-                    <Suspense fallback={<CustomLoading />}>
-                        <TestPageLazy />
-                    </Suspense>
-                }
-            />
-            <Route
-                path={ROUTES.BROWSER_DETECT.path}
-                element={
-                    <Suspense fallback={<CustomLoading />}>
-                        <BrowserDetectLazy />
-                    </Suspense>
-                }
-            />
-            <Route
-                path={ROUTES.BROWSER_FINGERPRINT.path}
-                element={
-                    <Suspense fallback={<CustomLoading />}>
-                        <BrowserFingerprintLazy />
-                    </Suspense>
-                }
-            />
-            <Route
-                path={ROUTES.FLOW_BORDER.path}
-                element={
-                    <Suspense fallback={<CustomLoading />}>
-                        <FlowBorderLazy />
-                    </Suspense>
-                }
-            />
-            <Route
-                path={ROUTES.SUDOKU.path}
-                element={
-                    isMobile ? (
-                        <NoAuthority tips="请在电脑端打开" />
-                    ) : (
-                        <Suspense fallback={<CustomLoading />}>
-                            <SudokuLazy />
-                        </Suspense>
-                    )
-                }
-            />
-            <Route
-                path={ROUTES.JAY.path}
-                element={
-                    <Suspense fallback={<CustomLoading />}>
-                        <JayLazy />
-                    </Suspense>
-                }
-            />
-        </Routes>
-    )
-}
-
 const CustomLoading: React.FC = () => {
     return (
         <div className="page" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -191,5 +119,28 @@ const NoAuthority: React.FC<{ tips?: string }> = ({ tips }) => {
         </div>
     )
 }
+
+export const router = createHashRouter([
+    { path: '*', element: <NotFoundPage /> },
+    {
+        element: (
+            <>
+                <Topbar />
+                <Outlet />
+            </>
+        ),
+        children: [
+            ...ROUTES.filter((_) => _.authority).map((route) => {
+                const routeObj: RouteObject = {
+                    path: route.path,
+                    errorElement: <NoAuthority />
+                }
+                if (route.element) routeObj.element = route.element
+                if (route.lazy) routeObj.lazy = route.lazy
+                return routeObj
+            })
+        ]
+    }
+])
 
 export default RootComponent

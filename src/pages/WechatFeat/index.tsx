@@ -290,4 +290,4 @@ const WechatFeatLazy: React.FC = () => {
     )
 }
 
-export default WechatFeatLazy
+export const Component = WechatFeatLazy

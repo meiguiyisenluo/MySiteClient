@@ -167,4 +167,4 @@ const OmgTV: React.FC = () => {
     )
 }
 
-export default OmgTV
+export const Component = OmgTV

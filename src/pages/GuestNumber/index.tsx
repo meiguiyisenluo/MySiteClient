@@ -130,4 +130,4 @@ const GuestNumber: React.FC = () => {
     )
 }
 
-export default GuestNumber
+export const Component = GuestNumber

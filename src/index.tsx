@@ -1,6 +1,5 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import { ConfigProvider } from 'react-vant'
 
 import App from './App'
 import * as serviceWorker from './serviceWorker'
@@ -17,11 +16,7 @@ if (container) {
         .catch(console.error)
         .finally(() => {
             const root = createRoot(container) // createRoot(container!) if you use TypeScript
-            root.render(
-                <ConfigProvider style={{ width: '100%', height: '100%' }}>
-                    <App />
-                </ConfigProvider>
-            )
+            root.render(<App />)
         })
 }
 

@@ -15,4 +15,4 @@ const Sudoku: React.FC = () => {
     )
 }
 
-export default Sudoku
+export const Component = Sudoku
