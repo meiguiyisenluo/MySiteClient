@@ -3,11 +3,12 @@ const path = require('path')
 
 module.exports = {
     devServer: {
+        port: 8000,
         https: true,
         proxy: {
             '/clientApi': {
-                // target: 'http://localhost:3000',
-                target: 'https://luoyisen.com:3000',
+                target: 'http://localhost:3000',
+                // target: 'https://luoyisen.com:3000',
                 pathRewrite: {
                     '^/clientApi': ''
                 },

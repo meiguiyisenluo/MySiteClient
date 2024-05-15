@@ -120,6 +120,19 @@ const NoAuthority: React.FC<{ tips?: string }> = ({ tips }) => {
     )
 }
 
+const ErrorElement: React.FC = () => {
+    const navigate = useNavigate()
+    return (
+        <div className="page" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+            <div style={{ fontSize: '2rem', fontWeight: 'bold' }}>something run wrong...</div>
+            <br />
+            <Button type="primary" onClick={() => navigate('/')}>
+                back to home
+            </Button>
+        </div>
+    )
+}
+
 export const router = createHashRouter([
     { path: '*', element: <NotFoundPage /> },
     {
@@ -130,13 +143,17 @@ export const router = createHashRouter([
             </>
         ),
         children: [
-            ...ROUTES.filter((_) => _.authority).map((route) => {
+            ...ROUTES.map((route) => {
                 const routeObj: RouteObject = {
                     path: route.path,
-                    errorElement: <NoAuthority />
+                    errorElement: <ErrorElement />
                 }
-                if (route.element) routeObj.element = route.element
-                if (route.lazy) routeObj.lazy = route.lazy
+                if (route.authority) {
+                    if (route.element) routeObj.element = route.element
+                    if (route.lazy) routeObj.lazy = route.lazy
+                } else {
+                    routeObj.element = <NoAuthority />
+                }
                 return routeObj
             })
         ]
