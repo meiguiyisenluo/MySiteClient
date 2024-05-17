@@ -19,6 +19,14 @@
             grid-gap: 1.5rem;
             .item {
                 box-shadow: 0 0 0.6rem 0.6rem rgb(236, 239, 242);
+                .ips,
+                .officialWebsite {
+                    cursor: pointer;
+                    transition: color 0.3s linear;
+                    &:hover {
+                        color: #ffa500;
+                    }
+                }
             }
         }
     }

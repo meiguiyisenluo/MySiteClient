@@ -7,8 +7,8 @@ module.exports = {
         https: true,
         proxy: {
             '/clientApi': {
-                target: 'http://localhost:3000',
-                // target: 'https://luoyisen.com:3000',
+                // target: 'http://localhost:3000',
+                target: 'https://luoyisen.com:3000',
                 pathRewrite: {
                     '^/clientApi': ''
                 },

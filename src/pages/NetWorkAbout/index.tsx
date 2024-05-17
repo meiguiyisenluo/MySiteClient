@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, MouseEvent } from 'react'
 import { useLoaderData } from 'react-router-dom'
 import { Cell, Input, Button, Toast, Loading } from 'react-vant'
 import { getIpv4, dnsResolve } from '@/resources/api-constants'
@@ -15,7 +15,9 @@ const NetWorkAbout: React.FC = () => {
     const [loading, setLoading] = useState(false)
     const [hostname, setHostname] = useState('luoyisen.com')
     const [ip, setIp] = useState('')
-    const [dnsIp, setDnsIp] = useState<Array<{ dnsName: string; remark: string; status: number; error: string; addresses: Array<string> }>>([])
+    const [dnsIp, setDnsIp] = useState<
+        Array<{ dnsName: string; officialWebsite: string; remark: string; status: number; error: string; addresses: Array<string> }>
+    >([])
 
     const loaderData = useLoaderData() as { ip: string }
     useEffect(() => {
@@ -27,8 +29,26 @@ const NetWorkAbout: React.FC = () => {
         setLoading(true)
         setDnsIp([])
         dnsResolve({ hostname })
-            .then((res) => setDnsIp(res.data))
+            .then((res) => {
+                setDnsIp(res.data)
+                Toast('查询成功，点击ip可复制到剪切板，点击地址可跳转')
+            })
             .finally(() => setLoading(false))
+    }
+
+    const jumpToOfficialWebsite = (e: MouseEvent<HTMLSpanElement>, url: string) => {
+        e.preventDefault()
+        e.stopPropagation()
+        window.open(url)
+    }
+
+    const copyIp = (e: MouseEvent<HTMLSpanElement>, ip: string) => {
+        e.preventDefault()
+        e.stopPropagation()
+        navigator.clipboard
+            .writeText(ip)
+            .then(() => Toast('复制成功'))
+            .catch(() => Toast('复制失败'))
     }
 
     return (
@@ -63,11 +83,24 @@ const NetWorkAbout: React.FC = () => {
                                 key={idx}
                                 className={styles.item}
                                 title={item.dnsName}
-                                value={item.remark}
+                                value={
+                                    <div>
+                                        {item.remark}:{' '}
+                                        <span className={styles.officialWebsite} onClick={(e) => jumpToOfficialWebsite(e, item.officialWebsite)}>
+                                            {item.officialWebsite}
+                                        </span>
+                                    </div>
+                                }
                                 label={
                                     <>
-                                        {}
-                                        {item.status === 200 && item.addresses.map((ip: string, index: number) => <div key={index}>{ip}</div>)}
+                                        {item.status === 200 &&
+                                            item.addresses.map((ip: string, index: number) => (
+                                                <div key={index}>
+                                                    <span className={styles.ips} onClick={(e) => copyIp(e, ip)}>
+                                                        {ip}
+                                                    </span>
+                                                </div>
+                                            ))}
                                         {item.status === 500 && item.error}
                                     </>
                                 }
