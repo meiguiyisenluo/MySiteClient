@@ -7,7 +7,6 @@ import DateDisplay from '@/components/DateDisplay'
 import { random } from '@/utility/functions.ts'
 
 const HomePage: React.FC = () => {
-    console.log('HomePage')
     const navigate = useNavigate()
     const typeList = useRef<Array<ButtonType>>(['primary', 'info', 'warning', 'danger'])
     const round = Math.random() > 0.5

@@ -1,0 +1,25 @@
+.container {
+    $headHeight: 3rem;
+    .hd {
+        height: $headHeight;
+    }
+    .content {
+        height: calc(100% - $headHeight);
+        overflow: auto;
+        background-color: aliceblue;
+        padding: var(--rv-cell-vertical-padding) var(--rv-cell-horizontal-padding);
+        .loading {
+            display: flex;
+            justify-content: center;
+            margin-top: $headHeight;
+        }
+        .items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 1.5rem;
+            .item {
+                box-shadow: 0 0 0.6rem 0.6rem rgb(236, 239, 242);
+            }
+        }
+    }
+}
