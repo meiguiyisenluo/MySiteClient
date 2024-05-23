@@ -1,23 +1,34 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import styles from './index.module.scss'
-import { test as testApi } from '@/resources/api-constants'
-import { useAppSelector, useAppDispatch } from '@/store/reducers/store'
-import { setContents } from '@/store/actions/data'
 
 const TestPage: React.FC = () => {
-    const dispatch = useAppDispatch()
-    const contents = useAppSelector((state) => state.data.contents)
+    const canvasRef = useRef<HTMLCanvasElement>(null!)
+    const ctx = useRef<CanvasRenderingContext2D>(null!)
 
-    const test = () => {
-        dispatch(setContents([...contents, 'hello redux']))
-        testApi()
-    }
+    useEffect(() => {
+        canvasRef.current.width = window.innerWidth * devicePixelRatio
+        canvasRef.current.height = window.innerHeight * devicePixelRatio
+        ctx.current = canvasRef.current.getContext('2d')!
+
+        ctx.current.fillStyle = 'red'
+        ctx.current.fillRect(10, 10, 500, 500)
+
+        ctx.current.globalCompositeOperation = 'source-atop'
+
+        ctx.current.fillStyle = 'blue'
+        ctx.current.fillRect(400, 400, 500, 500)
+
+        ctx.current.globalCompositeOperation = 'destination-over'
+
+        ctx.current.fillStyle = 'orange'
+        ctx.current.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height)
+
+        ctx.current.globalCompositeOperation = 'source-over'
+
+    }, [])
     return (
-        <div className={styles.list}>
-            {contents.map((item, idx) => (
-                <div key={idx}>{item}</div>
-            ))}
-            <button onClick={test}>test</button>
+        <div className={`page ${styles.container}`}>
+            <canvas ref={canvasRef}></canvas>
         </div>
     )
 }
