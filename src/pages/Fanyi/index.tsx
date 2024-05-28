@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo, MouseEventHandler } from 'react'
+import React, { useEffect, useRef, useState, useMemo } from 'react'
 import { Cell, Input, Toast, Picker, Field } from 'react-vant'
 import { debounce } from 'lodash'
 import { youdaoTranslate } from '@/resources/api-constants'
