@@ -3,7 +3,7 @@ import CustomAxios from '@/utility/customAxios.ts'
 type AxiosData = { [key: string]: string | number }
 
 export const youdaoTranslate = (data: AxiosData = {}) => {
-    return CustomAxios.post('/youdao/translate', data)
+    return CustomAxios.post('/fanyi/translate', data)
 }
 
 export const getIpv4 = (data: AxiosData = {}) => {
