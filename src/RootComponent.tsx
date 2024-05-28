@@ -35,6 +35,7 @@ export const ROUTES: Array<RouteObj> = [
     { path: '/networkAbout', name: '网络测试', authority: true, order: 9999, lazy: async () => import('@/pages/NetWorkAbout/index') },
     { path: '/faceSymmetry', name: '脸对称测试', authority: true, order: 9999, lazy: () => import('@/pages/FaceSymmetry/FaceSymmetry') },
     { path: '/autoSound', name: '速读', authority: true, order: 9999, lazy: () => import('@/pages/AutoSound/AutoSound') },
+    { path: '/fanyi', name: '翻译', authority: true, order: 9999, lazy: () => import('@/pages/Fanyi/index') },
     { path: '/omgTv', name: 'OmgTV', authority: true, order: 9999, lazy: () => import('@/pages/OmgTV/index') },
     { path: '/wechatFeat', name: '微信功能', authority: true, order: 9999, lazy: () => import('@/pages/WechatFeat/index') },
     { path: '/guestNumber', name: '猜数字', authority: true, order: 9999, lazy: () => import('@/pages/GuestNumber/index') },
