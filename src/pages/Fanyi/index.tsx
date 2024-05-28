@@ -62,10 +62,10 @@ const Youdaofanyi: React.FC = () => {
                         }}
                     </Picker>
                     <div>
-                        <Button round type="primary" onClick={()=>spell(text)}>
+                        <Button size="small" round type="primary" onClick={()=>spell(text)}>
                             朗读
                         </Button>
-                        <Button round type="primary" disabled={loading} onClick={translate}>
+                        <Button size="small" round type="primary" disabled={loading} onClick={translate}>
                             翻译
                         </Button>
                     </div>
@@ -73,7 +73,7 @@ const Youdaofanyi: React.FC = () => {
             </Cell>
             <br />
             <Cell>
-                <Input.TextArea value={text} onChange={setText} showWordLimit autoSize placeholder="输入要翻译的文本" />
+                <Input.TextArea className={styles.ipt} value={text} onChange={setText} showWordLimit autoSize placeholder="输入要翻译的文本" />
             </Cell>
             <Cell>
                 {loading ? (
