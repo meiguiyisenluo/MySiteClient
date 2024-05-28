@@ -3,6 +3,10 @@
     height: 100vh;
 }
 
+html, body {
+    touch-action: manipulation;
+}
+
 .page {
     width: 100%;
     height: calc(100% - var(--rv-nav-bar-height));

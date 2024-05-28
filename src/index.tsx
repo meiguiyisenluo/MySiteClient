@@ -43,3 +43,18 @@ if (container) {
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister()
+
+document.addEventListener('keydown', function (event) {
+    if ((event.ctrlKey || event.metaKey) && (event.key === '+' || event.key === '-' || event.key === '0')) {
+        event.preventDefault()
+    }
+})
+document.addEventListener(
+    'wheel',
+    function (event) {
+        if (event.ctrlKey) {
+            event.preventDefault()
+        }
+    },
+    { passive: false }
+)
