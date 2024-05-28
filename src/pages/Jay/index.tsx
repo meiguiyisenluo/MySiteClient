@@ -14,13 +14,49 @@ const isProd = process.env.NODE_ENV === 'production'
 gsap.registerPlugin(ScrollTrigger)
 
 // 图片
-const imgs = require.context('./assets/imgs/JayChou@.1')
-const imgkeys = imgs.keys().sort((a, b) => {
-    const reg = /^\.\/(\d+)\..*$/
-    const c = Number(a.match(reg)![1])
-    const d = Number(b.match(reg)![1])
-    return c - d
-})
+const imgsBaseUrl = 'https://luoyisen.com/share/JayChou@.1/'
+const imgkeys = [
+    '1.png',
+    '2.png',
+    '3.jpg',
+    '4.png',
+    '5.jpg',
+    '6.png',
+    '7.jpg',
+    '8.PNG',
+    '9.jpg',
+    '10.png',
+    '11.jpg',
+    '12.png',
+    '13.jpg',
+    '14.png',
+    '15.PNG',
+    '16.jpg',
+    '17.png',
+    '18.PNG',
+    '19.jpg',
+    '20.png',
+    '21.png',
+    '22.jpg',
+    '23.jpg',
+    '24.jpg',
+    '25.png',
+    '26.png',
+    '27.jpg',
+    '28.jpg',
+    '29.jpg',
+    '30.png',
+    '31.png',
+    '32.jpg',
+    '33.jpg',
+    '34.jpg',
+    '35.jpg',
+    '36.jpg',
+    '37.jpg',
+    '38.jpg',
+    '39.jpg',
+    '40.png'
+]
 
 // 音源
 import musicSources from './musicSource.json'
@@ -170,7 +206,7 @@ const Jay: React.FC = () => {
         <div className={`page ${styles.container}`}>
             <div className={styles.start_content}>Welcome to Jay</div>
             {imgkeys.map((item, idx) => (
-                <div key={idx} ref={(el) => (cards.current[idx] = el)} className={styles.card} style={{ backgroundImage: `url(${imgs(item)})` }}></div>
+                <div key={idx} ref={(el) => (cards.current[idx] = el)} className={styles.card} style={{ backgroundImage: `url(${imgsBaseUrl + item})` }}></div>
             ))}
             <div ref={endTrigger}></div>
             <div className={styles.end_content}>Thanks for watching</div>

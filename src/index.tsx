@@ -1,27 +1,17 @@
-console.log(`                          x   x x  x   xxxxx
-xxx x               xx
-  x                x
-x
-x                     x             x
-x                      x          x
-xx                                                                    xxx
-x                      x      x                                   xxxx
-x                                                               xxx x
-x                       x                                    x x    x
-x                       x  x                               xxx     x
-x                        xx                               xx       x              xx
-x                        x                              xx         x          xxxx xx
-xx                         x                           x           x         x x    x
-x                      xx  x                         x             x    xx x       xx
-xx                          x                       xx              xxxxx          xx
-x                    x       x                   xxx                 xx            x
-xx                  x          xx              x                                   xx
-x               xx x            xxxx xx   x x                                       x
-xx          x x                                                                      x
-xxx xx  x                                                                           xxx
-                                                                  xxx
-                                                                    xxx x
-                                                                      xxx`)
+console.log(`L                         L
+L                         LLL              LLLL                        LLLLLLLLL
+L                           LLL          LLL                        LLLL
+L                             LLL     LLLL                          L
+L                               LL  LLL                              LL
+L                                LLLL                                  LLLLLL
+L                                  L                                        LLLL
+L                                  L                                           L
+LL       LLLLLLLL                  L                                           L
+  LLLLLLL                          LL                                         LL
+                                   LL                              LL      LLLL
+                                   L                                LLLLLLLL
+                                   L
+                                   L`)
 
 import React from 'react'
 import { createRoot } from 'react-dom/client'

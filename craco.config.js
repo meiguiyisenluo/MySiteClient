@@ -23,6 +23,10 @@ module.exports = {
     webpack: {
         alias: {
             '@': path.resolve(__dirname, 'src')
+        },
+        configure(config) {
+            config.devtool = false
+            return config
         }
     }
 }
