@@ -43,6 +43,21 @@ export const ROUTES: Array<RouteObj> = [
     { path: '/sudoku', name: '九宫格', authority: !isMobile, order: 9999, lazy: () => import('@/pages/Sudoku/index') },
     { path: '/randomTree', name: '随机树', authority: true, order: 9999, lazy: () => import('@/pages/RandomTree/index') },
     {
+        path: '/sassStar',
+        name: 'Sass 星空',
+        authority: true,
+        order: 9999,
+        lazy: () => import('@/pages/SassStar/index'),
+        showName: false,
+        fixed: true,
+        border: false,
+        vantCssVars: {
+            '--rv-nav-bar-background-color': 'transparent',
+            '--rv-nav-bar-icon-color': '#fff',
+            '--rv-nav-bar-title-text-color': '#fff'
+        }
+    },
+    {
         path: '/jay',
         order: 9999,
         name: '周杰伦',
@@ -98,7 +113,7 @@ const Topbar: React.FC = () => {
         }
     }, [route])
 
-    return <NavBar fixed={fixed} border={border} title={title} onClickLeft={() => navigate(-1)} />
+    return <NavBar zIndex={9999} fixed={fixed} border={border} title={title} onClickLeft={() => navigate(-1)} />
 }
 
 const CustomLoading: React.FC = () => {

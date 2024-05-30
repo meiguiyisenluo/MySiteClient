@@ -1,32 +1,12 @@
-type EventName<K extends string> = `${K}Changed`
+type IsEqual1<X, Y> = X extends Y ? (Y extends X ? true : false) : false
+type IsEqual2<X, Y> = (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y ? 1 : 2 ? true : false
 
-type Listener<T> = (val: T) => void
+type A = IsEqual1<{ a: 'A' }, { readonly a: 'A' }>
+type B = IsEqual2<{ a: 'A' }, { readonly a: 'A' }>
 
-function eventEmitter<T, K extends Extract<keyof T, string>>(obj: T) {
-    type SrcObj = Record<EventName<K>, Array<Listener<T[K]>>>
+type C = IsEqual1<1, 1>
+type D = IsEqual2<1, 1>
 
-    const srcObj: SrcObj = {} as SrcObj
-
-    for (const key in obj) {
-        const event = `${key}Changed` as EventName<K>
-        srcObj[event] = []
-    }
-
-    return {
-        on(event: EventName<K>, cb: Listener<T[K]>) {
-            srcObj[event].push(cb)
-        },
-        emit(event: EventName<K>) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            srcObj[event].forEach((cb) => cb('123' as any))
-        }
-    }
-}
-
-const emiter = eventEmitter({ a: 'a', b: 'b', age: 18, name: 'lys' })
-emiter.on('aChanged', () => {
-    console.log('')
-})
-emiter.emit('aChanged')
+type E = (()=>2) extends (()=>2) ? true : false
 
 export default {}

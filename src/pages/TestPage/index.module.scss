@@ -1,21 +1,5 @@
 .container {
-    background-color: #0f0;
-
-    .test{
-        box-sizing: border-box;
-        width: 200px;
-        height: 200px;
-        padding: 20px;
-        border: 20px solid transparent;
-        background-clip: content-box, border-box;
-        background-origin: content-box, border-box;
-        background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-          linear-gradient(
-            to right,
-            #ffe76bff,
-            #26b1ffff
-          );
-    }
+    background-color: #333;
 
     .ball {
         $ball_size: 3.57rem;
@@ -72,14 +56,51 @@
                         width: 12rem;
                     }
                 }
+                @keyframes content_animate_reverse {
+                    0% {
+                        width: 12rem;
+                    }
+                    100% {
+                        width: 0rem;
+                    }
+                }
 
-                animation: content_animate 0.5s ease-in-out forwards;
+                animation-name: content_animate, content_animate_reverse;
+                animation-duration: 0.5s, 0.5s;
+                animation-timing-function: ease-in-out, ease-in-out;
+                animation-delay: 0s, 4s;
+                animation-direction: normal, normal;
+                animation-fill-mode: forwards, forwards;
 
                 span {
                     margin-left: 1rem;
                     background-clip: text;
                     background-image: linear-gradient(to right, rgba(255, 231, 107, 1), rgba(38, 177, 255, 1));
                     color: transparent;
+                    opacity: 0;
+
+                    animation-name: text_animate, text_animate;
+                    animation-duration: 0.2s, 0.2s;
+                    animation-timing-function: ease-in-out, ease-in-out;
+                    animation-delay: 0.3s, 4s;
+                    animation-direction: normal, reverse;
+                    animation-fill-mode: forwards, forwards;
+
+                    @keyframes text_animate {
+                        0% {
+                            opacity: 0;
+                        }
+                        100% {
+                            opacity: 1;
+                        }
+                    }
+                }
+
+                &.paused {
+                    display: none;
+                    span {
+                        display: none;
+                    }
                 }
             }
         }
