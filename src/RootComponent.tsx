@@ -29,8 +29,8 @@ export type RouteObj = RouteObject & {
 
 export const ROUTES: Array<RouteObj> = [
     { path: '/testPage', name: '测试', authority: isDebug, order: 0, lazy: () => import('@/pages/TestPage/index') },
-    { path: '/browserDetect', name: '浏览器检测', authority: isDebug, order: 0, lazy: () => import('@/pages/BrowserDetect/index') },
-    { path: '/browserFingerprint', name: '浏览器指纹', authority: isDebug, order: 0, lazy: () => import('@/pages/BrowserFingerprint/index') },
+    { path: '/browserDetect', name: '浏览器检测', authority: true, order: 0, lazy: () => import('@/pages/BrowserDetect/index') },
+    { path: '/browserFingerprint', name: '浏览器指纹', authority: true, order: 0, lazy: () => import('@/pages/BrowserFingerprint/index') },
     { path: '/', name: '首页', authority: true, order: 9999, element: <HomePage /> },
     { path: '/networkAbout', name: '网络测试', authority: true, order: 9999, lazy: async () => import('@/pages/NetWorkAbout/index') },
     { path: '/faceSymmetry', name: '脸对称测试', authority: true, order: 9999, lazy: () => import('@/pages/FaceSymmetry/FaceSymmetry') },
@@ -42,11 +42,15 @@ export const ROUTES: Array<RouteObj> = [
     { path: '/flowBorder', name: '流动边框', authority: true, order: 9999, lazy: () => import('@/pages/FlowBorder/index') },
     { path: '/sudoku', name: '九宫格', authority: !isMobile, order: 9999, lazy: () => import('@/pages/Sudoku/index') },
     { path: '/randomTree', name: '随机树', authority: true, order: 9999, lazy: () => import('@/pages/RandomTree/index') },
+    { path: '/ballAnimation', name: '悬浮球动画', authority: true, order: 9999, lazy: () => import('@/pages/BallAnimation/index') },
+    { path: '/scrollSnapType', name: 'scrollSnapType轮播图', authority: true, order: 9999, lazy: () => import('@/pages/ScrollSnapType/index') },
+    { path: '/svgStrokeAnimation', name: 'svg描边动画', authority: true, order: 9999, lazy: () => import('@/pages/SvgStrokeAnimation/index') },
+    { path: '/categoryStyle', name: '通讯录分类效果', authority: true, order: 9999, lazy: () => import('@/pages/CategoryStyle/index') },
     {
         path: '/sassStar',
         name: 'Sass 星空',
         authority: true,
-        order: 9999,
+        order: 1,
         lazy: () => import('@/pages/SassStar/index'),
         showName: false,
         fixed: true,

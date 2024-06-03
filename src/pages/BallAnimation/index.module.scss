@@ -1,0 +1,108 @@
+.container {
+    background-color: #333;
+
+    .ball {
+        $ball_size: 3.57rem;
+        $bg_size: 5.71rem;
+        width: $ball_size;
+        height: $ball_size;
+        position: fixed;
+        right: 0;
+        top: 50%;
+        .bd {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            .bg {
+                position: absolute;
+                z-index: 2;
+                left: calc(($ball_size - $bg_size) / 2);
+                top: calc(($ball_size - $bg_size) / 2);
+                width: 5.71rem;
+                height: 5.71rem;
+                background-image: url('./assets/imgs/levitated-sphere-icon.png');
+                background-position: center center;
+                background-size: 100% 100%;
+            }
+            .content {
+                $content_height: 3.4rem;
+                $radius: calc($content_height / 2);
+                position: absolute;
+                z-index: 1;
+                // width: 0;
+                right: 50%;
+                bottom: 0;
+                width: 0rem;
+                height: $content_height;
+                white-space: nowrap;
+                overflow: hidden;
+                font-size: 1rem;
+                color: #fff;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                border-radius: $radius 0 0 $radius;
+                border: 0.1rem solid transparent;
+                background-clip: content-box, border-box;
+                background-origin: content-box, border-box;
+                background-image: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+                    linear-gradient(to right, rgba(255, 231, 107, 1), rgba(38, 177, 255, 1));
+
+                @keyframes content_animate {
+                    0% {
+                        width: 0rem;
+                    }
+                    100% {
+                        width: 12rem;
+                    }
+                }
+                @keyframes content_animate_reverse {
+                    0% {
+                        width: 12rem;
+                    }
+                    100% {
+                        width: 0rem;
+                    }
+                }
+
+                animation-name: content_animate, content_animate_reverse;
+                animation-duration: 0.5s, 0.5s;
+                animation-timing-function: ease-in-out, ease-in-out;
+                animation-delay: 0s, 4s;
+                animation-direction: normal, normal;
+                animation-fill-mode: forwards, forwards;
+
+                span {
+                    margin-left: 1rem;
+                    background-clip: text;
+                    background-image: linear-gradient(to right, rgba(255, 231, 107, 1), rgba(38, 177, 255, 1));
+                    color: transparent;
+                    opacity: 0;
+
+                    animation-name: text_animate, text_animate;
+                    animation-duration: 0.2s, 0.2s;
+                    animation-timing-function: ease-in-out, ease-in-out;
+                    animation-delay: 0.3s, 4s;
+                    animation-direction: normal, reverse;
+                    animation-fill-mode: forwards, forwards;
+
+                    @keyframes text_animate {
+                        0% {
+                            opacity: 0;
+                        }
+                        100% {
+                            opacity: 1;
+                        }
+                    }
+                }
+
+                &.paused {
+                    display: none;
+                    span {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

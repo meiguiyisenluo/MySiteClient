@@ -18,6 +18,7 @@ const HomePage: React.FC = () => {
                     const plain = Math.random() > 0.5
                     const hairline = Math.random() > 0.5
                     return (
+                        _.path !== '/' &&
                         _.authority && (
                             <Button
                                 key={_.path}

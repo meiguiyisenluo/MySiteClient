@@ -9,7 +9,9 @@ const SassStar: React.FC = () => {
             <div className={`${styles.layer3}`}></div>
             <div className={`${styles.layer4}`}></div>
             <div className={`${styles.layer5}`}></div>
-            <div className={`${styles.layer6}`}>Sass 星空</div>
+            <div className={`${styles.layer6}`}>
+                <span>Sass 星空</span>
+            </div>
         </div>
     )
 }
