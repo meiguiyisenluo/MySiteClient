@@ -7,11 +7,18 @@
     box-sizing: border-box;
     background-color: rgb(246, 248, 252);
 
+    #tsparticles{
+        position: fixed;
+        left: 0;
+        top: 0;
+    }
+
     .btns {
         width: 100%;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
+        padding-top: 3rem;
         button {
             margin-bottom: 0.5rem;
         }

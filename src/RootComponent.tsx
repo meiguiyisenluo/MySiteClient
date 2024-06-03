@@ -31,7 +31,21 @@ export const ROUTES: Array<RouteObj> = [
     { path: '/testPage', name: '测试', authority: isDebug, order: 0, lazy: () => import('@/pages/TestPage/index') },
     { path: '/browserDetect', name: '浏览器检测', authority: true, order: 0, lazy: () => import('@/pages/BrowserDetect/index') },
     { path: '/browserFingerprint', name: '浏览器指纹', authority: true, order: 0, lazy: () => import('@/pages/BrowserFingerprint/index') },
-    { path: '/', name: '首页', authority: true, order: 9999, element: <HomePage /> },
+    {
+        path: '/',
+        name: '首页',
+        authority: true,
+        order: 9999,
+        element: <HomePage />,
+        // showName: false,
+        fixed: true,
+        border: false,
+        vantCssVars: {
+            '--rv-nav-bar-background-color': 'transparent',
+            // '--rv-nav-bar-icon-color': '#fff',
+            // '--rv-nav-bar-title-text-color': '#fff'
+        }
+    },
     { path: '/networkAbout', name: '网络测试', authority: true, order: 9999, lazy: async () => import('@/pages/NetWorkAbout/index') },
     { path: '/faceSymmetry', name: '脸对称测试', authority: true, order: 9999, lazy: () => import('@/pages/FaceSymmetry/FaceSymmetry') },
     { path: '/autoSound', name: '速读', authority: true, order: 9999, lazy: () => import('@/pages/AutoSound/AutoSound') },
