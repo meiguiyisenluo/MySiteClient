@@ -1,18 +1,3 @@
-console.log(`L                         L
-L                         LLL              LLLL                        LLLLLLLLL
-L                           LLL          LLL                        LLLL
-L                             LLL     LLLL                          L
-L                               LL  LLL                              LL
-L                                LLLL                                  LLLLLL
-L                                  L                                        LLLL
-L                                  L                                           L
-LL       LLLLLLLL                  L                                           L
-  LLLLLLL                          LL                                         LL
-                                   LL                              LL      LLLL
-                                   L                                LLLLLLLL
-                                   L
-                                   L`)
-
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 
@@ -21,6 +6,11 @@ import * as serviceWorker from './serviceWorker'
 
 import { csrftoken } from '@/resources/api-constants'
 import { SESSION_STORAGE } from '@/resources/constants'
+
+import { isProd } from '@/utility/env'
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+if (isProd) console.log = () => {}
 
 const container = document.getElementById('root')
 if (container) {

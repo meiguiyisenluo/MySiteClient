@@ -47,11 +47,8 @@ const OmgTV: React.FC = () => {
         }
 
         peer.current.ontrack = (e) => {
-            console.log('ontrack')
             if (e && e.streams) {
-                console.log(e.streams)
                 if (themVideo.current) {
-                    console.log(themVideo.current)
                     themVideo.current.srcObject = null
                     themVideo.current.srcObject = e.streams[0]
                 }
@@ -98,7 +95,6 @@ const OmgTV: React.FC = () => {
 
         socket.current.on('connect_error', () => {
             // ...
-            console.log('connect_error')
         })
 
         socket.current.on('disconnect', () => {

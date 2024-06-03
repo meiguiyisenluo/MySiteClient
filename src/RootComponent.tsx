@@ -3,18 +3,13 @@ import { RouterProvider, createHashRouter, useLocation, useNavigate, RouteObject
 import HomePage from '@/pages/HomePage/HomePage'
 import NotFoundPage from './pages/NotFoundPage'
 import { NavBar, Loading, Button } from 'react-vant'
-import UAParser from 'ua-parser-js'
 import './styles/main.sass'
 import './styles/vant-custom.css'
 
 import { useAppDispatch } from '@/store/reducers/store'
 import { setBrowserInfo } from '@/store/actions/data'
 
-const result = new UAParser().getResult()
-const isMobile = result.device.type === 'mobile'
-
-const isProd = process.env.NODE_ENV === 'production'
-const isDebug = !isProd || !(!/eruda=true/.test(window.location.href) && localStorage.getItem('active-eruda') != 'true')
+import { isDebug, isMobile, ua } from '@/utility/env'
 
 export type RouteObj = RouteObject & {
     path: string
@@ -41,9 +36,7 @@ export const ROUTES: Array<RouteObj> = [
         fixed: true,
         border: false,
         vantCssVars: {
-            '--rv-nav-bar-background-color': 'transparent',
-            // '--rv-nav-bar-icon-color': '#fff',
-            // '--rv-nav-bar-title-text-color': '#fff'
+            '--rv-nav-bar-background-color': 'transparent'
         }
     },
     { path: '/networkAbout', name: '网络测试', authority: true, order: 9999, lazy: async () => import('@/pages/NetWorkAbout/index') },
@@ -102,7 +95,7 @@ for (const key in ROUTES) {
 const RootComponent: React.FC = () => {
     const dispatch = useAppDispatch()
     useEffect(() => {
-        dispatch(setBrowserInfo(result))
+        dispatch(setBrowserInfo(ua))
     }, [dispatch])
     return <RouterProvider router={router} fallbackElement={<CustomLoading />} />
 }

@@ -23,7 +23,6 @@ const Youdaofanyi: React.FC = () => {
         youdaoTranslate(data)
             .then((res) => {
                 if (res.status !== 200) return
-                console.log(res.data.matches)
                 setResult(res.data.matches)
             })
             .catch((err) => {

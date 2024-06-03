@@ -11,12 +11,28 @@
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
   <title>React App</title>
   <script>
-    ; (function () {
-      var src = '//cdn.jsdelivr.net/npm/eruda';
-      if (!/eruda=true/.test(window.location) && localStorage.getItem('active-eruda') != 'true') return;
-      document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
-      document.write('<scr' + 'ipt>eruda.init();</scr' + 'ipt>');
-    })();
+    console.log(`L                         L
+L                         LLL              LLLL                        LLLLLLLLL
+L                           LLL          LLL                        LLLL
+L                             LLL     LLLL                          L
+L                               LL  LLL                              LL
+L                                LLLL                                  LLLLLL
+L                                  L                                        LLLL
+L                                  L                                           L
+LL       LLLLLLLL                  L                                           L
+  LLLLLLL                          LL                                         LL
+                                   LL                              LL      LLLL
+                                   L                                LLLLLLLL
+                                   L
+                                   L`)
+  </script>
+  <script>
+      ; (function () {
+        var src = '//cdn.jsdelivr.net/npm/eruda';
+        if (!/eruda=true/.test(window.location) && localStorage.getItem('active-eruda') != 'true') return;
+        document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
+        document.write('<scr' + 'ipt>eruda.init();</scr' + 'ipt>');
+      })();
   </script>
 </head>
 

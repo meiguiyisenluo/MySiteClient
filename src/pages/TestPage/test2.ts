@@ -45,11 +45,12 @@ const obj: {
 
 const watcher = watch(obj)
 watcher.on('ageChanged', (oldValue, newValue) => {
-    console.log(oldValue, newValue)
+    oldValue
+    newValue
 })
 
 obj.name = 'lys'
 obj.name = 'hys'
-console.log(obj)
+obj
 
 export default {}

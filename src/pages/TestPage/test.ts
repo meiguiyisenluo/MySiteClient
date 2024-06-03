@@ -11,14 +11,14 @@ function setDatas(obj: Partial<SrcObjTypes>) {
     Object.assign(srcObj, obj)
 }
 setDatas({ age: 28, name: 'yxy' })
-console.log(srcObj)
+srcObj
 
 function setData<K extends keyof SrcObjTypes>(key: K, val: SrcObjTypes[K]) {
     srcObj[key] = val
 }
 setData('age', 28)
 setData('name', 'hys')
-console.log(srcObj)
+srcObj
 
 type SetObjTypes = {
     [K in keyof SrcObjTypes]: (e: SrcObjTypes[K]) => void
@@ -33,4 +33,4 @@ const setObj: SetObjTypes = {
 }
 setObj.name('lys')
 setObj.age(27)
-console.log(srcObj)
+srcObj
