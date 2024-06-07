@@ -72,7 +72,7 @@ export const ROUTES: Array<RouteObj> = [
         path: '/jay',
         order: 9999,
         name: '周杰伦',
-        authority: true,
+        authority: false,
         showName: false,
         fixed: true,
         border: false,
