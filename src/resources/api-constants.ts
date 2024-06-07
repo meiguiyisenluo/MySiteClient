@@ -2,6 +2,10 @@ import CustomAxios from '@/utility/customAxios.ts'
 
 type AxiosData = { [key: string]: string | number }
 
+export const testApi = (data: AxiosData = {}) => {
+    return CustomAxios.get('/500test', data)
+}
+
 export const youdaoTranslate = (data: AxiosData = {}) => {
     return CustomAxios.post('/fanyi/translate', data)
 }
