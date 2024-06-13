@@ -9,14 +9,8 @@ const TestPage: React.FC = () => {
     return (
         <div className={`page ${styles.container}`}>
             <picture className={styles.picture}>
-                <source
-                    srcSet="https://img.youpin.mi-img.com/ferriswheel/2f2df8b7_fccf_4a3d_bf3d_c75fcb21944b.jpeg@base@tag=imgScale&F=webp&h=1320&q=90&w=1080"
-                    media="(max-width: 800px)"
-                />
-                <img
-                    src="https://img.youpin.mi-img.com/ferriswheel/46dfafbe_a492_4593_9766_b5c2de0de890.jpeg@base@tag=imgScale&F=webp&h=1080&q=90&w=2560"
-                    alt=""
-                />
+                <source srcSet="https://luoyisen.com/share/imgs/xiaomisu7/01.jpeg@base@tag=imgScale&F=webp&h=1320&q=90&w=1080" media="(max-width: 800px)" />
+                <img src="https://luoyisen.com/share/imgs/xiaomisu7/02.jpeg@base@tag=imgScale&F=webp&h=1080&q=90&w=2560" alt="" />
             </picture>
         </div>
     )
