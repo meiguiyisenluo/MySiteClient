@@ -1,0 +1,13 @@
+.container {
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .picture {
+        width: 80%;
+        -webkit-box-reflect: below 0px linear-gradient(transparent, transparent, black);
+        img {
+            width: 100%;
+        }
+    }
+}

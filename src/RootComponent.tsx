@@ -53,6 +53,7 @@ export const ROUTES: Array<RouteObj> = [
     { path: '/scrollSnapType', name: 'scrollSnapType轮播图', authority: true, order: 9999, lazy: () => import('@/pages/ScrollSnapType/index') },
     { path: '/svgStrokeAnimation', name: 'svg描边动画', authority: true, order: 9999, lazy: () => import('@/pages/SvgStrokeAnimation/index') },
     { path: '/categoryStyle', name: '通讯录分类效果', authority: true, order: 9999, lazy: () => import('@/pages/CategoryStyle/index') },
+    { path: '/xiaomisu7', name: '小米SU7', authority: true, order: 9999, lazy: () => import('@/pages/MISU7/index') },
     {
         path: '/sassStar',
         name: 'Sass 星空',
