@@ -32,7 +32,6 @@ const OmgTV: React.FC = () => {
     const startSignaling = async (remoteOffer: any) => {
         peer.current = new RTCPeerConnection({
             iceServers: [
-                { urls: 'stun:luoyisen.com:3478' },
                 { urls: 'stun:stun.l.google.com:19302' },
                 { urls: 'stun:stun1.l.google.com:19302' },
                 { urls: 'stun:stun2.l.google.com:19302' },
@@ -154,8 +153,8 @@ const OmgTV: React.FC = () => {
     return (
         <div className={`page ${styles.container}`}>
             <div className={styles.videos}>
-                <video autoPlay ref={themVideo} className="them"></video>
-                <video autoPlay ref={meVideo} className={styles.me}></video>
+                <video autoPlay muted ref={themVideo} className="them"></video>
+                <video autoPlay muted ref={meVideo} className={styles.me}></video>
             </div>
             <div className={styles.controls}>
                 <div className="shower">
