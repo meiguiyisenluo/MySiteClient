@@ -30,7 +30,18 @@ const OmgTV: React.FC = () => {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const startSignaling = async (remoteOffer: any) => {
-        peer.current = new RTCPeerConnection()
+        peer.current = new RTCPeerConnection({
+            iceServers: [
+                { urls: 'stun:luoyisen.com:3478' },
+                { urls: 'stun:stun.l.google.com:19302' },
+                { urls: 'stun:stun1.l.google.com:19302' },
+                { urls: 'stun:stun2.l.google.com:19302' },
+                { urls: 'stun:stun.services.mozilla.com' },
+                { urls: 'stun:stun.stunprotocol.org:3478' },
+                { urls: 'stun:stun.sipgate.net:3478' },
+                { urls: 'stun:stun.ideasip.com:3478' }
+            ]
+        })
         stream.current = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
         if (meVideo.current) {
             meVideo.current.srcObject = null
