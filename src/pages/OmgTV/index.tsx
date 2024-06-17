@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { Toast, Button } from 'react-vant'
 import { io, Socket } from 'socket.io-client'
 import styles from './index.module.scss'
@@ -24,77 +24,109 @@ const OmgTV: React.FC = () => {
         socket.current?.emit('match')
     }
 
-    const leaveRoom = () => {
+    const leaveRoom = useCallback(() => {
+        stopVideo()
         socket.current?.emit('leaveRoom')
-    }
+    }, [])
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const startSignaling = async (remoteOffer: any) => {
-        peer.current = new RTCPeerConnection({
-            iceServers: [
+    const startSignaling = useCallback(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        async (remoteOffer: any) => {
+            peer.current = new RTCPeerConnection({
+                iceServers: [
+                    // { urls: 'stun:stun.l.google.com:19302' },
+                    // { urls: 'stun:stun1.l.google.com:19302' },
+                    // { urls: 'stun:stun2.l.google.com:19302' },
+                    // { urls: 'stun:stun.services.mozilla.com' },
+                    // { urls: 'stun:stun.stunprotocol.org:3478' },
+                    // { urls: 'stun:stun.sipgate.net:3478' },
+                    // { urls: 'stun:stun.ideasip.com:3478' },
 
-                // { urls: 'stun:stun.l.google.com:19302' },
-                // { urls: 'stun:stun1.l.google.com:19302' },
-                // { urls: 'stun:stun2.l.google.com:19302' },
-                // { urls: 'stun:stun.services.mozilla.com' },
-                // { urls: 'stun:stun.stunprotocol.org:3478' },
-                // { urls: 'stun:stun.sipgate.net:3478' },
-                // { urls: 'stun:stun.ideasip.com:3478' },
+                    { urls: 'stun:luoyisen.com:3478' },
+                    {
+                        urls: 'turn:luoyisen.com:3478',
+                        username: 'lys',
+                        credential: '123'
+                    }
+                ]
+            })
 
-                { urls: 'stun:154.201.80.6:3478' },
-                {
-                    urls: 'turn:154.201.80.6:3478',
-                    username: 'lys',
-                    credential: '123'
-                },
-            ]
-        })
-        stream.current = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-        if (meVideo.current) {
-            meVideo.current.srcObject = null
-            meVideo.current.srcObject = stream.current
-        }
-        stream.current.getTracks().forEach((track) => {
-            peer.current?.addTrack(track, stream.current as MediaStream)
-        })
-
-        peer.current.onicecandidate = (e) => {
-            if (e.candidate) {
-                socket.current?.emit('webrtc signaling', { type: 'candidate', payload: e.candidate })
+            stream.current = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+            if (meVideo.current) {
+                meVideo.current.srcObject = null
+                meVideo.current.srcObject = stream.current
             }
-        }
+            stream.current.getTracks().forEach((track) => {
+                peer.current?.addTrack(track, stream.current as MediaStream)
+            })
 
-        peer.current.ontrack = (e) => {
-            if (e && e.streams) {
-                if (themVideo.current) {
-                    themVideo.current.srcObject = null
-                    themVideo.current.srcObject = e.streams[0]
+            peer.current.onicecandidate = (e) => {
+                if (e.candidate) {
+                    socket.current?.emit('webrtc signaling', { type: 'candidate', payload: e.candidate })
                 }
-                setStatus(3)
             }
-        }
 
-        if (!remoteOffer) {
-            const offer = await peer.current?.createOffer()
-            peer.current.setLocalDescription(offer)
-            socket.current?.emit('webrtc signaling', { type: 'offer', payload: offer })
-        } else {
-            await peer.current.setRemoteDescription(remoteOffer)
-            const answer = await peer.current.createAnswer()
-            peer.current.setLocalDescription(answer)
-            socket.current?.emit('webrtc signaling', { type: 'answer', payload: answer })
-        }
-    }
+            peer.current.ontrack = (e) => {
+                if (e?.streams) {
+                    if (themVideo.current) {
+                        themVideo.current.srcObject = null
+                        themVideo.current.srcObject = e.streams[0]
+                    }
+                }
+            }
+
+            peer.current.onconnectionstatechange = function () {
+                switch (peer.current?.connectionState) {
+                    case 'new':
+                        break
+                    case 'connecting':
+                        setStatus(2)
+                        break
+                    case 'connected':
+                        setStatus(3)
+                        break
+                    case 'disconnected':
+                    case 'closed':
+                    case 'failed':
+                        Toast('连线失败')
+                        setTimeout(leaveRoom, 1000)
+                        break
+                    default:
+                        break
+                }
+            }
+
+            peer.current.onicecandidateerror = function (e) {
+                console.log('onicecandidateerror', e.errorText)
+                Toast('连线失败')
+                setTimeout(leaveRoom, 1000)
+            }
+
+            if (!remoteOffer) {
+                const offer = await peer.current?.createOffer()
+                peer.current.setLocalDescription(offer)
+                socket.current?.emit('webrtc signaling', { type: 'offer', payload: offer })
+            } else {
+                await peer.current.setRemoteDescription(remoteOffer)
+                const answer = await peer.current.createAnswer()
+                peer.current.setLocalDescription(answer)
+                socket.current?.emit('webrtc signaling', { type: 'answer', payload: answer })
+            }
+        },
+        [leaveRoom]
+    )
 
     const stopVideo = () => {
         if (meVideo.current) meVideo.current.srcObject = null
         if (themVideo.current) themVideo.current.srcObject = null
         peer.current?.close()
+        peer.current = null
         stream.current?.getTracks().forEach((track) => track.stop())
+        stream.current = null
     }
 
     useEffect(() => {
-        if (!window.RTCPeerConnection || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        if (!window.RTCPeerConnection || !navigator.mediaDevices?.getUserMedia) {
             Toast.fail('浏览器不支持，请切换浏览器')
             return
         }
@@ -132,8 +164,9 @@ const OmgTV: React.FC = () => {
         })
 
         socket.current.on('leaveRoom', () => {
-            setStatus(0)
             stopVideo()
+            Toast('已离开房间')
+            setStatus(0)
         })
 
         socket.current.on('webrtc signaling', (data) => {
@@ -156,7 +189,7 @@ const OmgTV: React.FC = () => {
             socket.current?.disconnect()
             stopVideo()
         }
-    }, [])
+    }, [startSignaling])
 
     return (
         <div className={`page ${styles.container}`}>
@@ -172,9 +205,14 @@ const OmgTV: React.FC = () => {
                     <Button type="primary" disabled={status != 0} loading={status === 1} onClick={startMatch}>
                         开始匹配
                     </Button>
-                    <Button type="danger" disabled={status !== 3} onClick={leaveRoom}>
+                    <Button type="danger" disabled={status < 2} onClick={leaveRoom}>
                         离开
                     </Button>
+                    <br />
+                    {status === 0 && <span>请开始匹配</span>}
+                    {status === 1 && <span>匹配中...</span>}
+                    {status === 2 && <span>匹配成功，连线中,请稍等...</span>}
+                    {status === 3 && <span>连线成功</span>}
                 </div>
             </div>
         </div>

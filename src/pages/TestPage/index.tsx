@@ -5,6 +5,9 @@ testApi1()
     .then((res) => console.log(res))
     .catch((err) => console.log(err))
 
+// const reg = /(?<!\d)\d{11}(?!\d)/
+// alert(reg.test('0123456789012'))
+
 const TestPage: React.FC = () => {
     return (
         <div className={`page ${styles.container}`}>
