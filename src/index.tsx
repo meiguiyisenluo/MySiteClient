@@ -7,10 +7,10 @@ import * as serviceWorker from './serviceWorker'
 import { csrftoken } from '@/resources/api-constants'
 import { SESSION_STORAGE } from '@/resources/constants'
 
-import { isProd } from '@/utility/env'
+import { isDebug } from '@/utility/env'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-if (isProd) console.log = () => {}
+if (!isDebug) console.log = () => {}
 
 const container = document.getElementById('root')
 if (container) {

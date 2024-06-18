@@ -51,10 +51,18 @@ const OmgTV: React.FC = () => {
                 ]
             })
 
-            stream.current = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+            const tempStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true }).catch(() => {
+                Toast.fail('打开摄像头失败')
+                setTimeout(leaveRoom, 2000)
+                return null
+            })
+            if (!tempStream) return
+            stream.current = tempStream
             if (meVideo.current) {
                 meVideo.current.srcObject = null
                 meVideo.current.srcObject = stream.current
+                meVideo.current.load()
+                meVideo.current.play()
             }
             stream.current.getTracks().forEach((track) => {
                 peer.current?.addTrack(track, stream.current as MediaStream)
@@ -71,11 +79,14 @@ const OmgTV: React.FC = () => {
                     if (themVideo.current) {
                         themVideo.current.srcObject = null
                         themVideo.current.srcObject = e.streams[0]
+                        themVideo.current.load()
+                        themVideo.current.play()
                     }
                 }
             }
 
             peer.current.onconnectionstatechange = function () {
+                console.log('onconnectionstatechange', peer.current?.connectionState)
                 switch (peer.current?.connectionState) {
                     case 'new':
                         break
@@ -88,8 +99,8 @@ const OmgTV: React.FC = () => {
                     case 'disconnected':
                     case 'closed':
                     case 'failed':
-                        Toast('连线失败')
-                        setTimeout(leaveRoom, 1000)
+                        Toast.fail('连线失败')
+                        setTimeout(leaveRoom, 2000)
                         break
                     default:
                         break
@@ -98,8 +109,8 @@ const OmgTV: React.FC = () => {
 
             peer.current.onicecandidateerror = function (e) {
                 console.log('onicecandidateerror', e.errorText)
-                Toast('连线失败')
-                setTimeout(leaveRoom, 1000)
+                Toast.fail('连线失败')
+                setTimeout(leaveRoom, 2000)
             }
 
             if (!remoteOffer) {
@@ -194,8 +205,8 @@ const OmgTV: React.FC = () => {
     return (
         <div className={`page ${styles.container}`}>
             <div className={styles.videos}>
-                <video autoPlay muted ref={themVideo} className="them"></video>
-                <video autoPlay muted ref={meVideo} className={styles.me}></video>
+                <video autoPlay ref={themVideo} className="them"></video>
+                <video autoPlay ref={meVideo} className={styles.me}></video>
             </div>
             <div className={styles.controls}>
                 <div className="shower">
