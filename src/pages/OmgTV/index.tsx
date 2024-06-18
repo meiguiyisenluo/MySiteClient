@@ -99,7 +99,7 @@ const OmgTV: React.FC = () => {
                     case 'disconnected':
                     case 'closed':
                     case 'failed':
-                        Toast.fail('连线失败')
+                        socket.current?.emit('connectFailed')
                         setTimeout(leaveRoom, 2000)
                         break
                     default:
@@ -109,7 +109,8 @@ const OmgTV: React.FC = () => {
 
             peer.current.onicecandidateerror = function (e) {
                 console.log('onicecandidateerror', e.errorText)
-                Toast.fail('连线失败')
+
+                socket.current?.emit('connectFailed')
                 setTimeout(leaveRoom, 2000)
             }
 
@@ -178,6 +179,10 @@ const OmgTV: React.FC = () => {
             stopVideo()
             Toast('已离开房间')
             setStatus(0)
+        })
+
+        socket.current.on('connectFailed', () => {
+            Toast.fail('连线失败')
         })
 
         socket.current.on('webrtc signaling', (data) => {
