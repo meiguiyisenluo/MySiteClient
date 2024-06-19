@@ -24,8 +24,8 @@ export type RouteObj = RouteObject & {
 
 export const ROUTES: Array<RouteObj> = [
     { path: '/testPage', name: '测试', authority: isDebug, order: 0, lazy: () => import('@/pages/TestPage/index') },
-    { path: '/browserDetect', name: '浏览器检测', authority: true, order: 0, lazy: () => import('@/pages/BrowserDetect/index') },
-    { path: '/browserFingerprint', name: '浏览器指纹', authority: true, order: 0, lazy: () => import('@/pages/BrowserFingerprint/index') },
+    { path: '/browserDetect', name: '浏览器检测', authority: isDebug, order: 0, lazy: () => import('@/pages/BrowserDetect/index') },
+    { path: '/browserFingerprint', name: '浏览器指纹', authority: isDebug, order: 0, lazy: () => import('@/pages/BrowserFingerprint/index') },
     {
         path: '/',
         name: '首页',
@@ -43,7 +43,7 @@ export const ROUTES: Array<RouteObj> = [
     { path: '/faceSymmetry', name: '脸对称测试', authority: true, order: 9999, lazy: () => import('@/pages/FaceSymmetry/FaceSymmetry') },
     { path: '/autoSound', name: '速读', authority: true, order: 9999, lazy: () => import('@/pages/AutoSound/AutoSound') },
     { path: '/fanyi', name: '翻译', authority: true, order: 9999, lazy: () => import('@/pages/Fanyi/index') },
-    { path: '/omgTv', name: 'OmgTV', authority: true, order: 9999, lazy: () => import('@/pages/OmgTV/index') },
+    { path: '/omgTv', name: 'OmgTV', authority: true, order: 1, lazy: () => import('@/pages/OmgTV/index') },
     { path: '/wechatFeat', name: '微信功能', authority: true, order: 9999, lazy: () => import('@/pages/WechatFeat/index') },
     { path: '/guestNumber', name: '猜数字', authority: true, order: 9999, lazy: () => import('@/pages/GuestNumber/index') },
     { path: '/flowBorder', name: '流动边框', authority: true, order: 9999, lazy: () => import('@/pages/FlowBorder/index') },
