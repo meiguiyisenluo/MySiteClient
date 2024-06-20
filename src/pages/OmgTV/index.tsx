@@ -3,6 +3,11 @@ import { Toast, Button, NoticeBar } from 'react-vant'
 import { io, Socket } from 'socket.io-client'
 import styles from './index.module.scss'
 
+const ctx = new AudioContext()
+const canAutoPlay = ctx.state === 'running'
+ctx.close()
+if (!canAutoPlay) alert('由于浏览器原因，您可能需要手动关闭静音')
+
 const OmgTV: React.FC = () => {
     /**
      * 0：初始状态
@@ -47,6 +52,32 @@ const OmgTV: React.FC = () => {
                         urls: 'turn:luoyisen.com:3478',
                         username: 'lys',
                         credential: '123'
+                    },
+
+                    {
+                        urls: 'turn:numb.viagenie.ca',
+                        credential: 'muazkh',
+                        username: 'webrtc@live.com'
+                    },
+                    {
+                        urls: 'turn:192.158.29.39:3478?transport=udp',
+                        credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+                        username: '28224511:1379330808'
+                    },
+                    {
+                        urls: 'turn:192.158.29.39:3478?transport=tcp',
+                        credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+                        username: '28224511:1379330808'
+                    },
+                    {
+                        urls: 'turn:turn.bistri.com:80',
+                        credential: 'homeo',
+                        username: 'homeo'
+                    },
+                    {
+                        urls: 'turn:turn.anyfirewall.com:443?transport=tcp',
+                        credential: 'webrtc',
+                        username: 'webrtc'
                     }
                 ]
             })
@@ -61,8 +92,6 @@ const OmgTV: React.FC = () => {
             if (meVideo.current) {
                 meVideo.current.srcObject = null
                 meVideo.current.srcObject = stream.current
-                meVideo.current.load()
-                meVideo.current.play()
             }
             stream.current.getTracks().forEach((track) => {
                 peer.current?.addTrack(track, stream.current as MediaStream)
@@ -79,8 +108,6 @@ const OmgTV: React.FC = () => {
                     if (themVideo.current) {
                         themVideo.current.srcObject = null
                         themVideo.current.srcObject = e.streams[0]
-                        themVideo.current.load()
-                        themVideo.current.play()
                     }
                 }
             }
@@ -211,8 +238,8 @@ const OmgTV: React.FC = () => {
         <div className={`page ${styles.container}`}>
             <NoticeBar text="此功能由纯webrtc实现，配合socket.io作为信令服务器以及coturn作为stun/turn服务器，现阶段通信成功率仍不理想，加上匹配机制为相邻两次点击匹配的两人进行连线，如果连线成功，说明你们双方真的非常有缘" />
             <div className={styles.videos}>
-                <video autoPlay muted controls ref={themVideo} className="them"></video>
-                <video autoPlay muted controls ref={meVideo} className={styles.me}></video>
+                <video playsInline autoPlay muted={!canAutoPlay} controls ref={themVideo} className="them"></video>
+                <video playsInline autoPlay muted={!canAutoPlay} controls ref={meVideo} className={styles.me}></video>
             </div>
             <div className={styles.controls}>
                 <div className="shower">
