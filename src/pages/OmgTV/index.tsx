@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { Toast, Button, NoticeBar } from 'react-vant'
 import { io, Socket } from 'socket.io-client'
 import styles from './index.module.scss'
+import iceServers from './iceServers'
 
 const ctx = new AudioContext()
 const canAutoPlay = ctx.state === 'running'
@@ -38,48 +39,7 @@ const OmgTV: React.FC = () => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         async (remoteOffer: any) => {
             peer.current = new RTCPeerConnection({
-                iceServers: [
-                    // { urls: 'stun:stun.l.google.com:19302' },
-                    // { urls: 'stun:stun1.l.google.com:19302' },
-                    // { urls: 'stun:stun2.l.google.com:19302' },
-                    // { urls: 'stun:stun.services.mozilla.com' },
-                    // { urls: 'stun:stun.stunprotocol.org:3478' },
-                    // { urls: 'stun:stun.sipgate.net:3478' },
-                    // { urls: 'stun:stun.ideasip.com:3478' },
-
-                    { urls: 'stun:luoyisen.com:3478' },
-                    {
-                        urls: 'turn:luoyisen.com:3478',
-                        username: 'lys',
-                        credential: '123'
-                    },
-
-                    {
-                        urls: 'turn:numb.viagenie.ca',
-                        credential: 'muazkh',
-                        username: 'webrtc@live.com'
-                    },
-                    {
-                        urls: 'turn:192.158.29.39:3478?transport=udp',
-                        credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
-                        username: '28224511:1379330808'
-                    },
-                    {
-                        urls: 'turn:192.158.29.39:3478?transport=tcp',
-                        credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
-                        username: '28224511:1379330808'
-                    },
-                    {
-                        urls: 'turn:turn.bistri.com:80',
-                        credential: 'homeo',
-                        username: 'homeo'
-                    },
-                    {
-                        urls: 'turn:turn.anyfirewall.com:443?transport=tcp',
-                        credential: 'webrtc',
-                        username: 'webrtc'
-                    }
-                ]
+                iceServers
             })
 
             const tempStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true }).catch(() => {
@@ -137,8 +97,8 @@ const OmgTV: React.FC = () => {
             peer.current.onicecandidateerror = function (e) {
                 console.log('onicecandidateerror', e.errorText)
 
-                socket.current?.emit('connectFailed')
-                setTimeout(leaveRoom, 2000)
+                // socket.current?.emit('connectFailed')
+                // setTimeout(leaveRoom, 2000)
             }
 
             if (!remoteOffer) {
