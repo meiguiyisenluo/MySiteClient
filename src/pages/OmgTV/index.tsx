@@ -7,7 +7,6 @@ import iceServers from './iceServers'
 const ctx = new AudioContext()
 const canAutoPlay = ctx.state === 'running'
 ctx.close()
-if (!canAutoPlay) alert('由于浏览器原因，您可能需要手动关闭静音')
 
 const OmgTV: React.FC = () => {
     /**
@@ -31,7 +30,6 @@ const OmgTV: React.FC = () => {
     }
 
     const leaveRoom = useCallback(() => {
-        stopVideo()
         socket.current?.emit('leaveRoom')
     }, [])
 
@@ -44,7 +42,7 @@ const OmgTV: React.FC = () => {
 
             const tempStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true }).catch(() => {
                 Toast.fail('打开摄像头失败')
-                setTimeout(leaveRoom, 2000)
+                setTimeout(leaveRoom, 1000)
                 return null
             })
             if (!tempStream) return
@@ -58,6 +56,7 @@ const OmgTV: React.FC = () => {
             })
 
             peer.current.onicecandidate = (e) => {
+                console.log('onicecandidate', e)
                 if (e.candidate) {
                     socket.current?.emit('webrtc signaling', { type: 'candidate', payload: e.candidate })
                 }
@@ -84,10 +83,14 @@ const OmgTV: React.FC = () => {
                         setStatus(3)
                         break
                     case 'disconnected':
-                    case 'closed':
+                        Toast.fail('disconnected')
+                        setTimeout(leaveRoom, 1000)
+                        break
                     case 'failed':
-                        socket.current?.emit('connectFailed')
-                        setTimeout(leaveRoom, 2000)
+                        Toast.fail('failed')
+                        setTimeout(leaveRoom, 1000)
+                        break
+                    case 'closed':
                         break
                     default:
                         break
@@ -96,9 +99,6 @@ const OmgTV: React.FC = () => {
 
             peer.current.onicecandidateerror = function (e) {
                 console.log('onicecandidateerror', e.errorText)
-
-                // socket.current?.emit('connectFailed')
-                // setTimeout(leaveRoom, 2000)
             }
 
             if (!remoteOffer) {
@@ -118,10 +118,18 @@ const OmgTV: React.FC = () => {
     const stopVideo = () => {
         if (meVideo.current) meVideo.current.srcObject = null
         if (themVideo.current) themVideo.current.srcObject = null
-        peer.current?.close()
-        peer.current = null
         stream.current?.getTracks().forEach((track) => track.stop())
         stream.current = null
+    }
+
+    const closePeer = () => {
+        peer.current?.close()
+        peer.current = null
+    }
+
+    const unMuted = () => {
+        if (meVideo.current) meVideo.current.muted = false
+        if (themVideo.current) themVideo.current.muted = false
     }
 
     useEffect(() => {
@@ -143,11 +151,14 @@ const OmgTV: React.FC = () => {
         })
 
         socket.current.on('connect_error', () => {
-            // ...
+            closePeer()
+            stopVideo()
         })
 
         socket.current.on('disconnect', () => {
             Toast('连接断开')
+            closePeer()
+            stopVideo()
         })
 
         socket.current.on('userCount', setUserCount)
@@ -163,6 +174,7 @@ const OmgTV: React.FC = () => {
         })
 
         socket.current.on('leaveRoom', () => {
+            closePeer()
             stopVideo()
             Toast('已离开房间')
             setStatus(0)
@@ -190,16 +202,17 @@ const OmgTV: React.FC = () => {
 
         return () => {
             socket.current?.disconnect()
+            closePeer()
             stopVideo()
         }
     }, [startSignaling])
 
     return (
         <div className={`page ${styles.container}`}>
-            <NoticeBar text="此功能由纯webrtc实现，配合socket.io作为信令服务器以及coturn作为stun/turn服务器，现阶段通信成功率仍不理想，加上匹配机制为相邻两次点击匹配的两人进行连线，如果连线成功，说明你们双方真的非常有缘" />
+            <NoticeBar text="此功能由纯webrtc实现，配合socket.io作为信令服务器以及coturn作为stun/turn服务器，由于一些浏览器的原因，可能需要你手动打开声音" />
             <div className={styles.videos}>
-                <video playsInline autoPlay muted={!canAutoPlay} controls ref={themVideo} className="them"></video>
-                <video playsInline autoPlay muted={!canAutoPlay} controls ref={meVideo} className={styles.me}></video>
+                <video playsInline autoPlay muted={!canAutoPlay} ref={themVideo} className="them"></video>
+                <video playsInline autoPlay muted={!canAutoPlay} ref={meVideo} className={styles.me}></video>
             </div>
             <div className={styles.controls}>
                 <div className="shower">
@@ -211,6 +224,9 @@ const OmgTV: React.FC = () => {
                     </Button>
                     <Button type="danger" onClick={leaveRoom}>
                         离开
+                    </Button>
+                    <Button type="danger" onClick={unMuted}>
+                        打开声音
                     </Button>
                     <br />
                     {status === 0 && <span>请开始匹配</span>}

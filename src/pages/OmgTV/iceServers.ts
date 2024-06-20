@@ -282,11 +282,6 @@ export default [
     { urls: 'stun:stunserver.org:3478' },
 
     { urls: 'stun:luoyisen.com:3478' },
-    {
-        urls: 'turn:luoyisen.com:3478',
-        username: 'lys',
-        credential: '123'
-    },
 
     {
         urls: 'turn:numb.viagenie.ca',
@@ -312,5 +307,10 @@ export default [
         urls: 'turn:turn.anyfirewall.com:443?transport=tcp',
         credential: 'webrtc',
         username: 'webrtc'
+    },
+    {
+        urls: 'turn:luoyisen.com:3478',
+        username: 'lys',
+        credential: '123'
     }
 ]
