@@ -9,19 +9,6 @@ export const testApi1 = () => {
         method: 'get'
     })
 }
-export const testApi2 = () => {
-    return CustomAxios({
-        url: '/500test',
-        method: 'get'
-    })
-}
-
-export const test = () => {
-    return CustomAxios({
-        url: '/test',
-        method: 'get'
-    })
-}
 // -------------------- test end -----------------------------
 // 埋点
 export const report = (data: { event: 'total_pv' }) => {
