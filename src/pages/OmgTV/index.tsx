@@ -56,7 +56,6 @@ const OmgTV: React.FC = () => {
             })
 
             peer.current.onicecandidate = (e) => {
-                console.log('onicecandidate', e)
                 if (e.candidate) {
                     socket.current?.emit('webrtc signaling', { type: 'candidate', payload: e.candidate })
                 }
@@ -71,20 +70,45 @@ const OmgTV: React.FC = () => {
                 }
             }
 
-            peer.current.onconnectionstatechange = function () {
-                console.log('onconnectionstatechange', peer.current?.connectionState)
-                switch (peer.current?.connectionState) {
+            // peer.current.onconnectionstatechange = function () {
+            //     console.log('onconnectionstatechange', peer.current?.connectionState)
+            //     switch (peer.current?.connectionState) {
+            //         case 'new':
+            //             break
+            //         case 'connecting':
+            //             setStatus(2)
+            //             break
+            //         case 'connected':
+            //             setStatus(3)
+            //             break
+            //         case 'disconnected':
+            //             Toast.fail('disconnected, please wait...')
+            //             break
+            //         case 'failed':
+            //             Toast.fail('failed')
+            //             setTimeout(leaveRoom, 1000)
+            //             break
+            //         case 'closed':
+            //             break
+            //         default:
+            //             break
+            //     }
+            // }
+
+            peer.current.oniceconnectionstatechange = function () {
+                console.log('oniceconnectionstatechange', peer.current?.iceConnectionState)
+                switch (peer.current?.iceConnectionState) {
                     case 'new':
                         break
-                    case 'connecting':
-                        setStatus(2)
+                    case 'checking':
                         break
                     case 'connected':
+                        break
+                    case 'completed':
                         setStatus(3)
                         break
                     case 'disconnected':
-                        Toast.fail('disconnected')
-                        setTimeout(leaveRoom, 1000)
+                        Toast.fail('disconnected, please wait...')
                         break
                     case 'failed':
                         Toast.fail('failed')
@@ -95,10 +119,6 @@ const OmgTV: React.FC = () => {
                     default:
                         break
                 }
-            }
-
-            peer.current.onicecandidateerror = function (e) {
-                console.log('onicecandidateerror', e.errorText)
             }
 
             if (!remoteOffer) {

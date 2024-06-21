@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react'
 import { Cell, Input, Toast, Picker, Field, Button, Loading } from 'react-vant'
-import { youdaoTranslate } from '@/resources/api-constants'
+import { mymemoryTranslate } from '@/resources/api-constants'
 import styles from './index.module.scss'
 
 import img_01 from './assets/imgs/01.png'
@@ -20,7 +20,7 @@ const Youdaofanyi: React.FC = () => {
         if (!text) return
         const data = { text, langpair: langpair.join('|') }
         setLoading(true)
-        youdaoTranslate(data)
+        mymemoryTranslate(data)
             .then((res) => {
                 if (res.status !== 200) return
                 setResult(res.data.matches)
@@ -61,7 +61,7 @@ const Youdaofanyi: React.FC = () => {
                         }}
                     </Picker>
                     <div>
-                        <Button size="small" round type="primary" onClick={()=>spell(text)}>
+                        <Button size="small" round type="primary" onClick={() => spell(text)}>
                             朗读
                         </Button>
                         <Button size="small" round type="primary" disabled={loading} onClick={translate}>

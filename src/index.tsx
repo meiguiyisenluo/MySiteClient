@@ -9,8 +9,12 @@ import { SESSION_STORAGE } from '@/resources/constants'
 
 import { isDebug } from '@/utility/env'
 
+import { report } from '@/resources/api-constants'
+
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 if (!isDebug) console.log = () => {}
+
+report({ event: 'total_pv' })
 
 const container = document.getElementById('root')
 if (container) {

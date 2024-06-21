@@ -6,9 +6,9 @@ import { getIpv4, dnsResolve } from '@/resources/api-constants'
 import styles from './index.module.scss'
 
 export const loader = async () => {
-    const res = await getIpv4()
-    if (200 > res.status && res.status >= 300) return {}
-    else return res.data
+    return getIpv4()
+        .then((res) => res.data)
+        .catch(() => ({}))
 }
 
 const NetWorkAbout: React.FC = () => {

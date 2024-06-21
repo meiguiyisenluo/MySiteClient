@@ -11,6 +11,7 @@ CustomAxios.interceptors.response.use(
         return response
     },
     (error) => {
+        if (['/report'].includes(error.config.url)) return Promise.resolve()
         return Promise.reject(error)
     }
 )

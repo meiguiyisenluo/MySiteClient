@@ -1,32 +1,73 @@
 import CustomAxios from '@/utility/customAxios.ts'
 
-type AxiosData = { [key: string]: string | number }
+// type AxiosData = { [key: string]: string | number }
 
-// -------------------- test -----------------------------
-export const testApi1 = (data: AxiosData = {}) => {
-    return CustomAxios.get('/ipv4', data)
+// -------------------- test start -----------------------------
+export const testApi1 = () => {
+    return CustomAxios({
+        url: '/ipv4',
+        method: 'get'
+    })
 }
-export const testApi2 = (data: AxiosData = {}) => {
-    return CustomAxios.get('/500test', data)
-}
-// -------------------- test -----------------------------
-
-export const youdaoTranslate = (data: AxiosData = {}) => {
-    return CustomAxios.post('/fanyi/translate', data)
-}
-
-export const getIpv4 = (data: AxiosData = {}) => {
-    return CustomAxios.post('/networkAbout/ipv4', data)
+export const testApi2 = () => {
+    return CustomAxios({
+        url: '/500test',
+        method: 'get'
+    })
 }
 
-export const dnsResolve = (data: AxiosData = {}) => {
-    return CustomAxios.post('/networkAbout/dns-resolve', data)
+export const test = () => {
+    return CustomAxios({
+        url: '/test',
+        method: 'get'
+    })
+}
+// -------------------- test end -----------------------------
+// 埋点
+export const report = (data: { event: 'total_pv' }) => {
+    return CustomAxios({
+        url: '/report',
+        method: 'post',
+        data
+    })
+}
+// 统计数据
+export const statistics = () => {
+    return CustomAxios({
+        url: '/statistics',
+        method: 'get'
+    })
 }
 
-export const csrftoken = (data: AxiosData = {}) => {
-    return CustomAxios.get('/csrf-token', data)
+// 翻译
+export const mymemoryTranslate = (params: { text: string; langpair: string }) => {
+    return CustomAxios({
+        url: '/fanyi/translate',
+        method: 'get',
+        params
+    })
 }
 
-export const test = (data: AxiosData = {}) => {
-    return CustomAxios.get('/test', data)
+// 网络
+export const getIpv4 = () => {
+    return CustomAxios({
+        url: '/networkAbout/ipv4',
+        method: 'get'
+    })
+}
+
+export const dnsResolve = (data: { hostname: string }) => {
+    return CustomAxios({
+        url: '/networkAbout/dns-resolve',
+        method: 'get',
+        params: data
+    })
+}
+
+// csrf
+export const csrftoken = () => {
+    return CustomAxios({
+        url: '/csrf-token',
+        method: 'get'
+    })
 }

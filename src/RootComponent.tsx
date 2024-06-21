@@ -23,9 +23,11 @@ export type RouteObj = RouteObject & {
 }
 
 export const ROUTES: Array<RouteObj> = [
+    { path: '/statistics', name: '数据', authority: isDebug, order: 0, lazy: async () => import('@/pages/Statistics/index') },
     { path: '/testPage', name: '测试', authority: isDebug, order: 0, lazy: () => import('@/pages/TestPage/index') },
     { path: '/browserDetect', name: '浏览器检测', authority: isDebug, order: 0, lazy: () => import('@/pages/BrowserDetect/index') },
     { path: '/browserFingerprint', name: '浏览器指纹', authority: isDebug, order: 0, lazy: () => import('@/pages/BrowserFingerprint/index') },
+    { path: '/networkAbout', name: '网络测试', authority: isDebug, order: 0, lazy: async () => import('@/pages/NetWorkAbout/index') },
     {
         path: '/',
         name: '首页',
@@ -39,7 +41,6 @@ export const ROUTES: Array<RouteObj> = [
             '--rv-nav-bar-background-color': 'transparent'
         }
     },
-    { path: '/networkAbout', name: '网络测试', authority: true, order: 9999, lazy: async () => import('@/pages/NetWorkAbout/index') },
     { path: '/faceSymmetry', name: '脸对称测试', authority: true, order: 9999, lazy: () => import('@/pages/FaceSymmetry/FaceSymmetry') },
     { path: '/autoSound', name: '速读', authority: true, order: 9999, lazy: () => import('@/pages/AutoSound/AutoSound') },
     { path: '/fanyi', name: '翻译', authority: true, order: 9999, lazy: () => import('@/pages/Fanyi/index') },
