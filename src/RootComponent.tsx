@@ -56,6 +56,21 @@ export const ROUTES: Array<RouteObj> = [
     { path: '/categoryStyle', name: '通讯录分类效果', authority: true, order: 9999, lazy: () => import('@/pages/CategoryStyle/index') },
     { path: '/xiaomisu7', name: '小米SU7', authority: true, order: 9999, lazy: () => import('@/pages/MISU7/index') },
     {
+        path: '/IKE',
+        name: '艾克',
+        authority: true,
+        order: 9999,
+        lazy: () => import('@/pages/IKE/index'),
+        showName: false,
+        fixed: true,
+        border: false,
+        vantCssVars: {
+            '--rv-nav-bar-background-color': 'transparent',
+            '--rv-nav-bar-icon-color': '#fff',
+            '--rv-nav-bar-title-text-color': '#fff'
+        }
+    },
+    {
         path: '/sassStar',
         name: 'Sass 星空',
         authority: true,
