@@ -12,9 +12,9 @@ html, body {
     height: calc(100% - var(--rv-nav-bar-height));
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 800px) {
     html {
-        font-size: 14px;
+        font-size: 12px;
     }
 }
 

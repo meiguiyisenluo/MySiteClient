@@ -44,7 +44,6 @@ export const ROUTES: Array<RouteObj> = [
     { path: '/faceSymmetry', name: '脸对称测试', authority: true, order: 9999, lazy: () => import('@/pages/FaceSymmetry/FaceSymmetry') },
     { path: '/autoSound', name: '速读', authority: true, order: 9999, lazy: () => import('@/pages/AutoSound/AutoSound') },
     { path: '/fanyi', name: '翻译', authority: true, order: 9999, lazy: () => import('@/pages/Fanyi/index') },
-    { path: '/omgTv', name: 'OmgTV', authority: true, order: 1, lazy: () => import('@/pages/OmgTV/index') },
     { path: '/wechatFeat', name: '微信功能', authority: true, order: 9999, lazy: () => import('@/pages/WechatFeat/index') },
     { path: '/guestNumber', name: '猜数字', authority: true, order: 9999, lazy: () => import('@/pages/GuestNumber/index') },
     { path: '/flowBorder', name: '流动边框', authority: true, order: 9999, lazy: () => import('@/pages/FlowBorder/index') },
@@ -69,6 +68,22 @@ export const ROUTES: Array<RouteObj> = [
             '--rv-nav-bar-icon-color': '#fff',
             '--rv-nav-bar-title-text-color': '#fff'
         }
+    },
+    { path: '/omgTv', name: 'OmgTV', authority: true, order: 1, lazy: () => import('@/pages/OmgTV/index') },
+    {
+        path: '/nitingdedao',
+        order: 1,
+        name: '你听得到',
+        authority: true,
+        showName: false,
+        fixed: true,
+        border: false,
+        vantCssVars: {
+            '--rv-nav-bar-background-color': 'transparent',
+            '--rv-nav-bar-icon-color': '#fff',
+            '--rv-nav-bar-title-text-color': '#fff'
+        },
+        lazy: () => import('@/pages/Nitingdedao/index')
     },
     {
         path: '/sassStar',
