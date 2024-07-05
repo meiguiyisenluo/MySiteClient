@@ -2,6 +2,23 @@ import React, { useRef, useState } from 'react'
 import { PauseCircleO, PlayCircleO } from '@react-vant/icons'
 
 import styles from './index.module.scss'
+import lyric from './nitingdedao.lrc'
+
+console.log(
+    lyric.map((_) => {
+        const arr = _.time.split(':').map(Number).reverse()
+        let step = 1
+        const timestamp = arr.reduce((total, _) => {
+            const res = total + _ * step
+            step *= 60
+            return res
+        }, 0)
+        return {
+            ..._,
+            timestamp: timestamp - 3
+        }
+    })
+)
 
 import RatioWBox from '@/components/RatioWBox.tsx'
 
@@ -14,7 +31,10 @@ const srcObj = {
 }
 
 const Nitingdedao: React.FC = () => {
-    const [playing, setPlaying] = useState<boolean>(true)
+    const [playing, setPlaying] = useState<boolean>(false)
+
+    const [lrcIdx, setLrcIdx] = useState<number>(0)
+
     const [currentTime, setCurrentTime] = useState<number>(0)
     const [duration, setDuration] = useState<number>(0)
 
@@ -28,6 +48,11 @@ const Nitingdedao: React.FC = () => {
     const onTimeUpdate = () => {
         setCurrentTime(audioRef.current.currentTime)
         setDuration(audioRef.current.duration)
+        if (audioRef.current.currentTime > lyric[lrcIdx + 1]?.timestamp ?? 9999) {
+            setLrcIdx(lrcIdx + 1)
+        } else if (audioRef.current.currentTime <= lyric[0]?.timestamp ?? 0) {
+            setLrcIdx(0)
+        }
     }
 
     return (
@@ -91,7 +116,7 @@ const Nitingdedao: React.FC = () => {
                             <h3>{srcObj.author}</h3>
                         </div>
                         <canvas></canvas>
-                        <div className={styles.word}>有谁能比我知道</div>
+                        <div className={styles.word}>{lyric[lrcIdx].lyric}</div>
                     </div>
                 </div>
             </RatioWBox>

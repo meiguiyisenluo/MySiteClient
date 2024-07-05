@@ -17,14 +17,14 @@
         display: flex;
         backdrop-filter: blur(5px);
         .lf {
-            flex: 1;
+            width: 40%;
             display: flex;
             flex-direction: column;
             justify-content: space-around;
             align-items: center;
             .avatar {
                 margin-left: -25%;
-                width: 50%;
+                width: 60%;
                 position: relative;
                 .square,
                 .circle {
@@ -88,13 +88,13 @@
 
             .controls {
                 width: 80%;
-                margin-top: .5rem;
+                margin-top: 0.5rem;
                 .progress {
                     width: 100%;
                     height: 2px;
                     background-color: rgba($color: #fff, $alpha: 0.5);
                     .bar {
-                        width: 80%;
+                        width: 0%;
                         height: 100%;
                         background-color: rgba($color: #fff, $alpha: 0.9);
                         position: relative;
@@ -114,7 +114,7 @@
                 }
 
                 .btns {
-                    margin-top: 1rem;
+                    margin-top: .2rem;
                     font-size: 2rem;
                     display: flex;
                     justify-content: center;
@@ -125,28 +125,13 @@
                 }
             }
 
-            @keyframes rotate_sign {
-                0% {
-                    transform: rotateX(0deg);
-                }
-                100% {
-                    transform: rotateX(360deg);
-                }
-            }
             .sign {
-                font-size: 3rem;
-                animation-name: rotate_sign;
-                animation-duration: 4s;
-                animation-timing-function: ease-in-out;
-                animation-delay: 0s;
-                animation-fill-mode: backwards;
-                animation-iteration-count: infinite;
-                animation-direction: normal;
                 mix-blend-mode: difference;
+                font-size: 2rem;
             }
         }
         .rt {
-            flex: 1.2;
+            width: 60%;
 
             display: flex;
             flex-direction: column;
@@ -155,17 +140,18 @@
 
             h2,
             h3 {
+                font-weight: normal;
                 text-align: center;
                 word-break: keep-all;
                 overflow: hidden;
                 mix-blend-mode: difference;
             }
             h2 {
-                font-size: 2.5rem;
+                font-size: 2rem;
                 margin: 0 0 0.5rem 0;
             }
             h3 {
-                font-size: 2rem;
+                font-size: 1.5rem;
                 margin: 0;
             }
             canvas {
@@ -174,7 +160,7 @@
             }
             .word {
                 color: #fff;
-                font-size: 2rem;
+                font-size: 1.5rem;
                 text-align: center;
                 word-break: keep-all;
                 overflow: hidden;
