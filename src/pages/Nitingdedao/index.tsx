@@ -166,7 +166,19 @@ const Nitingdedao: React.FC = () => {
                             <h3>{srcObj.author}</h3>
                         </div>
                         <canvas ref={canvasRef}></canvas>
-                        <div className={styles.word}>{lyric[lrcIdx].lyric}</div>
+                        <div className={styles.word}>
+                            {lyric[lrcIdx].lyric.split('').map((_, idx) => (
+                                <span
+                                    key={`${lrcIdx}-${idx}`}
+                                    style={{
+                                        animationDelay: `${Math.abs(lyric[lrcIdx].lyric.length / 2 - idx) / 10}s`,
+                                        animationPlayState: playing ? 'running' : 'paused'
+                                    }}
+                                >
+                                    {_}
+                                </span>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </RatioWBox>
