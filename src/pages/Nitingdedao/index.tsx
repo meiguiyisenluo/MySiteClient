@@ -33,6 +33,7 @@ const srcObj = {
 
 const Nitingdedao: React.FC = () => {
     const [playing, setPlaying] = useState<boolean>(false)
+    const animationPlayState = playing ? 'running' : 'paused'
 
     const [lrcIdx, setLrcIdx] = useState<number>(0)
 
@@ -135,10 +136,7 @@ const Nitingdedao: React.FC = () => {
                             <RatioWBox wh_ratio={100}>
                                 <>
                                     <div className={styles.square} style={{ backgroundImage: `url(${srcObj.imgUrl})` }}></div>
-                                    <div
-                                        className={styles.circle}
-                                        style={{ backgroundImage: `url(${srcObj.imgUrl})`, animationPlayState: playing ? 'running' : 'paused' }}
-                                    >
+                                    <div className={styles.circle} style={{ backgroundImage: `url(${srcObj.imgUrl})`, animationPlayState }}>
                                         <div className={styles.point}></div>
                                     </div>
                                 </>
@@ -172,7 +170,7 @@ const Nitingdedao: React.FC = () => {
                                     key={`${lrcIdx}-${idx}`}
                                     style={{
                                         animationDelay: `${Math.abs(lyric[lrcIdx].lyric.length / 2 - idx) / 10}s`,
-                                        animationPlayState: playing ? 'running' : 'paused'
+                                        animationPlayState
                                     }}
                                 >
                                     {_}
