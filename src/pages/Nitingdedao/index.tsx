@@ -48,9 +48,9 @@ const Nitingdedao: React.FC = () => {
     const buffer = useRef<Uint8Array>(null!)
 
     const animationId = useRef<number | undefined>(undefined)
-    const update = (cb: (arr: Array<number>) => void) => {
+    const update = () => {
         if (animationId.current) cancelAnimationFrame(animationId.current)
-        animationId.current = requestAnimationFrame(() => update(cb))
+        animationId.current = requestAnimationFrame(update)
         if (!analyser.current) return
         if (!buffer.current) return
         analyser.current.getByteFrequencyData(buffer.current)
@@ -59,7 +59,7 @@ const Nitingdedao: React.FC = () => {
         for (let i = 0; i < offset; i++) {
             datas[i] = buffer.current[i]
         }
-        cb(datas)
+        draw(datas)
     }
 
     const togglePlaying = () => {
@@ -107,7 +107,7 @@ const Nitingdedao: React.FC = () => {
             analyser.current.connect(audioCtx.destination)
         }
         if (!animationId.current) {
-            update(draw)
+            update()
         }
     }
 
