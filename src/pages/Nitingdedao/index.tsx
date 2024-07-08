@@ -31,25 +31,6 @@ const srcObj = {
     sign: 'J A Y'
 }
 
-// 音频分析
-let analyser: AnalyserNode | null = null
-let buffer: Uint8Array | null = null
-
-let animationId: number | undefined = undefined
-const update = (cb: (arr: Array<number>) => void) => {
-    if (animationId) cancelAnimationFrame(animationId)
-    animationId = requestAnimationFrame(() => update(cb))
-    if (!analyser) return
-    if (!buffer) return
-    analyser.getByteFrequencyData(buffer)
-    const offset = Math.floor((buffer.length * 2) / 3)
-    const datas = new Array(offset)
-    for (let i = 0; i < offset; i++) {
-        datas[i] = buffer[i]
-    }
-    cb(datas)
-}
-
 const Nitingdedao: React.FC = () => {
     const [playing, setPlaying] = useState<boolean>(false)
 
@@ -62,6 +43,25 @@ const Nitingdedao: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null!)
     const ctx = useRef<CanvasRenderingContext2D>(null!)
 
+    // 音频分析
+    const analyser = useRef<AnalyserNode>(null!)
+    const buffer = useRef<Uint8Array>(null!)
+
+    const animationId = useRef<number | undefined>(undefined)
+    const update = (cb: (arr: Array<number>) => void) => {
+        if (animationId.current) cancelAnimationFrame(animationId.current)
+        animationId.current = requestAnimationFrame(() => update(cb))
+        if (!analyser.current) return
+        if (!buffer.current) return
+        analyser.current.getByteFrequencyData(buffer.current)
+        const offset = buffer.current.length
+        const datas = new Array(offset)
+        for (let i = 0; i < offset; i++) {
+            datas[i] = buffer.current[i]
+        }
+        cb(datas)
+    }
+
     const togglePlaying = () => {
         if (playing) audioRef.current.pause()
         else audioRef.current.play()
@@ -70,7 +70,7 @@ const Nitingdedao: React.FC = () => {
     const onTimeUpdate = () => {
         setCurrentTime(audioRef.current.currentTime)
         setDuration(audioRef.current.duration)
-        if (audioRef.current.currentTime > lyric[lrcIdx + 1]?.timestamp ?? 9999) {
+        if (audioRef.current.currentTime > (lyric[lrcIdx + 1]?.timestamp ?? 9999)) {
             setLrcIdx(lrcIdx + 1)
         }
         // 切歌 或 单曲循环第二次开始播放
@@ -97,29 +97,30 @@ const Nitingdedao: React.FC = () => {
     const onPlay = () => {
         setPlaying(true)
 
-        if (analyser) return
-        if (!audioRef.current) return
-        const audioCtx = new AudioContext()
-        const source = audioCtx.createMediaElementSource(audioRef.current)
-        analyser = audioCtx.createAnalyser()
-        analyser.fftSize = 1024
-        buffer = new Uint8Array(analyser.frequencyBinCount)
-        source.connect(analyser)
-        analyser.connect(audioCtx.destination)
-        update(draw)
+        if (!analyser.current) {
+            const audioCtx = new AudioContext()
+            const source = audioCtx.createMediaElementSource(audioRef.current)
+            analyser.current = audioCtx.createAnalyser()
+            analyser.current.fftSize = 1024
+            buffer.current = new Uint8Array(analyser.current.frequencyBinCount)
+            source.connect(analyser.current)
+            analyser.current.connect(audioCtx.destination)
+        }
+        if (!animationId.current) {
+            update(draw)
+        }
     }
 
     useEffect(() => {
         canvasRef.current.width = 500
-        canvasRef.current.height = 61
+        canvasRef.current.height = 122
         ctx.current = canvasRef.current.getContext('2d')!
 
         ctx.current.translate(0, canvasRef.current.height / 2)
 
         return () => {
-            analyser = null
-            buffer = null
-            cancelAnimationFrame(animationId!)
+            cancelAnimationFrame(animationId.current!)
+            animationId.current = undefined
         }
     }, [])
 
@@ -134,7 +135,10 @@ const Nitingdedao: React.FC = () => {
                             <RatioWBox wh_ratio={100}>
                                 <>
                                     <div className={styles.square} style={{ backgroundImage: `url(${srcObj.imgUrl})` }}></div>
-                                    <div className={styles.circle} style={{ backgroundImage: `url(${srcObj.imgUrl})` }}>
+                                    <div
+                                        className={styles.circle}
+                                        style={{ backgroundImage: `url(${srcObj.imgUrl})`, animationPlayState: playing ? 'running' : 'paused' }}
+                                    >
                                         <div className={styles.point}></div>
                                     </div>
                                 </>

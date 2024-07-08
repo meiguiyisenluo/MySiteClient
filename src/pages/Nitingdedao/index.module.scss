@@ -114,7 +114,7 @@
                 }
 
                 .btns {
-                    margin-top: .2rem;
+                    margin-top: 0.2rem;
                     font-size: 2rem;
                     display: flex;
                     justify-content: center;
@@ -142,8 +142,8 @@
             h3 {
                 font-weight: normal;
                 text-align: center;
-                word-break: keep-all;
                 overflow: hidden;
+                white-space: nowrap;
                 mix-blend-mode: difference;
             }
             h2 {
@@ -162,7 +162,7 @@
                 color: #fff;
                 font-size: 1.5rem;
                 text-align: center;
-                word-break: keep-all;
+                white-space: nowrap;
                 overflow: hidden;
                 mix-blend-mode: difference;
             }
