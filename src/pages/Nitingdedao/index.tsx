@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { Slider } from 'react-vant'
 import { PauseCircleO, PlayCircleO } from '@react-vant/icons'
 
 import styles from './index.module.scss'
@@ -34,11 +35,13 @@ const srcObj = {
 const Nitingdedao: React.FC = () => {
     const [playing, setPlaying] = useState<boolean>(false)
     const animationPlayState = playing ? 'running' : 'paused'
+    const [draging, setDraging] = useState<boolean>(false)
 
     const [lrcIdx, setLrcIdx] = useState<number>(0)
 
     const [currentTime, setCurrentTime] = useState<number>(0)
     const [duration, setDuration] = useState<number>(0)
+    const [progressValue, setProgressValue] = useState<number>(0)
 
     const audioRef = useRef<HTMLAudioElement>(null!)
     const canvasRef = useRef<HTMLCanvasElement>(null!)
@@ -49,7 +52,7 @@ const Nitingdedao: React.FC = () => {
     const buffer = useRef<Uint8Array>(null!)
 
     const audio_ctx = useRef<AudioContext>(new AudioContext())
-    const canAutoPlay = useRef<boolean>(audio_ctx.current.state==='running')
+    const canAutoPlay = useRef<boolean>(audio_ctx.current.state === 'running')
 
     const animationId = useRef<number | undefined>(undefined)
     const update = () => {
@@ -72,14 +75,35 @@ const Nitingdedao: React.FC = () => {
     }
 
     const onTimeUpdate = () => {
+        // 进度处理
         setCurrentTime(audioRef.current.currentTime)
         setDuration(audioRef.current.duration)
-        if (audioRef.current.currentTime > (lyric[lrcIdx + 1]?.timestamp ?? 9999)) {
-            setLrcIdx(lrcIdx + 1)
-        }
+        if (!draging) setProgressValue((currentTime / duration) * 100)
+
+        // 歌词处理
         // 切歌 或 单曲循环第二次开始播放
-        else if (audioRef.current.currentTime < 1) {
+        if (audioRef.current.currentTime < 1) {
             setLrcIdx(0)
+        }
+        // 快退
+        else if (audioRef.current.currentTime < lyric[lrcIdx].timestamp) {
+            let idx = 0
+            while (lyric[idx].timestamp < currentTime) {
+                idx += 1
+            }
+            setLrcIdx(idx)
+        }
+        // 快进
+        else if (audioRef.current.currentTime > (lyric[lrcIdx + 2]?.timestamp ?? 9999)) {
+            let idx = 0
+            while (lyric[idx].timestamp < currentTime) {
+                idx += 1
+            }
+            setLrcIdx(idx)
+        }
+        // 正常播放
+        else if (audioRef.current.currentTime > (lyric[lrcIdx + 1]?.timestamp ?? 9999)) {
+            setLrcIdx(lrcIdx + 1)
         }
     }
 
@@ -115,6 +139,21 @@ const Nitingdedao: React.FC = () => {
         }
     }
 
+    const onChangeAfter = (value: number) => {
+        audioRef.current.currentTime = (duration * value) / 100
+    }
+
+    const onChange = (val: number) => {
+        setProgressValue(val)
+    }
+
+    const timeFormat = (s: number) => {
+        s = Math.floor(s)
+        const min = Math.floor(s / 60)
+        s = s % 60
+        return `${min < 10 ? 0 : ''}${min}:${s < 10 ? 0 : ''}${s}`
+    }
+
     useEffect(() => {
         canvasRef.current.width = 500
         canvasRef.current.height = 122
@@ -130,7 +169,15 @@ const Nitingdedao: React.FC = () => {
 
     return (
         <div className={`page ${styles.container}`} style={{ backgroundImage: `url(${srcObj.imgUrl})` }}>
-            <audio ref={audioRef} src={srcObj.audioSrc} autoPlay={canAutoPlay.current} loop onPlay={onPlay} onPause={() => setPlaying(false)} onTimeUpdate={onTimeUpdate}></audio>
+            <audio
+                ref={audioRef}
+                src={srcObj.audioSrc}
+                autoPlay={canAutoPlay.current}
+                loop
+                onPlay={onPlay}
+                onPause={() => setPlaying(false)}
+                onTimeUpdate={onTimeUpdate}
+            ></audio>
             <div className={styles.mask}></div>
             <RatioWBox wh_ratio={65}>
                 <div className={styles.content}>
@@ -146,8 +193,22 @@ const Nitingdedao: React.FC = () => {
                             </RatioWBox>
                         </div>
                         <div className={styles.controls}>
-                            <div className={styles.progress}>
-                                <div className={styles.bar} style={{ width: `${(currentTime / duration) * 100}%` }}></div>
+                            <Slider
+                                min={0}
+                                max={100}
+                                step={1}
+                                value={progressValue}
+                                activeColor={'#fffa'}
+                                inactiveColor={'#fff6'}
+                                button={<div className={styles.progress_btn}></div>}
+                                onChangeAfter={onChangeAfter}
+                                onDragStart={() => setDraging(true)}
+                                onDragEnd={() => setDraging(false)}
+                                onChange={onChange}
+                            />
+                            <div className={styles.times}>
+                                <span>{timeFormat(currentTime)}</span>
+                                <span>{timeFormat(duration)}</span>
                             </div>
                             <div className={styles.btns}>
                                 <div onClick={togglePlaying}>
