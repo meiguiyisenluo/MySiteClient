@@ -48,6 +48,9 @@ const Nitingdedao: React.FC = () => {
     const analyser = useRef<AnalyserNode>(null!)
     const buffer = useRef<Uint8Array>(null!)
 
+    const audio_ctx = useRef<AudioContext>(new AudioContext())
+    const canAutoPlay = useRef<boolean>(audio_ctx.current.state==='running')
+
     const animationId = useRef<number | undefined>(undefined)
     const update = () => {
         if (animationId.current) cancelAnimationFrame(animationId.current)
@@ -127,7 +130,7 @@ const Nitingdedao: React.FC = () => {
 
     return (
         <div className={`page ${styles.container}`} style={{ backgroundImage: `url(${srcObj.imgUrl})` }}>
-            <audio ref={audioRef} src={srcObj.audioSrc} autoPlay loop onPlay={onPlay} onPause={() => setPlaying(false)} onTimeUpdate={onTimeUpdate}></audio>
+            <audio ref={audioRef} src={srcObj.audioSrc} autoPlay={canAutoPlay.current} loop onPlay={onPlay} onPause={() => setPlaying(false)} onTimeUpdate={onTimeUpdate}></audio>
             <div className={styles.mask}></div>
             <RatioWBox wh_ratio={65}>
                 <div className={styles.content}>
