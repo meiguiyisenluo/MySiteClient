@@ -3,12 +3,15 @@ import { Slider, Dialog } from 'react-vant'
 import { Arrow, ArrowLeft, PauseCircleO, PlayCircleO } from '@react-vant/icons'
 
 import styles from './index.module.scss'
-import lyric_nitingdedao from './nitingdedao.lrc'
-import lyric_langmanshouji from './langmanshouji.lrc'
-import lyric_xinyu from './xinyu.lrc'
+import lyric_nitingdedao from './lrc/nitingdedao.lrc'
+import lyric_langmanshouji from './lrc/langmanshouji.lrc'
+import lyric_xinyu from './lrc/xinyu.lrc'
+import lyric_wobupei from './lrc/wobupei.lrc'
+import lyric_pugongyingdeyueding from './lrc/pugongyingdeyueding.lrc'
+import lyric_feng from './lrc/feng.lrc'
 
 // console.log(
-//     lyric_xinyu.map((_) => {
+//     lyric_feng.map((_) => {
 //         const arr = _.time.split(':').map(Number).reverse()
 //         let step = 1
 //         const timestamp = arr.reduce((total, _) => {
@@ -31,7 +34,7 @@ const sources = [
         audioUrl: 'https://luoyisen.com/share/music/Jay/03.mp3',
         imgUrl: 'https://luoyisen.com/share/imgs/JayChou%40.1/6.png',
         name: '你听得到',
-        author: '周杰伦',
+        author: '周杰伦-叶惠美',
         sign: 'J A Y',
         lyric: lyric_nitingdedao
     },
@@ -40,7 +43,7 @@ const sources = [
         audioUrl: 'https://luoyisen.com/share/music/Jay/07.mp3',
         imgUrl: 'https://luoyisen.com/share/imgs/JayChou%40.1/10.png',
         name: '浪漫手机',
-        author: '周杰伦',
+        author: '周杰伦-十一月的肖邦',
         sign: 'J A Y',
         lyric: lyric_langmanshouji
     },
@@ -49,9 +52,36 @@ const sources = [
         audioUrl: 'https://luoyisen.com/share/music/Jay/08.mp3',
         imgUrl: 'https://luoyisen.com/share/imgs/JayChou%40.1/12.png',
         name: '心雨',
-        author: '周杰伦',
+        author: '周杰伦-依然范特西',
         sign: 'J A Y',
         lyric: lyric_xinyu
+    },
+    {
+        audioSrc: '/share/music/Jay/09.mp3',
+        audioUrl: 'https://luoyisen.com/share/music/Jay/09.mp3',
+        imgUrl: 'https://luoyisen.com/share/imgs/JayChou%40.1/15.PNG',
+        name: '我不配',
+        author: '周杰伦-我很忙',
+        sign: 'J A Y',
+        lyric: lyric_wobupei
+    },
+    {
+        audioSrc: '/share/music/Jay/10.mp3',
+        audioUrl: 'https://luoyisen.com/share/music/Jay/10.mp3',
+        imgUrl: 'https://luoyisen.com/share/imgs/JayChou%40.1/15.PNG',
+        name: '蒲公英的约定',
+        author: '周杰伦-我很忙',
+        sign: 'J A Y',
+        lyric: lyric_pugongyingdeyueding
+    },
+    {
+        audioSrc: '/share/music/Jay/11.mp3',
+        audioUrl: 'https://luoyisen.com/share/music/Jay/11.mp3',
+        imgUrl: 'https://luoyisen.com/share/imgs/JayChou%40.1/10.png',
+        name: '枫',
+        author: '周杰伦-十一月的肖邦',
+        sign: 'J A Y',
+        lyric: lyric_feng
     }
 ]
 
@@ -65,6 +95,8 @@ const Nitingdedao: React.FC = () => {
 
     const [playing, setPlaying] = useState<boolean>(false)
     const animationPlayState = playing ? 'running' : 'paused'
+
+    const [cooling, setCooling] = useState<boolean>(false)
     const [draging, setDraging] = useState<boolean>(false)
 
     const [lrcIdx, setLrcIdx] = useState<number>(0)
@@ -82,15 +114,17 @@ const Nitingdedao: React.FC = () => {
     const analyser = useRef<AnalyserNode>(null!)
 
     const switchSrc = (idx: number) => {
-        audioRef.current.pause()
-
+        if (cooling) return
+        setCooling(true)
         if (idx < 0) setSrcIdx(sources.length + idx)
         else setSrcIdx(idx % sources.length)
 
+        setProgressValue(0)
         setLrcIdx(0)
 
         setTimeout(() => {
             audioRef.current.play()
+            setCooling(false)
         }, 1000)
     }
 
@@ -162,6 +196,7 @@ const Nitingdedao: React.FC = () => {
     }
 
     const timeFormat = (s: number) => {
+        if (!s) return '00:00'
         s = Math.floor(s)
         const min = Math.floor(s / 60)
         s = s % 60
