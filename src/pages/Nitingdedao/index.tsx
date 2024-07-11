@@ -229,7 +229,7 @@ const Nitingdedao: React.FC = () => {
         // 快退
         if (audioRef.current.currentTime < srcObj.lyric[lrcIdx].timestamp) {
             let idx = 0
-            while (idx <= srcObj.lyric.length - 1 && srcObj.lyric[idx].timestamp < currentTime) {
+            while (idx < srcObj.lyric.length - 1 && srcObj.lyric[idx].timestamp < currentTime) {
                 idx += 1
             }
             setLrcIdx(idx)
@@ -237,7 +237,7 @@ const Nitingdedao: React.FC = () => {
         // 快进
         else if (audioRef.current.currentTime > (srcObj.lyric[lrcIdx + 2]?.timestamp ?? 9999)) {
             let idx = 0
-            while (idx <= srcObj.lyric.length - 1 && srcObj.lyric[idx].timestamp < currentTime) {
+            while (idx < srcObj.lyric.length - 1 && srcObj.lyric[idx].timestamp < currentTime) {
                 idx += 1
             }
             setLrcIdx(idx)
