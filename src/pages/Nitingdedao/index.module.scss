@@ -98,7 +98,7 @@
                 }
 
                 .times {
-                    margin-top: .5rem;
+                    margin-top: 0.5rem;
                     height: 1.3rem;
                     line-height: 1.3rem;
                     display: flex;
@@ -125,6 +125,9 @@
             .sign {
                 mix-blend-mode: difference;
                 font-size: 2rem;
+
+                font-weight: 200;
+                font-family: 'LXGW WenKai Light';
             }
         }
         .rt {
@@ -134,8 +137,9 @@
             flex-direction: column;
             justify-content: space-around;
             align-items: center;
-            
-            font-family: cursive;
+
+            font-weight: 200;
+            font-family: 'LXGW WenKai Light';
 
             h2,
             h3 {
