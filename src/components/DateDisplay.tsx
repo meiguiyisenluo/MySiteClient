@@ -16,7 +16,7 @@ const DateDisplay: React.FC = () => {
 
     return (
         <div style={{ position: 'relative', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-            <span style={{ color: 'orange', textAlign: 'center' }}>{`${date}  V0.2.51`}</span>
+            <span style={{ color: 'orange', textAlign: 'center' }}>{`${date}  V0.2.52`}</span>
         </div>
     )
 }

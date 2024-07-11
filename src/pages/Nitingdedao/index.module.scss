@@ -5,6 +5,7 @@
     flex-direction: column;
     background-position: center center;
     background-size: cover;
+    background-color: #333;
     .content {
         flex-grow: 0;
         flex-shrink: 0;
@@ -35,6 +36,7 @@
                     margin: auto;
                     background-position: center center;
                     background-size: contain;
+                    background-color: #333;
                 }
                 .square {
                     z-index: 3;
@@ -111,7 +113,7 @@
                     align-items: center;
                     & > div {
                         margin: 0 1rem;
-                        font-size: 1.5rem;
+                        font-size: 1.3rem;
                         cursor: pointer;
                         &:nth-child(2) {
                             font-size: 2rem;

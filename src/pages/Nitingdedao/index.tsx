@@ -33,7 +33,20 @@ import lyric_bunengshuodemimi from './lrc/bunengshuodemimi.lrc'
 //     })
 // )
 
-const sources = [
+const sources: Array<{
+    audioSrc: string
+    audioUrl: string
+    imgUrl: string
+    name: string
+    author: string
+    sign: string
+    lyric: {
+        time: string
+        lyricText: string
+        timestamp: number
+    }[]
+    imgLoadController: Promise<Event>
+}> = [
     {
         audioSrc: '/share/music/Jay/03.mp3',
         audioUrl: 'https://luoyisen.com/share/music/Jay/03.mp3',
@@ -41,7 +54,8 @@ const sources = [
         name: '你听得到',
         author: '周杰伦-叶惠美',
         sign: 'J A Y',
-        lyric: lyric_nitingdedao
+        lyric: lyric_nitingdedao,
+        imgLoadController: null!
     },
     {
         audioSrc: '/share/music/Jay/06.mp3',
@@ -50,7 +64,8 @@ const sources = [
         name: '心雨',
         author: '周杰伦-依然范特西',
         sign: 'J A Y',
-        lyric: lyric_xinyu
+        lyric: lyric_xinyu,
+        imgLoadController: null!
     },
     {
         audioSrc: '/share/music/Jay/01.mp3',
@@ -59,7 +74,8 @@ const sources = [
         name: '退后',
         author: '周杰伦-依然范特西',
         sign: 'J A Y',
-        lyric: lyric_tuihou
+        lyric: lyric_tuihou,
+        imgLoadController: null!
     },
     {
         audioSrc: '/share/music/Jay/02.mp3',
@@ -68,7 +84,8 @@ const sources = [
         name: '不能说的秘密',
         author: '周杰伦',
         sign: 'J A Y',
-        lyric: lyric_bunengshuodemimi
+        lyric: lyric_bunengshuodemimi,
+        imgLoadController: null!
     },
     {
         audioSrc: '/share/music/Jay/07.mp3',
@@ -77,7 +94,8 @@ const sources = [
         name: '我不配',
         author: '周杰伦-我很忙',
         sign: 'J A Y',
-        lyric: lyric_wobupei
+        lyric: lyric_wobupei,
+        imgLoadController: null!
     },
     {
         audioSrc: '/share/music/Jay/08.mp3',
@@ -86,7 +104,8 @@ const sources = [
         name: '蒲公英的约定',
         author: '周杰伦-我很忙',
         sign: 'J A Y',
-        lyric: lyric_pugongyingdeyueding
+        lyric: lyric_pugongyingdeyueding,
+        imgLoadController: null!
     },
     {
         audioSrc: '/share/music/Jay/09.mp3',
@@ -95,7 +114,8 @@ const sources = [
         name: '枫',
         author: '周杰伦-十一月的肖邦',
         sign: 'J A Y',
-        lyric: lyric_feng
+        lyric: lyric_feng,
+        imgLoadController: null!
     },
     {
         audioSrc: '/share/music/Jay/05.mp3',
@@ -104,7 +124,8 @@ const sources = [
         name: '浪漫手机',
         author: '周杰伦-十一月的肖邦',
         sign: 'J A Y',
-        lyric: lyric_langmanshouji
+        lyric: lyric_langmanshouji,
+        imgLoadController: null!
     },
     {
         audioSrc: '/share/music/Jay/04.mp3',
@@ -113,7 +134,8 @@ const sources = [
         name: '开不了口',
         author: '周杰伦-范特西',
         sign: 'J A Y',
-        lyric: lyric_kaibuliaokou
+        lyric: lyric_kaibuliaokou,
+        imgLoadController: null!
     }
 ]
 
@@ -124,6 +146,16 @@ audio_ctx.close()
 export const loader = () => {
     // 提升用户体验
     return loadImg(sources[0].imgUrl)
+}
+
+const preloadImg = (targetIdx: number) => {
+    let prev = targetIdx - 1
+    let next = targetIdx + 1
+    if (prev < 0) prev = sources.length + prev
+    next = next % sources.length
+    console.log('preloadImg', prev, next)
+    if (!sources[prev].imgLoadController) sources[prev].imgLoadController = loadImg(sources[prev].imgUrl)
+    if (!sources[next].imgLoadController) sources[next].imgLoadController = loadImg(sources[next].imgUrl)
 }
 
 const Nitingdedao: React.FC = () => {
@@ -153,28 +185,23 @@ const Nitingdedao: React.FC = () => {
     const switchSrc = (idx: number) => {
         if (cooling) return
         setCooling(true)
+        setTimeout(() => {
+            setCooling(false)
+        }, 1000)
 
         let targetIdx: number = undefined!
         if (idx < 0) targetIdx = sources.length + idx
         else targetIdx = idx % sources.length
 
-        // 提升用户体验
-        loadImg(sources[targetIdx].imgUrl).finally(() => {
-            setSrcIdx(targetIdx)
-            setProgressValue(0)
-            setLrcIdx(0)
-        })
-
         audioRef.current.pause()
 
-        audioRef.current.addEventListener(
-            'canplay',
-            () => {
-                audioRef.current.play()
-                setCooling(false)
-            },
-            { once: true }
-        )
+        setSrcIdx(targetIdx)
+        setProgressValue(0)
+        setLrcIdx(0)
+
+        setTimeout(() => {
+            audioRef.current.play()
+        }, 1000)
     }
 
     const animationId = useRef<number | undefined>(undefined)
@@ -251,6 +278,11 @@ const Nitingdedao: React.FC = () => {
         s = s % 60
         return `${min < 10 ? 0 : ''}${min}:${s < 10 ? 0 : ''}${s}`
     }
+
+    useEffect(() => {
+        // 提升用户体验
+        preloadImg(srcIdx)
+    }, [srcIdx])
 
     useEffect(() => {
         canvasRef.current.width = 500
