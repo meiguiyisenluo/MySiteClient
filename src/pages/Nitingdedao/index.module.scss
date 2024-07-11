@@ -1,6 +1,5 @@
 .container {
     user-select: none;
-    font-family: cursive;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -133,6 +132,8 @@
             flex-direction: column;
             justify-content: space-around;
             align-items: center;
+            
+            font-family: cursive;
 
             h2,
             h3 {
