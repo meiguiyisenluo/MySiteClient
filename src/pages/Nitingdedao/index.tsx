@@ -2,6 +2,10 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Slider, Dialog } from 'react-vant'
 import { Arrow, ArrowLeft, PauseCircleO, PlayCircleO } from '@react-vant/icons'
 
+import { loadImg } from '@/utility/functions'
+
+import RatioWBox from '@/components/RatioWBox.tsx'
+
 import styles from './index.module.scss'
 import lyric_nitingdedao from './lrc/nitingdedao.lrc'
 import lyric_langmanshouji from './lrc/langmanshouji.lrc'
@@ -9,9 +13,12 @@ import lyric_xinyu from './lrc/xinyu.lrc'
 import lyric_wobupei from './lrc/wobupei.lrc'
 import lyric_pugongyingdeyueding from './lrc/pugongyingdeyueding.lrc'
 import lyric_feng from './lrc/feng.lrc'
+import lyric_kaibuliaokou from './lrc/kaibuliaokou.lrc'
+import lyric_tuihou from './lrc/tuihou.lrc'
+import lyric_bunengshuodemimi from './lrc/bunengshuodemimi.lrc'
 
 // console.log(
-//     lyric_feng.map((_) => {
+//     lyric_bunengshuodemimi.map((_) => {
 //         const arr = _.time.split(':').map(Number).reverse()
 //         let step = 1
 //         const timestamp = arr.reduce((total, _) => {
@@ -26,8 +33,6 @@ import lyric_feng from './lrc/feng.lrc'
 //     })
 // )
 
-import RatioWBox from '@/components/RatioWBox.tsx'
-
 const sources = [
     {
         audioSrc: '/share/music/Jay/03.mp3',
@@ -39,17 +44,8 @@ const sources = [
         lyric: lyric_nitingdedao
     },
     {
-        audioSrc: '/share/music/Jay/07.mp3',
-        audioUrl: 'https://luoyisen.com/share/music/Jay/07.mp3',
-        imgUrl: 'https://luoyisen.com/share/imgs/JayChou%40.1/10.png',
-        name: '浪漫手机',
-        author: '周杰伦-十一月的肖邦',
-        sign: 'J A Y',
-        lyric: lyric_langmanshouji
-    },
-    {
-        audioSrc: '/share/music/Jay/08.mp3',
-        audioUrl: 'https://luoyisen.com/share/music/Jay/08.mp3',
+        audioSrc: '/share/music/Jay/06.mp3',
+        audioUrl: 'https://luoyisen.com/share/music/Jay/06.mp3',
         imgUrl: 'https://luoyisen.com/share/imgs/JayChou%40.1/12.png',
         name: '心雨',
         author: '周杰伦-依然范特西',
@@ -57,8 +53,26 @@ const sources = [
         lyric: lyric_xinyu
     },
     {
-        audioSrc: '/share/music/Jay/09.mp3',
-        audioUrl: 'https://luoyisen.com/share/music/Jay/09.mp3',
+        audioSrc: '/share/music/Jay/01.mp3',
+        audioUrl: 'https://luoyisen.com/share/music/Jay/01.mp3',
+        imgUrl: 'https://luoyisen.com/share/imgs/JayChou%40.1/12.png',
+        name: '退后',
+        author: '周杰伦-依然范特西',
+        sign: 'J A Y',
+        lyric: lyric_tuihou
+    },
+    {
+        audioSrc: '/share/music/Jay/02.mp3',
+        audioUrl: 'https://luoyisen.com/share/music/Jay/02.mp3',
+        imgUrl: 'https://luoyisen.com/share/imgs/JayChou%40.1/14.png',
+        name: '不能说的秘密',
+        author: '周杰伦',
+        sign: 'J A Y',
+        lyric: lyric_bunengshuodemimi
+    },
+    {
+        audioSrc: '/share/music/Jay/07.mp3',
+        audioUrl: 'https://luoyisen.com/share/music/Jay/07.mp3',
         imgUrl: 'https://luoyisen.com/share/imgs/JayChou%40.1/15.PNG',
         name: '我不配',
         author: '周杰伦-我很忙',
@@ -66,8 +80,8 @@ const sources = [
         lyric: lyric_wobupei
     },
     {
-        audioSrc: '/share/music/Jay/10.mp3',
-        audioUrl: 'https://luoyisen.com/share/music/Jay/10.mp3',
+        audioSrc: '/share/music/Jay/08.mp3',
+        audioUrl: 'https://luoyisen.com/share/music/Jay/08.mp3',
         imgUrl: 'https://luoyisen.com/share/imgs/JayChou%40.1/15.PNG',
         name: '蒲公英的约定',
         author: '周杰伦-我很忙',
@@ -75,19 +89,42 @@ const sources = [
         lyric: lyric_pugongyingdeyueding
     },
     {
-        audioSrc: '/share/music/Jay/11.mp3',
-        audioUrl: 'https://luoyisen.com/share/music/Jay/11.mp3',
+        audioSrc: '/share/music/Jay/09.mp3',
+        audioUrl: 'https://luoyisen.com/share/music/Jay/09.mp3',
         imgUrl: 'https://luoyisen.com/share/imgs/JayChou%40.1/10.png',
         name: '枫',
         author: '周杰伦-十一月的肖邦',
         sign: 'J A Y',
         lyric: lyric_feng
+    },
+    {
+        audioSrc: '/share/music/Jay/05.mp3',
+        audioUrl: 'https://luoyisen.com/share/music/Jay/05.mp3',
+        imgUrl: 'https://luoyisen.com/share/imgs/JayChou%40.1/10.png',
+        name: '浪漫手机',
+        author: '周杰伦-十一月的肖邦',
+        sign: 'J A Y',
+        lyric: lyric_langmanshouji
+    },
+    {
+        audioSrc: '/share/music/Jay/04.mp3',
+        audioUrl: 'https://luoyisen.com/share/music/Jay/04.mp3',
+        imgUrl: 'https://luoyisen.com/share/imgs/JayChou%40.1/2.png',
+        name: '开不了口',
+        author: '周杰伦-范特西',
+        sign: 'J A Y',
+        lyric: lyric_kaibuliaokou
     }
 ]
 
 const audio_ctx = new AudioContext()
 const canAutoPlay = audio_ctx.state === 'running'
 audio_ctx.close()
+
+export const loader = () => {
+    // 提升用户体验
+    return loadImg(sources[0].imgUrl)
+}
 
 const Nitingdedao: React.FC = () => {
     const [srcIdx, setSrcIdx] = useState<number>(0)
@@ -116,16 +153,28 @@ const Nitingdedao: React.FC = () => {
     const switchSrc = (idx: number) => {
         if (cooling) return
         setCooling(true)
-        if (idx < 0) setSrcIdx(sources.length + idx)
-        else setSrcIdx(idx % sources.length)
 
-        setProgressValue(0)
-        setLrcIdx(0)
+        let targetIdx: number = undefined!
+        if (idx < 0) targetIdx = sources.length + idx
+        else targetIdx = idx % sources.length
 
-        setTimeout(() => {
-            audioRef.current.play()
-            setCooling(false)
-        }, 1000)
+        // 提升用户体验
+        loadImg(sources[targetIdx].imgUrl).finally(() => {
+            setSrcIdx(targetIdx)
+            setProgressValue(0)
+            setLrcIdx(0)
+        })
+
+        audioRef.current.pause()
+
+        audioRef.current.addEventListener(
+            'canplay',
+            () => {
+                audioRef.current.play()
+                setCooling(false)
+            },
+            { once: true }
+        )
     }
 
     const animationId = useRef<number | undefined>(undefined)

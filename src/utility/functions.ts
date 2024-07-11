@@ -10,3 +10,12 @@ export const sayHello = (userName: string): string => {
 export const random = (min: number, max: number): number => {
     return min + Math.floor(Math.random() * (max - min + 1))
 }
+
+export const loadImg = (src: string): Promise<Event> => {
+    return new Promise((resolve, reject) => {
+        const img = new Image()
+        img.src = src
+        img.onload = resolve
+        img.onerror = reject
+    })
+}
