@@ -17,21 +17,21 @@ import lyric_kaibuliaokou from './lrc/kaibuliaokou.lrc'
 import lyric_tuihou from './lrc/tuihou.lrc'
 import lyric_bunengshuodemimi from './lrc/bunengshuodemimi.lrc'
 
-// console.log(
-//     lyric_bunengshuodemimi.map((_) => {
-//         const arr = _.time.split(':').map(Number).reverse()
-//         let step = 1
-//         const timestamp = arr.reduce((total, _) => {
-//             const res = total + _ * step
-//             step *= 60
-//             return res
-//         }, 0)
-//         return {
-//             ..._,
-//             timestamp: timestamp
-//         }
-//     })
-// )
+console.log(
+    lyric_bunengshuodemimi.map((_) => {
+        const arr = _.time.split(':').map(Number).reverse()
+        let step = 1
+        const timestamp = arr.reduce((total, _) => {
+            const res = total + _ * step
+            step *= 60
+            return res
+        }, 0)
+        return {
+            ..._,
+            timestamp: timestamp
+        }
+    })
+)
 
 const sources: Array<{
     audioSrc: string
