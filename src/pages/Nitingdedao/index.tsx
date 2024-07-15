@@ -16,22 +16,24 @@ import lyric_feng from './lrc/feng.lrc'
 import lyric_kaibuliaokou from './lrc/kaibuliaokou.lrc'
 import lyric_tuihou from './lrc/tuihou.lrc'
 import lyric_bunengshuodemimi from './lrc/bunengshuodemimi.lrc'
+import lyric_yuanyouhui from './lrc/yuanyouhui.lrc'
+import lyric_heisemaoyi from './lrc/heisemaoyi.lrc'
 
-// console.log(
-//     lyric_bunengshuodemimi.map((_) => {
-//         const arr = _.time.split(':').map(Number).reverse()
-//         let step = 1
-//         const timestamp = arr.reduce((total, _) => {
-//             const res = total + _ * step
-//             step *= 60
-//             return res
-//         }, 0)
-//         return {
-//             ..._,
-//             timestamp: timestamp
-//         }
-//     })
-// )
+console.log(
+    lyric_heisemaoyi.map((_) => {
+        const arr = _.time.split(':').map(Number).reverse()
+        let step = 1
+        const timestamp = arr.reduce((total, _) => {
+            const res = total + _ * step
+            step *= 60
+            return res
+        }, 0)
+        return {
+            ..._,
+            timestamp: timestamp
+        }
+    })
+)
 
 const sources: Array<{
     audioSrc: string
@@ -125,6 +127,26 @@ const sources: Array<{
         author: '周杰伦-十一月的肖邦',
         sign: 'J A Y',
         lyric: lyric_langmanshouji,
+        imgLoadController: null!
+    },
+    {
+        audioSrc: '/share/music/Jay/11.mp3',
+        audioUrl: 'https://luoyisen.com/share/music/Jay/11.mp3',
+        imgUrl: 'https://luoyisen.com/share/imgs/JayChou%40.1/8.PNG',
+        name: '园游会',
+        author: '周杰伦-七里香',
+        sign: 'J A Y',
+        lyric: lyric_yuanyouhui,
+        imgLoadController: null!
+    },
+    {
+        audioSrc: '/share/music/Jay/10.mp3',
+        audioUrl: 'https://luoyisen.com/share/music/Jay/10.mp3',
+        imgUrl: 'https://luoyisen.com/share/imgs/JayChou%40.1/10.png',
+        name: '黑色毛衣',
+        author: '周杰伦-十一月的肖邦',
+        sign: 'J A Y',
+        lyric: lyric_heisemaoyi,
         imgLoadController: null!
     },
     {
