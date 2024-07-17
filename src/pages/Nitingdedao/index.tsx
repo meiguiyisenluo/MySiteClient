@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Slider, Dialog } from 'react-vant'
 import { Arrow, ArrowLeft, PauseCircleO, PlayCircleO } from '@react-vant/icons'
 
+import useScreenSize from '@/hooks/useScreenSize'
+
 import { loadImg } from '@/utility/functions'
 
 import RatioWBox from '@/components/RatioWBox.tsx'
@@ -19,21 +21,21 @@ import lyric_bunengshuodemimi from './lrc/bunengshuodemimi.lrc'
 import lyric_yuanyouhui from './lrc/yuanyouhui.lrc'
 import lyric_heisemaoyi from './lrc/heisemaoyi.lrc'
 
-console.log(
-    lyric_heisemaoyi.map((_) => {
-        const arr = _.time.split(':').map(Number).reverse()
-        let step = 1
-        const timestamp = arr.reduce((total, _) => {
-            const res = total + _ * step
-            step *= 60
-            return res
-        }, 0)
-        return {
-            ..._,
-            timestamp: timestamp
-        }
-    })
-)
+// console.log(
+//     lyric_heisemaoyi.map((_) => {
+//         const arr = _.time.split(':').map(Number).reverse()
+//         let step = 1
+//         const timestamp = arr.reduce((total, _) => {
+//             const res = total + _ * step
+//             step *= 60
+//             return res
+//         }, 0)
+//         return {
+//             ..._,
+//             timestamp: timestamp
+//         }
+//     })
+// )
 
 const sources: Array<{
     audioSrc: string
@@ -204,6 +206,9 @@ const Nitingdedao: React.FC = () => {
     const mediaSource = useRef<MediaElementAudioSourceNode>(null!)
     const analyser = useRef<AnalyserNode>(null!)
 
+    const { windowInnerWidth, windowInnerHeight } = useScreenSize()
+    const ratio = windowInnerWidth >= windowInnerHeight ? 56.25 : 65
+
     const switchSrc = (idx: number) => {
         if (cooling) return
         setCooling(true)
@@ -358,7 +363,7 @@ const Nitingdedao: React.FC = () => {
                 onEnded={() => switchSrc(srcIdx + 1)}
             ></audio>
             <div className={styles.mask}></div>
-            <RatioWBox wh_ratio={65}>
+            <RatioWBox wh_ratio={ratio}>
                 <div className={styles.content}>
                     <div className={styles.lf}>
                         <div className={styles.avatar}>

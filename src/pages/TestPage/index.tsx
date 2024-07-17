@@ -1,22 +1,21 @@
 import React from 'react'
 import styles from './index.module.scss'
-import { testApi1 } from '@/resources/api-constants'
-testApi1()
-    .then((res) => console.log(res))
-    .catch((err) => console.log(err))
+
+import useOnline from '@/hooks/useOnline'
+
+// import { testApi1 } from '@/resources/api-constants'
+// testApi1()
+//     .then((res) => console.log(res))
+//     .catch((err) => console.log(err))
 
 // const reg = /(?<!\d)\d{11}(?!\d)/
 // alert(reg.test('0123456789012'))
 
 const TestPage: React.FC = () => {
+    const isOnline = useOnline()
     return (
         <div className={`page ${styles.container}`}>
-            <div className={styles.wbox}>
-                <div className={styles.hbox}>
-                    <div className={`${styles.content} ${styles.center}`}>包含块</div>
-                </div>
-            </div>
-            <div className={`${styles.cssbox} ${styles.center}`}>aspect-ratio</div>
+            <div>{isOnline?'true':'false'}</div>
         </div>
     )
 }
