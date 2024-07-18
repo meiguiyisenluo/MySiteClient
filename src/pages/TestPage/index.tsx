@@ -15,7 +15,7 @@ const TestPage: React.FC = () => {
     const isOnline = useOnline()
     return (
         <div className={`page ${styles.container}`}>
-            <div>{isOnline?'true':'false'}</div>
+            <div>{isOnline ? 'true' : 'false'}</div>
         </div>
     )
 }

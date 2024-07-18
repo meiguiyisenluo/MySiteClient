@@ -9,11 +9,11 @@ function subscribe(callback: () => void) {
     }
 }
 const getSnapshot = () => {
-    return [navigator.onLine]
+    return navigator.onLine
 }
 
 const getServerSnapShot = () => {
-    return [navigator.onLine]
+    return navigator.onLine
 }
 
 const useScreenSize = () => {
