@@ -5,15 +5,11 @@ import { random } from '@/utility/functions'
 
 import useScreenSize from '@/hooks/useScreenSize'
 
+let animationId = 0
+
 const particleMsg = {
     radius: 2,
     backgroundColor: '#fff'
-}
-
-const calcDistance = (a: Particle, b: Particle) => {
-    const d1 = Math.abs(a.x - b.x)
-    const d2 = Math.abs(a.y - b.y)
-    return Math.sqrt(d1 ** 2 + d2 ** 2)
 }
 
 type Particle = { x: number; y: number; xdirection: boolean; ydirection: boolean; xspeed: number; yspeed: number }
@@ -57,27 +53,33 @@ const ParticleJS: React.FC = () => {
             if (particle.y >= canvasRef.current.height - particleMsg.radius) particle.ydirection = false
         }
 
-        // 线
+        // 点和点之间
         for (let i = 0; i < particles.current.length; i++) {
             for (let j = 0; j < particles.current.length; j++) {
                 const a = particles.current[i]
                 const b = particles.current[j]
-                const dis = calcDistance(a, b)
-                // 一定距离内才连线
-                if (dis < lineDistance.current) {
-                    canvasCtx.current?.beginPath()
-                    canvasCtx.current?.moveTo(a.x, a.y)
-                    canvasCtx.current?.lineTo(b.x, b.y)
-                    const alpha = (lineDistance.current - dis) / lineDistance.current
-                    canvasCtx.current!.globalAlpha = alpha
-                    canvasCtx.current!.strokeStyle = particleMsg.backgroundColor
-                    canvasCtx.current?.stroke()
-                    canvasCtx.current?.closePath()
-                }
+
+                const dx = a.x - b.x
+                const dy = a.y - b.y
+                const dis = Math.sqrt(Math.abs(dx) ** 2 + Math.abs(dy) ** 2)
+
+                // line
+                canvasCtx.current?.beginPath()
+                canvasCtx.current?.moveTo(a.x, a.y)
+                canvasCtx.current?.lineTo(b.x, b.y)
+                const alpha = Math.max((lineDistance.current - dis) / lineDistance.current, 0)
+                canvasCtx.current!.globalAlpha = alpha
+                canvasCtx.current!.strokeStyle = particleMsg.backgroundColor
+                canvasCtx.current?.stroke()
+                canvasCtx.current?.closePath()
+
+                // act each other
+                // const s1 = (lineDistance.current - Math.abs(dx)) / lineDistance.current / 100000
+                // const s2 = (lineDistance.current - Math.abs(dy)) / lineDistance.current / 100000
             }
         }
 
-        return requestAnimationFrame(render)
+        return (animationId = requestAnimationFrame(render))
     }, [])
 
     useEffect(() => {
@@ -92,14 +94,15 @@ const ParticleJS: React.FC = () => {
                 y: random(0, canvasRef.current.height),
                 xdirection: Math.random() > 0.5,
                 ydirection: Math.random() > 0.5,
-                xspeed: random(0.2, 0.25),
-                yspeed: random(0.2, 0.25)
+                xspeed: 0.1,
+                yspeed: 0.1
             })
         }
         render()
 
         return () => {
             particles.current = []
+            cancelAnimationFrame(animationId)
         }
     }, [render])
 
