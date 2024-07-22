@@ -22,6 +22,10 @@ const ParticleJS: React.FC = () => {
     const { windowInnerWidth, windowInnerHeight } = useScreenSize()
     const lineDistance = useRef(0)
 
+    const canvasWidth = windowInnerWidth * devicePixelRatio
+    const canvasHeight = windowInnerHeight * devicePixelRatio
+    lineDistance.current = Math.sqrt(canvasWidth ** 2 + canvasHeight ** 2) / 10
+
     const particles = useRef<Array<Particle>>([])
     const canvasRef = useRef<HTMLCanvasElement>(null!)
     const canvasCtx = useRef<CanvasRenderingContext2D | null>(null)
@@ -29,6 +33,7 @@ const ParticleJS: React.FC = () => {
     const render = useCallback(() => {
         canvasCtx.current?.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height)
 
+        // 点
         for (let i = 0; i < particles.current.length; i++) {
             const particle = particles.current[i]
 
@@ -38,27 +43,34 @@ const ParticleJS: React.FC = () => {
             canvasCtx.current?.fill()
             canvasCtx.current?.closePath()
 
+            // 边界
             if (particle.xd) particle.x += particle.speed * devicePixelRatio
             else particle.x -= particle.speed * devicePixelRatio
 
             if (particle.yd) particle.y += particle.speed * devicePixelRatio
             else particle.y -= particle.speed * devicePixelRatio
 
-            if (particle.x <= 0 + particleMsg.radius || particle.x >= canvasRef.current.width - particleMsg.radius) particle.xd = !particle.xd
-            if (particle.y <= 0 + particleMsg.radius || particle.y >= canvasRef.current.height - particleMsg.radius) particle.yd = !particle.yd
+            if (particle.x <= 0 + particleMsg.radius) particle.xd = true
+            if (particle.x >= canvasRef.current.width - particleMsg.radius) particle.xd = false
+
+            if (particle.y <= 0 + particleMsg.radius) particle.yd = true
+            if (particle.y >= canvasRef.current.height - particleMsg.radius) particle.yd = false
         }
 
+        // 线
         for (let i = 0; i < particles.current.length; i++) {
             for (let j = 0; j < particles.current.length; j++) {
                 const a = particles.current[i]
                 const b = particles.current[j]
                 const dis = calcDistance(a, b)
+                // 一定距离内才连线
                 if (dis < lineDistance.current) {
                     canvasCtx.current?.beginPath()
                     canvasCtx.current?.moveTo(a.x, a.y)
                     canvasCtx.current?.lineTo(b.x, b.y)
                     const alpha = (lineDistance.current - dis) / lineDistance.current
-                    canvasCtx.current!.strokeStyle = `rgba(255, 255, 255, ${alpha})`
+                    canvasCtx.current!.globalAlpha = alpha
+                    canvasCtx.current!.strokeStyle = particleMsg.backgroundColor
                     canvasCtx.current?.stroke()
                     canvasCtx.current?.closePath()
                 }
@@ -69,31 +81,30 @@ const ParticleJS: React.FC = () => {
     }, [])
 
     useEffect(() => {
-        canvasRef.current.width = windowInnerWidth * devicePixelRatio
-        canvasRef.current.height = windowInnerHeight * devicePixelRatio
-        lineDistance.current = Math.sqrt(canvasRef.current.width ** 2 + canvasRef.current.height ** 2) / 10
-    }, [windowInnerWidth, windowInnerHeight])
-
-    useEffect(() => {
         canvasCtx.current = canvasRef.current.getContext('2d')
     }, [])
 
+    // 造数据 & 开始动画
     useEffect(() => {
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 80; i++) {
             particles.current.push({
                 x: random(0, canvasRef.current.width),
                 y: random(0, canvasRef.current.height),
                 xd: Math.random() > 0.5,
                 yd: Math.random() > 0.5,
-                speed: random(0.14, 0.15)
+                speed: random(0.2, 0.21)
             })
         }
         render()
+
+        return () => {
+            particles.current = []
+        }
     }, [render])
 
     return (
         <div className={`page ${styles.container}`}>
-            <canvas ref={canvasRef} width={windowInnerWidth * devicePixelRatio} height={windowInnerHeight * devicePixelRatio}></canvas>
+            <canvas ref={canvasRef} width={canvasWidth} height={canvasHeight}></canvas>
         </div>
     )
 }

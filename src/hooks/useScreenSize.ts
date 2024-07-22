@@ -1,32 +1,32 @@
-import { useSyncExternalStore } from 'react'
-
-const size = {
-    windowInnerWidth: window.innerWidth,
-    windowInnerHeight: window.innerHeight
-}
-
-const subscribe = (cb: () => void) => {
-    const setSize = () => {
-        size.windowInnerWidth = window.innerWidth
-        size.windowInnerHeight = window.innerHeight
-        cb()
-    }
-    window.addEventListener('resize', setSize)
-    return () => {
-        window.removeEventListener('resize', setSize)
-    }
-}
-
-const getSnapshot = () => {
-    return size
-}
-
-const getServerSnapShot = () => {
-    return size
-}
+import { useSyncExternalStore, useState } from 'react'
 
 const useScreenSize = () => {
-    return useSyncExternalStore(subscribe, getSnapshot, getServerSnapShot)
+    const [size, setSize] = useState({
+        windowInnerWidth: window.innerWidth,
+        windowInnerHeight: window.innerHeight
+    })
+
+    return useSyncExternalStore(
+        (cb) => {
+            const callback = () => {
+                setSize({
+                    windowInnerWidth: window.innerWidth,
+                    windowInnerHeight: window.innerHeight
+                })
+                cb()
+            }
+            window.addEventListener('resize', callback)
+            return () => {
+                window.removeEventListener('resize', callback)
+            }
+        },
+        () => {
+            return size
+        },
+        () => {
+            return size
+        }
+    )
 }
 
 export default useScreenSize
