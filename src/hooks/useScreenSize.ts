@@ -1,8 +1,8 @@
 import { useSyncExternalStore } from 'react'
 
 const size = {
-    windowInnerWidth: 0,
-    windowInnerHeight: 0
+    windowInnerWidth: window.innerWidth,
+    windowInnerHeight: window.innerHeight
 }
 
 const subscribe = (cb: () => void) => {

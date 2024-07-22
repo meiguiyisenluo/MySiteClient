@@ -16,8 +16,8 @@ const getServerSnapShot = () => {
     return navigator.onLine
 }
 
-const useScreenSize = () => {
+const useOneline = () => {
     return useSyncExternalStore(subscribe, getSnapshot, getServerSnapShot)
 }
 
-export default useScreenSize
+export default useOneline

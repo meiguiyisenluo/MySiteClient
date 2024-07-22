@@ -101,6 +101,21 @@ export const ROUTES: Array<RouteObj> = [
         }
     },
     {
+        path: '/particleJS',
+        name: 'ParticleJS',
+        authority: true,
+        order: 1,
+        lazy: () => import('@/pages/ParticleJS/index'),
+        showName: false,
+        fixed: true,
+        border: false,
+        vantCssVars: {
+            '--rv-nav-bar-background-color': 'transparent',
+            '--rv-nav-bar-icon-color': '#fff',
+            '--rv-nav-bar-title-text-color': '#fff'
+        }
+    },
+    {
         path: '/jay',
         order: 9999,
         name: '周杰伦',

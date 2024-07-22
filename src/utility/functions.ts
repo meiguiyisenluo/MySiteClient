@@ -19,3 +19,8 @@ export const loadImg = (src: string): Promise<Event> => {
         img.onerror = reject
     })
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function getType(data: any) {
+    return Object.prototype.toString.call(data).replace(/\[object (.*)\]/, '$1')
+}
