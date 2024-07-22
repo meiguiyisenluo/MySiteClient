@@ -16,7 +16,7 @@ const calcDistance = (a: Particle, b: Particle) => {
     return Math.sqrt(d1 ** 2 + d2 ** 2)
 }
 
-type Particle = { x: number; y: number; xd: boolean; yd: boolean; speed: number }
+type Particle = { x: number; y: number; xdirection: boolean; ydirection: boolean; xspeed: number; yspeed: number }
 
 const ParticleJS: React.FC = () => {
     const { windowInnerWidth, windowInnerHeight } = useScreenSize()
@@ -44,17 +44,17 @@ const ParticleJS: React.FC = () => {
             canvasCtx.current?.closePath()
 
             // 边界
-            if (particle.xd) particle.x += particle.speed * devicePixelRatio
-            else particle.x -= particle.speed * devicePixelRatio
+            if (particle.xdirection) particle.x += particle.xspeed * devicePixelRatio
+            else particle.x -= particle.xspeed * devicePixelRatio
 
-            if (particle.yd) particle.y += particle.speed * devicePixelRatio
-            else particle.y -= particle.speed * devicePixelRatio
+            if (particle.ydirection) particle.y += particle.yspeed * devicePixelRatio
+            else particle.y -= particle.yspeed * devicePixelRatio
 
-            if (particle.x <= 0 + particleMsg.radius) particle.xd = true
-            if (particle.x >= canvasRef.current.width - particleMsg.radius) particle.xd = false
+            if (particle.x <= 0 + particleMsg.radius) particle.xdirection = true
+            if (particle.x >= canvasRef.current.width - particleMsg.radius) particle.xdirection = false
 
-            if (particle.y <= 0 + particleMsg.radius) particle.yd = true
-            if (particle.y >= canvasRef.current.height - particleMsg.radius) particle.yd = false
+            if (particle.y <= 0 + particleMsg.radius) particle.ydirection = true
+            if (particle.y >= canvasRef.current.height - particleMsg.radius) particle.ydirection = false
         }
 
         // 线
@@ -90,9 +90,10 @@ const ParticleJS: React.FC = () => {
             particles.current.push({
                 x: random(0, canvasRef.current.width),
                 y: random(0, canvasRef.current.height),
-                xd: Math.random() > 0.5,
-                yd: Math.random() > 0.5,
-                speed: random(0.2, 0.21)
+                xdirection: Math.random() > 0.5,
+                ydirection: Math.random() > 0.5,
+                xspeed: random(0.2, 0.25),
+                yspeed: random(0.2, 0.25)
             })
         }
         render()
