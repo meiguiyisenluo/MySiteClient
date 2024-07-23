@@ -49,6 +49,21 @@ export const ROUTES: Array<RouteObj> = [
     { path: '/flowBorder', name: '流动边框', authority: true, order: 9999, lazy: () => import('@/pages/FlowBorder/index') },
     { path: '/sudoku', name: '九宫格', authority: !isMobile, order: 9999, lazy: () => import('@/pages/Sudoku/index') },
     { path: '/randomTree', name: '随机树', authority: true, order: 9999, lazy: () => import('@/pages/RandomTree/index') },
+    {
+        path: '/randomTree2',
+        name: '随机树2',
+        authority: true,
+        order: 9999,
+        lazy: () => import('@/pages/RandomTree2/index'),
+        showName: false,
+        fixed: true,
+        border: false,
+        vantCssVars: {
+            '--rv-nav-bar-background-color': 'transparent',
+            '--rv-nav-bar-icon-color': '#fff',
+            '--rv-nav-bar-title-text-color': '#fff'
+        }
+    },
     { path: '/ballAnimation', name: '悬浮球动画', authority: true, order: 9999, lazy: () => import('@/pages/BallAnimation/index') },
     { path: '/scrollSnapType', name: 'scrollSnapType轮播图', authority: true, order: 9999, lazy: () => import('@/pages/ScrollSnapType/index') },
     { path: '/svgStrokeAnimation', name: 'svg描边动画', authority: true, order: 9999, lazy: () => import('@/pages/SvgStrokeAnimation/index') },
@@ -114,21 +129,6 @@ export const ROUTES: Array<RouteObj> = [
             '--rv-nav-bar-icon-color': '#fff',
             '--rv-nav-bar-title-text-color': '#fff'
         }
-    },
-    {
-        path: '/jay',
-        order: 9999,
-        name: '周杰伦',
-        authority: false,
-        showName: false,
-        fixed: true,
-        border: false,
-        vantCssVars: {
-            '--rv-nav-bar-background-color': 'transparent',
-            '--rv-nav-bar-icon-color': '#fff',
-            '--rv-nav-bar-title-text-color': '#fff'
-        },
-        lazy: () => import('@/pages/Jay/index')
     }
 ]
 
