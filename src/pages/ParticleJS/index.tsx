@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import styles from './index.module.scss'
 
 import { random } from '@/utility/functions'
@@ -15,6 +15,10 @@ const particleMsg = {
 type Particle = { x: number; y: number; xdirection: boolean; ydirection: boolean; xspeed: number; yspeed: number }
 
 const ParticleJS: React.FC = () => {
+    const now = useRef(Date.now())
+    const fc = useRef(0)
+    const [fps, setFps] = useState(0)
+
     const { windowInnerWidth, windowInnerHeight } = useScreenSize()
     const lineDistance = useRef(0)
 
@@ -27,6 +31,14 @@ const ParticleJS: React.FC = () => {
     const canvasCtx = useRef<CanvasRenderingContext2D | null>(null)
 
     const render = useCallback(() => {
+        const newnow = Date.now()
+        fc.current += 1
+        if (newnow - now.current >= 1000) {
+            now.current = newnow
+            setFps(fc.current)
+            fc.current = 0
+        }
+
         canvasCtx.current?.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height)
 
         // 点
@@ -108,6 +120,7 @@ const ParticleJS: React.FC = () => {
 
     return (
         <div className={`page ${styles.container}`}>
+            <div style={{ position: 'fixed', right: '0', top: '0', color: '#fff' }}>fps: {fps}</div>
             <canvas ref={canvasRef} width={canvasWidth} height={canvasHeight}></canvas>
         </div>
     )
