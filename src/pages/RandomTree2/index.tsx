@@ -4,9 +4,8 @@ import styles from './index.module.scss'
 
 import useScreenSize from '@/hooks/useScreenSize'
 
-let animationId = 0
-
 const RandomTree2: React.FC = () => {
+    const animationId = useRef(0)
     const now = useRef(Date.now())
     const fc = useRef(0)
     const [fps, setFps] = useState(60)
@@ -26,13 +25,13 @@ const RandomTree2: React.FC = () => {
             setFps(fc.current)
             fc.current = 0
         }
-        return (animationId = requestAnimationFrame(render))
+        return (animationId.current = requestAnimationFrame(render))
     }, [])
 
     useEffect(() => {
         render()
         return () => {
-            cancelAnimationFrame(animationId)
+            cancelAnimationFrame(animationId.current)
         }
     }, [render])
 

@@ -37,6 +37,10 @@ import lyric_heisemaoyi from './lrc/heisemaoyi.lrc'
 //     })
 // )
 
+const audio_ctx = new AudioContext()
+const canAutoPlay = audio_ctx.state === 'running'
+audio_ctx.close()
+
 const sources: Array<{
     audioSrc: string
     audioUrl: string
@@ -163,15 +167,6 @@ const sources: Array<{
     }
 ]
 
-const audio_ctx = new AudioContext()
-const canAutoPlay = audio_ctx.state === 'running'
-audio_ctx.close()
-
-export const loader = () => {
-    // 提升用户体验
-    return loadImg(sources[0].imgUrl)
-}
-
 const preloadImg = (targetIdx: number) => {
     let prev = targetIdx - 1
     let next = targetIdx + 1
@@ -180,6 +175,11 @@ const preloadImg = (targetIdx: number) => {
     console.log('preloadImg', prev, next)
     if (!sources[prev].imgLoadController) sources[prev].imgLoadController = loadImg(sources[prev].imgUrl)
     if (!sources[next].imgLoadController) sources[next].imgLoadController = loadImg(sources[next].imgUrl)
+}
+
+export const loader = () => {
+    // 提升用户体验
+    return loadImg(sources[0].imgUrl)
 }
 
 const Nitingdedao: React.FC = () => {

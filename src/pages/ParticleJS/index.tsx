@@ -5,8 +5,6 @@ import { random } from '@/utility/functions'
 
 import useScreenSize from '@/hooks/useScreenSize'
 
-let animationId = 0
-
 const particleMsg = {
     radius: 2,
     backgroundColor: '#fff'
@@ -15,6 +13,8 @@ const particleMsg = {
 type Particle = { x: number; y: number; xdirection: boolean; ydirection: boolean; xspeed: number; yspeed: number }
 
 const ParticleJS: React.FC = () => {
+    const animationId = useRef(0)
+
     const now = useRef(Date.now())
     const fc = useRef(0)
     const [fps, setFps] = useState(0)
@@ -91,7 +91,7 @@ const ParticleJS: React.FC = () => {
             }
         }
 
-        return (animationId = requestAnimationFrame(render))
+        return (animationId.current = requestAnimationFrame(render))
     }, [])
 
     useEffect(() => {
@@ -114,7 +114,7 @@ const ParticleJS: React.FC = () => {
 
         return () => {
             particles.current = []
-            cancelAnimationFrame(animationId)
+            cancelAnimationFrame(animationId.current)
         }
     }, [render])
 
