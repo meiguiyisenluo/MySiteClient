@@ -5,7 +5,7 @@ self.addEventListener('install', function (event) {
     // 执行预缓存
     event.waitUntil(
         caches.open('my-cache-v1').then(function (cache) {
-            return cache.addAll(['/'])
+            return cache.addAll([])
         })
     )
 })
