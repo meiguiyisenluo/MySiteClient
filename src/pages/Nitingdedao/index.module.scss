@@ -4,9 +4,29 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    background-position: center center;
     background-size: cover;
     background-color: #333;
+    background-position: 45% 45%;
+    animation-name: bg_move;
+    animation-timing-function: linear;
+    animation-duration: 10s;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+
+    @keyframes bg_move {
+        0% {
+            background-position: 45% 45%;
+        }
+        50% {
+            background-position: 55% 55%;
+        }
+        100% {
+            background-position: 45% 45%;
+        }
+    }
+
     .content {
         flex-grow: 0;
         flex-shrink: 0;
