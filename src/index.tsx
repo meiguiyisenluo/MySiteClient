@@ -38,17 +38,30 @@ if (container) {
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.register()
 
-document.addEventListener('keydown', function (event) {
-    if ((event.ctrlKey || event.metaKey) && (event.key === '+' || event.key === '-' || event.key === '0')) {
-        event.preventDefault()
-    }
-})
-document.addEventListener(
-    'wheel',
-    function (event) {
-        if (event.ctrlKey) {
-            event.preventDefault()
+// document.addEventListener('keydown', function (event) {
+//     if ((event.ctrlKey || event.metaKey) && (event.key === '+' || event.key === '-' || event.key === '0')) {
+//         event.preventDefault()
+//     }
+// })
+// document.addEventListener(
+//     'wheel',
+//     function (event) {
+//         if (event.ctrlKey) {
+//             event.preventDefault()
+//         }
+//     },
+//     { passive: false }
+// )
+
+if (window.Notification) {
+    Notification.requestPermission().then(function (permission) {
+        if (permission === 'granted') {
+            const notification = new Notification('Hi!', {
+                body: 'This code is open source in https://github.com/meiguiyisenluo/MySiteClient'
+            })
+            notification.addEventListener('click', () => {
+                window.open('https://github.com/meiguiyisenluo/MySiteClient')
+            })
         }
-    },
-    { passive: false }
-)
+    })
+}

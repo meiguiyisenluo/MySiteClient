@@ -42,12 +42,6 @@ function registerValidSW(swUrl: string, config?: Config) {
     navigator.serviceWorker
         .register(swUrl)
         .then((registration) => {
-            registration.showNotification('Hi!', {
-                body: 'This code is open source in https://github.com/meiguiyisenluo/MySiteClient',
-                data: {
-                    links: 'https://github.com/meiguiyisenluo/MySiteClient'
-                }
-            })
             registration.onupdatefound = () => {
                 const installingWorker = registration.installing
                 if (installingWorker == null) {
