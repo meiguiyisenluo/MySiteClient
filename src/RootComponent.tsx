@@ -41,6 +41,7 @@ export const ROUTES: Array<RouteObj> = [
             '--rv-nav-bar-background-color': 'transparent'
         }
     },
+    { path: '/gerensuodeshui', name: '个税计算器', authority: true, order: 9999, lazy: () => import('@/pages/Gerensuodeshui/index') },
     { path: '/faceSymmetry', name: '脸对称测试', authority: true, order: 9999, lazy: () => import('@/pages/FaceSymmetry/FaceSymmetry') },
     { path: '/autoSound', name: '速读', authority: true, order: 9999, lazy: () => import('@/pages/AutoSound/AutoSound') },
     { path: '/fanyi', name: '翻译', authority: true, order: 9999, lazy: () => import('@/pages/Fanyi/index') },

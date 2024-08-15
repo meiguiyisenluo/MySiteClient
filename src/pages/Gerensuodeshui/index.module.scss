@@ -1,0 +1,45 @@
+.container {
+    padding: 1rem;
+    .tips {
+        font-size: 0.8rem;
+        color: #bbb;
+    }
+
+    .table {
+        width: 100%;
+        overflow-x: auto;
+        .line {
+            display: flex;
+            flex-wrap: nowrap;
+            height: 2rem;
+            &.head {
+                padding-top: 1rem;
+                font-weight: bold;
+                height: auto;
+            }
+
+            .cell {
+                flex: 0 0 5rem;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #fff;
+
+                &.light{
+                    color: #999;
+                }
+
+                &:nth-child(1) {
+                    justify-content: flex-start;
+                    position: sticky;
+                    left: 0;
+                }
+
+                input {
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
