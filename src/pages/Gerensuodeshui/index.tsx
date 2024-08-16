@@ -127,7 +127,7 @@ const Gerensuodeshui: React.FC = () => {
                 本期应预扣预缴税额＝（累计预扣预缴应纳税所得额×预扣率－速算扣除数）－累计减免税额－累计已预扣预缴税额
                 <br />
             </div>
-            <div className={styles.tips}>* 使用说明：暂无</div>
+            <div className={styles.tips}>* 使用说明：五险一金可填入“免税收入”一项</div>
 
             <div className={styles.batch}>
                 <p>批量填入</p>
