@@ -5,6 +5,17 @@
         color: #bbb;
     }
 
+    .batch {
+        display: flex;
+        align-items: center;
+        overflow-x: auto;
+        p,
+        button {
+            flex-shrink: 0;
+            width: 5rem;
+        }
+    }
+
     .table {
         width: 100%;
         overflow-x: auto;
@@ -26,7 +37,7 @@
                 align-items: center;
                 background-color: #fff;
 
-                &.light{
+                &.light {
                     color: #999;
                 }
 

@@ -1,28 +1,28 @@
 import React, { useState } from 'react'
 import styles from './index.module.scss'
 
-import { Input, Cell } from 'react-vant'
+import { Input, Cell, Button, Picker } from 'react-vant'
 
 const Gerensuodeshui: React.FC = () => {
+    const [batchItem, setBatchItem] = useState('a')
+    const [batchVal, setBatchVal] = useState('0')
+
     const [list, setList] = useState(
         Array.from({ length: 12 }, () => ({
             // 收入
-            a: 0,
+            a: '0',
             // 免税收入
-            b: 0,
+            b: '0',
             // 减除费用
-            c: 0,
+            c: '0',
             // 专项扣除
-            d: 0,
+            d: '0',
             // 专项附加扣除
-            e: 0,
+            e: '0',
             // 依法确定的其他扣除
-            f: 0,
+            f: '0',
             // 减免税额
-            g: 0,
-
-            // 每期应预扣预缴税额
-            h: 0
+            g: '0'
         }))
     )
 
@@ -41,13 +41,13 @@ const Gerensuodeshui: React.FC = () => {
         tg = 0
     for (let i = 0; i < list.length; i++) {
         const item = list[i]
-        ta += item.a
-        tb += item.b
-        tc += item.c
-        td += item.d
-        te += item.e
-        tf += item.f
-        tg += item.g
+        ta += Number(item.a)
+        tb += Number(item.b)
+        tc += Number(item.c)
+        td += Number(item.d)
+        te += Number(item.e)
+        tf += Number(item.f)
+        tg += Number(item.g)
         const res = ta - 5000 * (i + 1) - tb - tc - td - te - tf - tg
 
         let per = 0,
@@ -78,21 +78,21 @@ const Gerensuodeshui: React.FC = () => {
             num = 181920
         }
 
-        let res2 = res * per - num - item.h
+        let res2 = res * per - num - Number(item.g)
 
         for (let i = 0; i < resList.length; i++) {
             res2 -= resList[i].shui
         }
 
         resList.push({
-            res,
+            res: list.slice(0, i + 1).reduce((total, item) => total + Number(item.a), 0),
             per,
             num,
             shui: parseFloat(res2.toFixed(2))
         })
     }
 
-    const totalIn = list.reduce((total, item) => total + item.a, 0)
+    const totalIn = list.reduce((total, item) => total + Number(item.a), 0)
     const totalShui = resList.reduce((total, item) => total + item.shui, 0)
 
     const onchange = (idx: number, key: string, val: string) => {
@@ -104,6 +104,11 @@ const Gerensuodeshui: React.FC = () => {
             },
             ...list.slice(idx + 1)
         ])
+    }
+
+    const batchInput = () => {
+        setList(list.map((item) => ({ ...item, [batchItem]: parseFloat(Number(batchVal).toFixed(2)) })))
+        setBatchVal('0')
     }
 
     return (
@@ -123,6 +128,39 @@ const Gerensuodeshui: React.FC = () => {
                 <br />
             </div>
             <div className={styles.tips}>* 使用说明：暂无</div>
+
+            <div className={styles.batch}>
+                <p>批量填入</p>
+                <Picker
+                    title="选择项"
+                    popup={{
+                        round: true
+                    }}
+                    value={batchItem}
+                    onConfirm={setBatchItem}
+                    columns={[
+                        { text: '收入', value: 'a' },
+                        { text: '免税收入', value: 'b' },
+                        { text: '减除费用', value: 'c' },
+                        { text: '专项扣除', value: 'd' },
+                        { text: '专项附加扣除', value: 'e' },
+                        { text: '依法确定的其他扣除', value: 'f' },
+                        { text: '减免税额', value: 'g' }
+                    ]}
+                >
+                    {(val, _, actions) => {
+                        // @ts-ignore-next-line
+                        return <p onClick={() => actions.open()}>{_.text} </p>
+                    }}
+                </Picker>
+                <span>为</span>
+                <Cell>
+                    <Input type="number" value={batchVal} onChange={setBatchVal}></Input>
+                </Cell>
+                <Button type="primary" size="small" onClick={batchInput}>
+                    填入
+                </Button>
+            </div>
 
             <Cell title={'收入合计'} value={totalIn}></Cell>
             <Cell title={'已申报税额合计'} value={totalShui}></Cell>
@@ -154,7 +192,7 @@ const Gerensuodeshui: React.FC = () => {
                         {['a', 'b', 'c', 'd', 'e', 'f', 'g'].map((key) => (
                             <div key={key} className={styles.cell}>
                                 {/* @ts-ignore-next-line */}
-                                <Input value={String(item[key])} onChange={(val) => onchange(idx, key, val)} type="number" placeholder="请输入" />
+                                <Input value={item[key]} onChange={(val) => onchange(idx, key, val)} type="number" placeholder="请输入" />
                             </div>
                         ))}
                         {['shui', 'res', 'per', 'num'].map((key) => (
