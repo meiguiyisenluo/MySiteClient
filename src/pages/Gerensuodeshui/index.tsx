@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styles from './index.module.scss'
 
+import BigNumber from 'bignumber.js'
 import { Input, Cell, Button, Picker } from 'react-vant'
 
 const Gerensuodeshui: React.FC = () => {
@@ -27,50 +28,57 @@ const Gerensuodeshui: React.FC = () => {
     )
 
     const resList: Array<{
-        shui: number
+        res: string
+        shui: string
         per: number
         num: number
-        res: number
     }> = []
-    let ta = 0,
-        tb = 0,
-        tc = 0,
-        td = 0,
-        te = 0,
-        tf = 0,
-        tg = 0
+    let ta = BigNumber(0),
+        tb = BigNumber(0),
+        tc = BigNumber(0),
+        td = BigNumber(0),
+        te = BigNumber(0),
+        tf = BigNumber(0),
+        tg = BigNumber(0)
     for (let i = 0; i < list.length; i++) {
         const item = list[i]
-        ta += Number(item.a)
-        tb += Number(item.b)
-        tc += Number(item.c)
-        td += Number(item.d)
-        te += Number(item.e)
-        tf += Number(item.f)
-        tg += Number(item.g)
-        const res = ta - 5000 * (i + 1) - tb - tc - td - te - tf - tg
+        ta = ta.plus(item.a)
+        tb = tb.plus(item.b)
+        tc = tc.plus(item.c)
+        td = td.plus(item.d)
+        te = te.plus(item.e)
+        tf = tf.plus(item.f)
+        tg = tg.plus(item.g)
+        const res = ta
+            .minus(5000 * (i + 1))
+            .minus(tb.toNumber())
+            .minus(tc.toNumber())
+            .minus(td.toNumber())
+            .minus(te.toNumber())
+            .minus(tf.toNumber())
+            .minus(tg.toNumber())
 
         let per = 0,
             num = 0
-        if (res < 0) {
+        if (res.isLessThan(0)) {
             per = 0
             num = 0
-        } else if (res <= 36000) {
+        } else if (res.isLessThanOrEqualTo(36000)) {
             per = 0.03
             num = 0
-        } else if (res <= 144000) {
+        } else if (res.isLessThanOrEqualTo(144000)) {
             per = 0.1
             num = 2520
-        } else if (res <= 300000) {
+        } else if (res.isLessThanOrEqualTo(300000)) {
             per = 0.2
             num = 16920
-        } else if (res <= 420000) {
+        } else if (res.isLessThanOrEqualTo(420000)) {
             per = 0.25
             num = 31920
-        } else if (res <= 660000) {
+        } else if (res.isLessThanOrEqualTo(660000)) {
             per = 0.3
             num = 52920
-        } else if (res <= 960000) {
+        } else if (res.isLessThanOrEqualTo(960000)) {
             per = 0.35
             num = 85920
         } else {
@@ -78,22 +86,25 @@ const Gerensuodeshui: React.FC = () => {
             num = 181920
         }
 
-        let res2 = res * per - num - Number(item.g)
+        let res2 = res.multipliedBy(per).minus(num).minus(item.g)
 
         for (let i = 0; i < resList.length; i++) {
-            res2 -= resList[i].shui
+            res2 = res2.minus(resList[i].shui)
         }
 
         resList.push({
-            res: list.slice(0, i + 1).reduce((total, item) => total + Number(item.a), 0),
+            res: list
+                .slice(0, i + 1)
+                .reduce((total, item) => total.plus(item.a), BigNumber(0))
+                .toFixed(2),
+            shui: res2.toFixed(2),
             per,
-            num,
-            shui: parseFloat(res2.toFixed(2))
+            num
         })
     }
 
-    const totalIn = list.reduce((total, item) => total + Number(item.a), 0)
-    const totalShui = resList.reduce((total, item) => total + item.shui, 0)
+    const totalIn = list.reduce((total, item) => total.plus(item.a), BigNumber(0)).toNumber()
+    const totalShui = resList.reduce((total, item) => total.plus(item.shui), BigNumber(0)).toNumber()
 
     const onchange = (idx: number, key: string, val: string) => {
         setList([
@@ -107,7 +118,7 @@ const Gerensuodeshui: React.FC = () => {
     }
 
     const batchInput = () => {
-        setList(list.map((item) => ({ ...item, [batchItem]: parseFloat(Number(batchVal).toFixed(2)) })))
+        setList(list.map((item) => ({ ...item, [batchItem]: batchVal })))
         setBatchVal('0')
     }
 
