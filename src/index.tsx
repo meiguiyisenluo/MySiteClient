@@ -53,14 +53,15 @@ serviceWorker.register()
 //     { passive: false }
 // )
 
+window._githubSrc = 'https://github.com/meiguiyisenluo/MySiteClient'
 if (window.Notification) {
     Notification.requestPermission().then(function (permission) {
         if (permission === 'granted') {
             const notification = new Notification('Hi!', {
-                body: 'This code is open source in https://github.com/meiguiyisenluo/MySiteClient'
+                body: 'This code is open source in ' + window._githubSrc
             })
             notification.addEventListener('click', () => {
-                window.open('https://github.com/meiguiyisenluo/MySiteClient')
+                window.open(window._githubSrc)
             })
         }
     })

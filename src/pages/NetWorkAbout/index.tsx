@@ -1,7 +1,8 @@
-import React, { useEffect, useState, MouseEvent } from 'react'
+import React, { useRef, useEffect, useState, MouseEvent } from 'react'
 import { useLoaderData } from 'react-router-dom'
 import { Cell, Input, Button, Toast, Loading } from 'react-vant'
 import { getIpv4, dnsResolve } from '@/resources/api-constants'
+import useOneline from '@/hooks/useOnline'
 
 import styles from './index.module.scss'
 
@@ -51,8 +52,44 @@ const NetWorkAbout: React.FC = () => {
             .catch(() => Toast('复制失败'))
     }
 
+    const interval = useRef<NodeJS.Timeout>(null!)
+    const [connectionObj, setConnectionObj] = useState({
+        downlink: 10,
+        effectiveType: '4g',
+        rtt: 50
+    })
+    const isOnline = useOneline()
+    useEffect(() => {
+        interval.current = setInterval(() => {
+            // @ts-ignore
+            const { downlink, effectiveType, rtt } = navigator.connection
+            setConnectionObj({ downlink, effectiveType, rtt })
+            return () => {
+                if (interval) clearInterval(interval.current)
+            }
+        }, 500)
+    }, [])
+
     return (
         <div className={`page ${styles.container}`}>
+            <Cell
+                className={styles.hd}
+                value={
+                    <div className={styles.connection}>
+                        {isOnline ? (
+                            <>
+                                <span>网络状态: {connectionObj.effectiveType}</span>
+                                <span>延迟: {connectionObj.rtt}ms</span>
+                                <span>带宽: {connectionObj.downlink}Mb/s</span>
+                            </>
+                        ) : (
+                            <>
+                                <span>离线</span>
+                            </>
+                        )}
+                    </div>
+                }
+            />
             <Cell
                 className={styles.hd}
                 center

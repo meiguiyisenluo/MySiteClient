@@ -111,7 +111,7 @@ const Gerensuodeshui: React.FC = () => {
             ...list.slice(0, idx),
             {
                 ...list[idx],
-                [key]: Number(val)
+                [key]: val
             },
             ...list.slice(idx + 1)
         ])

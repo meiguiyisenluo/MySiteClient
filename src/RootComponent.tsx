@@ -3,6 +3,7 @@ import { RouterProvider, createHashRouter, useLocation, useNavigate, RouteObject
 import HomePage from '@/pages/HomePage/HomePage'
 import NotFoundPage from './pages/NotFoundPage'
 import { NavBar, Loading, Button } from 'react-vant'
+import { GoodJobO } from '@react-vant/icons'
 import './styles/main.sass'
 import './styles/vant-custom.css'
 
@@ -172,7 +173,7 @@ const Topbar: React.FC = () => {
         }
     }, [route])
 
-    return <NavBar zIndex={9999} fixed={fixed} border={border} title={title} onClickLeft={() => navigate(-1)} />
+    return <NavBar zIndex={9999} fixed={fixed} border={border} title={title} onClickLeft={() => navigate(-1)} rightText={<GoodJobO fontSize={20} onPointerEnterCapture onPointerLeaveCapture />} onClickRight={()=>window.open(window._githubSrc)} />
 }
 
 const CustomLoading: React.FC = () => {
