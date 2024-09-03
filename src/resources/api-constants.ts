@@ -10,6 +10,15 @@ export const testApi1 = () => {
     })
 }
 // -------------------- test end -----------------------------
+
+// csrf
+export const csrftoken = () => {
+    return CustomAxios({
+        url: '/csrf-token',
+        method: 'get'
+    })
+}
+
 // 埋点
 export const report = (data: { event: 'total_pv' }) => {
     return CustomAxios({
@@ -22,6 +31,14 @@ export const report = (data: { event: 'total_pv' }) => {
 export const statistics = () => {
     return CustomAxios({
         url: '/statistics',
+        method: 'get'
+    })
+}
+
+// wx-js-sdk ticket
+export const getWXJSSDKTicket = () => {
+    return CustomAxios({
+        url: '/getWXJSSDKTicket',
         method: 'get'
     })
 }
@@ -48,13 +65,5 @@ export const dnsResolve = (data: { hostname: string }) => {
         url: '/networkAbout/dns-resolve',
         method: 'get',
         params: data
-    })
-}
-
-// csrf
-export const csrftoken = () => {
-    return CustomAxios({
-        url: '/csrf-token',
-        method: 'get'
     })
 }
