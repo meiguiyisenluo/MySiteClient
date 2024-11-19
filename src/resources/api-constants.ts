@@ -67,3 +67,12 @@ export const dnsResolve = (data: { hostname: string }) => {
         params: data
     })
 }
+
+// 流式视频加载
+export const streamVideo = () => {
+    return CustomAxios({
+        url: '/streamVedio',
+        method: 'get',
+        responseType: 'blob'
+    })
+}

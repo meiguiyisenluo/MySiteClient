@@ -86,6 +86,7 @@ export const ROUTES: Array<RouteObj> = [
             '--rv-nav-bar-title-text-color': '#fff'
         }
     },
+    { path: '/streamVideo', name: 'StreamVideo', authority: true, order: 9999, lazy: () => import('@/pages/StreamVideo/index') },
     { path: '/omgTv', name: 'OmgTV', authority: true, order: 1, lazy: () => import('@/pages/OmgTV/index') },
     {
         path: '/nitingdedao',
