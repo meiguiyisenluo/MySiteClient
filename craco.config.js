@@ -14,7 +14,7 @@ module.exports = {
                 },
                 secure: false
             },
-            '/share': {
+            '/shareserver': {
                 target: 'https://luoyisen.com',
                 secure: false
             }
