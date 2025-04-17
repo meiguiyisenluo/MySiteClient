@@ -164,7 +164,9 @@ const OmgTV: React.FC = () => {
             production: 'https://bytedance-me.zone.id:3000/OmgTV',
             development: 'https://bytedance-me.zone.id:3000/OmgTV'
         }
-        socket.current = io(urls[process.env.NODE_ENV])
+        socket.current = io(urls[process.env.NODE_ENV], {
+            withCredentials: true
+        })
 
         socket.current.on('connect', () => {
             Toast('连接服务器成功')
