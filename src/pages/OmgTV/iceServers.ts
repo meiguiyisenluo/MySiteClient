@@ -281,7 +281,7 @@ export default [
     { urls: 'stun:stun4.l.google.com:19302' },
     { urls: 'stun:stunserver.org:3478' },
 
-    { urls: 'stun:luoyisen.com:3478' },
+    { urls: 'stun:206.237.13.237:3478' },
 
     {
         urls: 'turn:numb.viagenie.ca',
@@ -309,7 +309,7 @@ export default [
         username: 'webrtc'
     },
     {
-        urls: 'turn:luoyisen.com:3478',
+        urls: 'turn:206.237.13.237:3478',
         username: 'lys',
         credential: '123'
     }
