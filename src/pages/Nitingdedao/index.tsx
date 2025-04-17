@@ -57,8 +57,8 @@ const sources: Array<{
 }> = [
     {
         audioSrc: '/shareserver/music/Jay/03.mp3',
-        audioUrl: 'https://luoyisen.com/shareserver/music/Jay/03.mp3',
-        imgUrl: 'https://luoyisen.com/shareserver/imgs/JayChou%40.1/6.png',
+        audioUrl: 'https://bytedance-me.zone.id/shareserver/music/Jay/03.mp3',
+        imgUrl: 'https://bytedance-me.zone.id/shareserver/imgs/JayChou%40.1/6.png',
         name: '你听得到',
         author: '周杰伦-叶惠美',
         sign: 'J A Y',
@@ -67,8 +67,8 @@ const sources: Array<{
     },
     {
         audioSrc: '/shareserver/music/Jay/06.mp3',
-        audioUrl: 'https://luoyisen.com/shareserver/music/Jay/06.mp3',
-        imgUrl: 'https://luoyisen.com/shareserver/imgs/JayChou%40.1/12.png',
+        audioUrl: 'https://bytedance-me.zone.id/shareserver/music/Jay/06.mp3',
+        imgUrl: 'https://bytedance-me.zone.id/shareserver/imgs/JayChou%40.1/12.png',
         name: '心雨',
         author: '周杰伦-依然范特西',
         sign: 'J A Y',
@@ -77,8 +77,8 @@ const sources: Array<{
     },
     {
         audioSrc: '/shareserver/music/Jay/01.mp3',
-        audioUrl: 'https://luoyisen.com/shareserver/music/Jay/01.mp3',
-        imgUrl: 'https://luoyisen.com/shareserver/imgs/JayChou%40.1/12.png',
+        audioUrl: 'https://bytedance-me.zone.id/shareserver/music/Jay/01.mp3',
+        imgUrl: 'https://bytedance-me.zone.id/shareserver/imgs/JayChou%40.1/12.png',
         name: '退后',
         author: '周杰伦-依然范特西',
         sign: 'J A Y',
@@ -87,8 +87,8 @@ const sources: Array<{
     },
     {
         audioSrc: '/shareserver/music/Jay/02.mp3',
-        audioUrl: 'https://luoyisen.com/shareserver/music/Jay/02.mp3',
-        imgUrl: 'https://luoyisen.com/shareserver/imgs/JayChou%40.1/14.png',
+        audioUrl: 'https://bytedance-me.zone.id/shareserver/music/Jay/02.mp3',
+        imgUrl: 'https://bytedance-me.zone.id/shareserver/imgs/JayChou%40.1/14.png',
         name: '不能说的秘密',
         author: '周杰伦',
         sign: 'J A Y',
@@ -97,8 +97,8 @@ const sources: Array<{
     },
     {
         audioSrc: '/shareserver/music/Jay/07.mp3',
-        audioUrl: 'https://luoyisen.com/shareserver/music/Jay/07.mp3',
-        imgUrl: 'https://luoyisen.com/shareserver/imgs/JayChou%40.1/15.PNG',
+        audioUrl: 'https://bytedance-me.zone.id/shareserver/music/Jay/07.mp3',
+        imgUrl: 'https://bytedance-me.zone.id/shareserver/imgs/JayChou%40.1/15.PNG',
         name: '我不配',
         author: '周杰伦-我很忙',
         sign: 'J A Y',
@@ -107,8 +107,8 @@ const sources: Array<{
     },
     {
         audioSrc: '/shareserver/music/Jay/08.mp3',
-        audioUrl: 'https://luoyisen.com/shareserver/music/Jay/08.mp3',
-        imgUrl: 'https://luoyisen.com/shareserver/imgs/JayChou%40.1/15.PNG',
+        audioUrl: 'https://bytedance-me.zone.id/shareserver/music/Jay/08.mp3',
+        imgUrl: 'https://bytedance-me.zone.id/shareserver/imgs/JayChou%40.1/15.PNG',
         name: '蒲公英的约定',
         author: '周杰伦-我很忙',
         sign: 'J A Y',
@@ -117,8 +117,8 @@ const sources: Array<{
     },
     {
         audioSrc: '/shareserver/music/Jay/09.mp3',
-        audioUrl: 'https://luoyisen.com/shareserver/music/Jay/09.mp3',
-        imgUrl: 'https://luoyisen.com/shareserver/imgs/JayChou%40.1/10.png',
+        audioUrl: 'https://bytedance-me.zone.id/shareserver/music/Jay/09.mp3',
+        imgUrl: 'https://bytedance-me.zone.id/shareserver/imgs/JayChou%40.1/10.png',
         name: '枫',
         author: '周杰伦-十一月的肖邦',
         sign: 'J A Y',
@@ -127,8 +127,8 @@ const sources: Array<{
     },
     {
         audioSrc: '/shareserver/music/Jay/05.mp3',
-        audioUrl: 'https://luoyisen.com/shareserver/music/Jay/05.mp3',
-        imgUrl: 'https://luoyisen.com/shareserver/imgs/JayChou%40.1/10.png',
+        audioUrl: 'https://bytedance-me.zone.id/shareserver/music/Jay/05.mp3',
+        imgUrl: 'https://bytedance-me.zone.id/shareserver/imgs/JayChou%40.1/10.png',
         name: '浪漫手机',
         author: '周杰伦-十一月的肖邦',
         sign: 'J A Y',
@@ -137,8 +137,8 @@ const sources: Array<{
     },
     {
         audioSrc: '/shareserver/music/Jay/11.mp3',
-        audioUrl: 'https://luoyisen.com/shareserver/music/Jay/11.mp3',
-        imgUrl: 'https://luoyisen.com/shareserver/imgs/JayChou%40.1/8.PNG',
+        audioUrl: 'https://bytedance-me.zone.id/shareserver/music/Jay/11.mp3',
+        imgUrl: 'https://bytedance-me.zone.id/shareserver/imgs/JayChou%40.1/8.PNG',
         name: '园游会',
         author: '周杰伦-七里香',
         sign: 'J A Y',
@@ -147,8 +147,8 @@ const sources: Array<{
     },
     {
         audioSrc: '/shareserver/music/Jay/10.mp3',
-        audioUrl: 'https://luoyisen.com/shareserver/music/Jay/10.mp3',
-        imgUrl: 'https://luoyisen.com/shareserver/imgs/JayChou%40.1/10.png',
+        audioUrl: 'https://bytedance-me.zone.id/shareserver/music/Jay/10.mp3',
+        imgUrl: 'https://bytedance-me.zone.id/shareserver/imgs/JayChou%40.1/10.png',
         name: '黑色毛衣',
         author: '周杰伦-十一月的肖邦',
         sign: 'J A Y',
@@ -157,8 +157,8 @@ const sources: Array<{
     },
     {
         audioSrc: '/shareserver/music/Jay/04.mp3',
-        audioUrl: 'https://luoyisen.com/shareserver/music/Jay/04.mp3',
-        imgUrl: 'https://luoyisen.com/shareserver/imgs/JayChou%40.1/2.png',
+        audioUrl: 'https://bytedance-me.zone.id/shareserver/music/Jay/04.mp3',
+        imgUrl: 'https://bytedance-me.zone.id/shareserver/imgs/JayChou%40.1/2.png',
         name: '开不了口',
         author: '周杰伦-范特西',
         sign: 'J A Y',
@@ -356,7 +356,7 @@ const Nitingdedao: React.FC = () => {
         <div className={`page ${styles.container}`} style={{ backgroundImage: `url(${srcObj.imgUrl})` }}>
             <audio
                 ref={audioRef}
-                src={srcObj.audioSrc}
+                src={srcObj.audioUrl}
                 onPlay={() => setPlaying(true)}
                 onPause={() => setPlaying(false)}
                 onTimeUpdate={onTimeUpdate}
