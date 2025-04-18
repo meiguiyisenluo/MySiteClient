@@ -161,8 +161,8 @@ const OmgTV: React.FC = () => {
         const urls = {
             test: 'https://localhost:3000/OmgTV',
             // development: 'https://localhost:3000/OmgTV',
-            production: 'https://luoyisen.com:3000/OmgTV',
-            development: 'https://luoyisen.com:3000/OmgTV'
+            production: 'https://bytedance-me.zone.id:3000/OmgTV',
+            development: 'https://bytedance-me.zone.id:3000/OmgTV'
         }
         socket.current = io(urls[process.env.NODE_ENV])
 
